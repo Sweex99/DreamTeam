@@ -57,7 +57,7 @@ public class AppLogic {
             if(num == truenum) result++;
         }
         //Runtime.getRuntime().exec("cls");
-        System.out.println("Ваш результат " + result + " правильних відповідей!");
+        System.out.println("Ваш результат " + result + " правильних відповідей із 10!");
         if(result == 10) System.out.println("Ви справжній програміст!!!");
         if(result > 7) System.out.println("Вітаю!");
         if(result >= 5) System.out.println("Непогано");
