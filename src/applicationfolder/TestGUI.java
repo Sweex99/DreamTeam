@@ -14,12 +14,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-public class TestGUI extends AppLogic {
+public  class TestGUI extends AppLogic {
     private String[] arguments;
     private int i = 1;
     private int result = 0;
 
-    public void playtest (Stage primaryStage) throws IOException {
+    public void playtest(Stage primaryStage) throws IOException {
         BorderPane root = new BorderPane();
         BorderPane subroot = new BorderPane();
         HBox titlebox = new HBox(10);
@@ -27,6 +27,7 @@ public class TestGUI extends AppLogic {
         HBox questinbox = new HBox(10);
         questinbox.setAlignment(Pos.CENTER);
         VBox answerbox = new VBox(20);
+
         answerbox.setAlignment(Pos.CENTER);
         Text title = new Text();
         title.setTranslateX(10);
@@ -46,7 +47,7 @@ public class TestGUI extends AppLogic {
         rb2.setToggleGroup(answers);
         rb3.setToggleGroup(answers);
         rb4.setToggleGroup(answers);
-        rb1.setSelected(true);
+        rb1.setSelected(false);
         rb1.setUserData(1);
         rb2.setUserData(2);
         rb3.setUserData(3);
@@ -66,7 +67,6 @@ public class TestGUI extends AppLogic {
         progress.setAlignment(Pos.CENTER);
         progress.getChildren().add(progressBar);
         subroot.setBottom(progress);
-
         {
             arguments = testing();
             title.setText("Питання №" + i);
@@ -81,9 +81,10 @@ public class TestGUI extends AppLogic {
                     String s = answers.getSelectedToggle().getUserData().toString();
                     if (Integer.parseInt(s) == Integer.parseInt(arguments[5])) {
                         //System.out.print("This is true");
+                        //if(rb1.setSelected(false) )
                         result++;
                         progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        if(i == 10){
+                        if (i == 10) {
                             primaryStage.close();
                             finalscore(primaryStage);
                         }
@@ -91,7 +92,7 @@ public class TestGUI extends AppLogic {
                         i++;
                         nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
                     } else {
-                        if(i == 10) {
+                        if (i == 10) {
                             primaryStage.close();
                             finalscore(primaryStage);
                         }
@@ -109,14 +110,14 @@ public class TestGUI extends AppLogic {
         }
 
         Scene scene = new Scene(root, 600, 600);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void nextScene (int i, String[] arguments, Text title, Text q, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) throws IOException {
+    private void nextScene(int i, String[] arguments, Text title, Text q, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) throws IOException {
         title.setText("Питання №" + i);
         rb1.setText(arguments[0]);
         rb1.setSelected(true);
@@ -128,17 +129,17 @@ public class TestGUI extends AppLogic {
 
     private String movingline(String str) {
         StringBuffer sb = new StringBuffer(str);
-        for(int i = 50; i < str.length(); i += 50) {
+        for (int i = 50; i < str.length(); i += 50) {
             sb.insert(i, "-\n");
         }
         return sb.toString();
     }
 
-    public void finalscore (Stage finalStage) {
+    public void finalscore(Stage finalStage) {
         String imageName = "";
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
-        Text score = new Text(result+"/10");
+        Text score = new Text(result + "/10");
         Text statement = new Text();
         VBox boxImg = new VBox();
         boxImg.setAlignment(Pos.BASELINE_CENTER);
@@ -149,24 +150,20 @@ public class TestGUI extends AppLogic {
         btnbox.getChildren().add(exit);
         scorebox.getChildren().addAll(score, statement);
 
-        if(result == 10) {
-            imageName = "/brain.png";
+        if (result == 10) {
+            imageName = "/images/brain.png";
             statement.setText("Ви справжній програміст!!!");
-        }
-        else if(result > 7) {
-            imageName = "/congratulation.png";
+        } else if (result > 7) {
+            imageName = "/images/congratulation.png";
             statement.setText("Вітаю!");
-        }
-        else if(result >= 5) {
-            imageName = "/notbad.png";
+        } else if (result >= 5) {
+            imageName = "/images/notbad.png";
             statement.setText("Непогано");
-        }
-        else if(result >= 2) {
-            imageName = "/book.png";
+        } else if (result >= 2) {
+            imageName = "/images/book.png";
             statement.setText("Вам варто ще багато вивчити...");
-        }
-        else {
-            imageName = "/poop.png";
+        } else {
+            imageName = "/images/poop.png";
             statement.setText("Ви часом не гуманітарій?");
         }
 
@@ -192,4 +189,5 @@ public class TestGUI extends AppLogic {
         finalStage.setScene(scene);
         finalStage.show();
     }
+
 }
