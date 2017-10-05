@@ -32,7 +32,7 @@ public class  MainMenu extends TestGUI {
 
     public void appearance_menu (Stage primaryStage) throws IOException  {
         TestGUI testGUI = new TestGUI();
-
+//
 
         BorderPane root = new BorderPane();
         VBox buttom_space = new VBox(15);
