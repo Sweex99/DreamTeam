@@ -110,7 +110,7 @@ public  class TestGUI extends AppLogic {
         }
 
         Scene scene = new Scene(root, 600, 600);
-        //primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true);
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);

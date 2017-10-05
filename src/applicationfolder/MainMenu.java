@@ -31,6 +31,9 @@ import static javafx.application.Application.launch;
 public class  MainMenu extends TestGUI {
 
     public void appearance_menu (Stage primaryStage) throws IOException  {
+        TestGUI testGUI = new TestGUI();
+
+
         BorderPane root = new BorderPane();
         VBox buttom_space = new VBox(15);
         buttom_space.setAlignment(Pos.CENTER);
@@ -54,11 +57,37 @@ public class  MainMenu extends TestGUI {
         Button button3 = new Button("Exit");
         button3.getStyleClass().add("button3");
 
+
         buttom_space.getChildren().addAll(button, button1, button2, button3);
         root.setCenter(buttom_space);
-
-        Label label = new Label("[eqsdfonobnornbienvinqevnqenvoernvnre");
-        buttom_space.getChildren().addAll(label);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////Add_function_button////////////////////////////////////////////
+        button.setOnAction(event -> {
+                    try {
+                        testGUI.playtest(primaryStage);
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                });
+        button1.setOnAction(event -> {
+            try{
+                testGUI.playtest(primaryStage);
+            }
+            catch (IOException e){
+                throw new UncheckedIOException(e);
+            }
+        });
+        button2.setOnAction(event -> {
+            try{
+                testGUI.playtest(primaryStage);
+            }
+            catch (IOException e){
+                throw new UncheckedIOException(e);
+            }
+        });
+        button3.setOnAction(event -> {
+            System.exit(0);
+        });
         ///////////////////////////////////////////////////////////////////////////////////////
         //Create scene
         final Scene scene = new Scene(root, menuBackground.getWidth(), menuBackground.getHeight());
