@@ -1,43 +1,26 @@
 package applicationfolder;
 
-import com.sun.javafx.css.Size;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.io.IOException;
-import java.util.Collection;
 
-import static javafx.application.Application.launch;
+public class MainMenu extends TestGUI {
 
-public class  MainMenu extends TestGUI {
-
-    public void appearance_menu (Stage primaryStage) throws IOException  {
+    public void appearance_menu(Stage primaryStage) throws IOException {
         TestGUI testGUI = new TestGUI();
 //
 
         BorderPane root = new BorderPane();
         VBox buttom_space = new VBox(15);
         buttom_space.setAlignment(Pos.CENTER);
-        //Background_menu/////////////////////////////////////////////////////////
+        //////////////////////////Background_menu//////////////////////////////////////////
         Image menuBackground = new Image(getClass().getClassLoader().getResourceAsStream("images/background1.png"));
         ImageView menuBackgroundView = new ImageView(menuBackground);
         menuBackgroundView.setFitHeight(menuBackground.getHeight());
@@ -47,7 +30,7 @@ public class  MainMenu extends TestGUI {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
         ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////Button////////////////////////////////////////////////////////
+        //////////////////////////Button////////////////////////////////////////////////////////
         Button button = new Button("Go Testing");
         button.getStyleClass().add("button");
         Button button1 = new Button("Go study");
@@ -63,45 +46,47 @@ public class  MainMenu extends TestGUI {
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////Add_function_button////////////////////////////////////////////
         button.setOnAction(event -> {
-                    try {
-                        testGUI.playtest(primaryStage);
-                    } catch (IOException e) {
-                        throw new UncheckedIOException(e);
-                    }
-                });
-        button1.setOnAction(event -> {
-            try{
+            try {
+                primaryStage.close();
                 testGUI.playtest(primaryStage);
+
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
             }
-            catch (IOException e){
+        });
+        button1.setOnAction(event -> {
+            try {
+                primaryStage.close();
+                testGUI.playtest(primaryStage);
+            } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         });
         button2.setOnAction(event -> {
-            try{
+            try {
+                primaryStage.close();
                 testGUI.playtest(primaryStage);
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         });
         button3.setOnAction(event -> {
+            primaryStage.close();
             System.exit(0);
         });
         ///////////////////////////////////////////////////////////////////////////////////////
-        //Create scene
+        ///////////////////////////Create scene////////////////////////////////////////
         final Scene scene = new Scene(root, menuBackground.getWidth(), menuBackground.getHeight());
         /////////////////////////////////////////////////////////////////////////////////////////
 
         scene.getStylesheets().add("/css/style.css");
-        Image ico = new Image("images/main_icon3.png"); primaryStage.getIcons().add(ico);
+        Image ico = new Image("images/main_icon3.png");
+        primaryStage.getIcons().add(ico);
         primaryStage.setTitle("Main Menu");
+        primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
+
 

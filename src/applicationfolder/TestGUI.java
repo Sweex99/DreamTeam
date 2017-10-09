@@ -2,7 +2,10 @@ package applicationfolder;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-public  class TestGUI extends AppLogic {
+public class TestGUI extends AppLogic {
     private String[] arguments;
     private int i = 1;
     private int result = 0;
@@ -28,11 +31,30 @@ public  class TestGUI extends AppLogic {
         questinbox.setAlignment(Pos.CENTER);
         VBox answerbox = new VBox(20);
 
+        VBox button_screen = new VBox(10);
+        button_screen.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(button_screen);
+        button_screen.setTranslateX(10);
+        button_screen.setTranslateY(20);
+
+
+        Button full_screen = new Button("images");
+        button_screen.getChildren().addAll(full_screen);
+//        full_screen.getStyleClass().add("fs");
+        //button_screen.setAlignment(Pos.BASELINE_RIGHT);
+
+
+        full_screen.setOnAction(event -> {
+            primaryStage.setFullScreen(true);
+        });
+
+
         answerbox.setAlignment(Pos.CENTER);
         Text title = new Text();
         title.setTranslateX(10);
         title.setTranslateY(5);
         Text question = new Text(/*arguments[4]*/);
+
         titlebox.getChildren().addAll(title);
         questinbox.getChildren().addAll(question);
         root.setTop(titlebox);
@@ -47,7 +69,7 @@ public  class TestGUI extends AppLogic {
         rb2.setToggleGroup(answers);
         rb3.setToggleGroup(answers);
         rb4.setToggleGroup(answers);
-        rb1.setSelected(false);
+        rb1.setSelected(true);
         rb1.setUserData(1);
         rb2.setUserData(2);
         rb3.setUserData(3);
@@ -81,7 +103,7 @@ public  class TestGUI extends AppLogic {
                     String s = answers.getSelectedToggle().getUserData().toString();
                     if (Integer.parseInt(s) == Integer.parseInt(arguments[5])) {
                         //System.out.print("This is true");
-                        //if(rb1.setSelected(false) )
+
                         result++;
                         progressBar.setProgress(progressBar.getProgress() + 0.1);
                         if (i == 10) {
@@ -110,7 +132,7 @@ public  class TestGUI extends AppLogic {
         }
 
         Scene scene = new Scene(root, 600, 600);
-        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreen(true);
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);
@@ -180,8 +202,12 @@ public  class TestGUI extends AppLogic {
         root.setBottom(btnbox);
         root.setTop(boxImg);
 
+
         Scene scene = new Scene(root);
-        finalStage.setFullScreen(false);
+
+        scene.getStylesheets().add("/css/style.css");
+
+        finalStage.setFullScreen(true);
         finalStage.setMinHeight(300);
         finalStage.setMinWidth(300);
         finalStage.setMaxHeight(300);

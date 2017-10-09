@@ -2,12 +2,15 @@
     -fx-color:#1FC8C7;
     -fx-pref-height: 65px;
     -fx-pref-width: 215px;
-    -fx-border-color: black;
+    -fx-background-radius: 30;
 }
 .set {
     -fx-color: #1FC8C7;
+    -fx-background-radius: 30;
 
 }
 .button:hover {
     -fx-color: #101010;
+
 }
+
