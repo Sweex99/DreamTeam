@@ -43,7 +43,7 @@ public class TestGUI extends AppLogic {
 //        full_screen.getStyleClass().add("fs");
         //button_screen.setAlignment(Pos.BASELINE_RIGHT);
 
-
+///////////////////
         full_screen.setOnAction(event -> {
             primaryStage.setFullScreen(true);
         });

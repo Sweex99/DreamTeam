@@ -17,7 +17,7 @@ public class AppLogic {
         return n;
     }
 
-    /*public void testing() throws IOException {
+    /*public void tes////ting() throws IOException {
         int num = 0;
         int truenum = 0;
         int result = 0;
