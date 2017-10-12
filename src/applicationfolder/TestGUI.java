@@ -22,7 +22,7 @@ public class TestGUI extends AppLogic {
     private int i = 1;
     private int result = 0;
 
-    public void playtest(Stage primaryStage) throws IOException {
+    public void playtest(Stage primaryStage, String fileName, boolean b) throws IOException {
         BorderPane root = new BorderPane();
         BorderPane subroot = new BorderPane();
         HBox titlebox = new HBox(10);
@@ -31,22 +31,22 @@ public class TestGUI extends AppLogic {
         questinbox.setAlignment(Pos.CENTER);
         VBox answerbox = new VBox(20);
 
-        VBox button_screen = new VBox(10);
+       /* VBox button_screen = new VBox(10);
         button_screen.setAlignment(Pos.CENTER);
         root.getChildren().addAll(button_screen);
         button_screen.setTranslateX(10);
-        button_screen.setTranslateY(20);
+        button_screen.setTranslateY(20);*/
 
 
-        Button full_screen = new Button("images");
-        button_screen.getChildren().addAll(full_screen);
+       // Button full_screen = new Button("images");
+        //button_screen.getChildren().addAll(full_screen);
 //        full_screen.getStyleClass().add("fs");
         //button_screen.setAlignment(Pos.BASELINE_RIGHT);
 
 ///////////////////
-        full_screen.setOnAction(event -> {
+        /*full_screen.setOnAction(event -> {
             primaryStage.setFullScreen(true);
-        });
+        });*/
 
 
         answerbox.setAlignment(Pos.CENTER);
@@ -90,7 +90,7 @@ public class TestGUI extends AppLogic {
         progress.getChildren().add(progressBar);
         subroot.setBottom(progress);
         {
-            arguments = testing();
+            arguments = testing(fileName, b);
             title.setText("Питання №" + i);
             rb1.setText(arguments[0]);
             rb2.setText(arguments[1]);
@@ -110,7 +110,7 @@ public class TestGUI extends AppLogic {
                             primaryStage.close();
                             finalscore(primaryStage);
                         }
-                        arguments = testing();
+                        arguments = testing(fileName, b);
                         i++;
                         nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
                     } else {
@@ -119,7 +119,7 @@ public class TestGUI extends AppLogic {
                             finalscore(primaryStage);
                         }
                         progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        arguments = testing();
+                        arguments = testing(fileName, b);
                         i++;
                         nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
                         /*System.out.print(s);

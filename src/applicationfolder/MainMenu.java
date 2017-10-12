@@ -6,12 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 
 public class MainMenu extends TestGUI {
+    private UserTest ut = new UserTest();
 
     public void appearance_menu(Stage primaryStage) throws IOException {
         TestGUI testGUI = new TestGUI();
@@ -48,27 +49,29 @@ public class MainMenu extends TestGUI {
         button.setOnAction(event -> {
             try {
                 primaryStage.close();
-                testGUI.playtest(primaryStage);
+                testGUI.playtest(primaryStage, "/text.txt", true);
 
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         });
         button1.setOnAction(event -> {
+            String s = ut.chooser(primaryStage);
             try {
                 primaryStage.close();
-                testGUI.playtest(primaryStage);
+                testGUI.playtest(primaryStage, s, false);
+
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         });
         button2.setOnAction(event -> {
-            try {
+            /*try {
                 primaryStage.close();
                 testGUI.playtest(primaryStage);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
-            }
+            }*/
         });
         button3.setOnAction(event -> {
             primaryStage.close();
@@ -89,5 +92,3 @@ public class MainMenu extends TestGUI {
         primaryStage.show();
     }
 }
-
-

@@ -6,17 +6,21 @@ import java.util.ArrayList;
 
 public class AppLogic {
     FileReading fileReading = new FileReading();
-    private String fileName = "/text.txt";
+    //private String fileName = "/text.txt";
     private ArrayList<String> text = new ArrayList<String>();
     private ArrayList<String> questions = new ArrayList<String>();
     private ArrayList<String> answers = new ArrayList<String>();
     private int[] buffs = new int[10];
 
-    private static int random_int() {
-        int n = 0 + (int) (Math.random() * 70);
+    private static int random_int(int to) {
+        int n = 0 + (int) (Math.random() * to);
         return n;
     }
 
+
+    /*public void setFileReading(String fileName) {
+        this.fileName = fileName;
+    }*/
     /*public void tes////ting() throws IOException {
         int num = 0;
         int truenum = 0;
@@ -51,10 +55,13 @@ public class AppLogic {
         else System.out.println("Ви часом не гуманітарій?");
     }*/
 
-    private void qna() throws FileNotFoundException {
-        text = fileReading.filetext(fileName);
+    private void qna(String fileName, boolean b) throws FileNotFoundException {
+        if(b) {
+            text = fileReading.filetext(fileName);
+        }
+        else text = fileReading.fileouttext(fileName);
 
-        for (int i = 0; i < text.size(); i++) {
+        for (int i = 1; i < text.size(); i++) {
             String s = text.get(i);
             if (s.charAt(s.length() - 1) == '?') {
                 questions.add(s);
@@ -64,14 +71,14 @@ public class AppLogic {
         }
     }
 
-    public String[] testing() throws IOException {
+    public String[] testing(String fileName, boolean b) throws IOException {
         int num = 0;
         int truenum = 0;
         int result = 0;
         int random = 0;
         String[] test = new String[6];
-        qna();
-        random = random_int();
+        qna(fileName, b);
+        random = random_int(questions.size());
             /*for(int k = 0; k < 10; k++) {
                 while(buffs[k] == random) random = random_int();
             }
