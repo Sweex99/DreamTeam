@@ -14,7 +14,7 @@ import java.io.*;
 public class MainMenu extends TestGUI {
     private UserTest ut = new UserTest();
 
-    public void appearance_menu(Stage primaryStage) throws IOException {
+    public void appearance_menu(Stage primaryStage) {
         TestGUI testGUI = new TestGUI();
 //
 
@@ -47,23 +47,13 @@ public class MainMenu extends TestGUI {
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////Add_function_button////////////////////////////////////////////
         button.setOnAction(event -> {
-            try {
-                primaryStage.close();
-                testGUI.playtest(primaryStage, "/text.txt", true);
-
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+            primaryStage.close();
+            testGUI.playtest(primaryStage, "/text.txt", true);
         });
         button1.setOnAction(event -> {
             String s = ut.chooser(primaryStage);
-            try {
-                primaryStage.close();
-                testGUI.playtest(primaryStage, s, false);
-
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+            primaryStage.close();
+            testGUI.playtest(primaryStage, s, false);
         });
         button2.setOnAction(event -> {
             /*try {

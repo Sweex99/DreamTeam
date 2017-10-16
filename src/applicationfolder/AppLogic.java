@@ -55,7 +55,7 @@ public class AppLogic {
         else System.out.println("Ви часом не гуманітарій?");
     }*/
 
-    private void qna(String fileName, boolean b) throws FileNotFoundException {
+    private void qna(String fileName, boolean b) {
         if(b) {
             text = fileReading.filetext(fileName);
         }
@@ -71,7 +71,7 @@ public class AppLogic {
         }
     }
 
-    public String[] testing(String fileName, boolean b) throws IOException {
+    public String[] testing(String fileName, boolean b) {
         int num = 0;
         int truenum = 0;
         int result = 0;

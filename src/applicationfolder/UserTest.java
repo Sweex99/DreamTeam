@@ -1,5 +1,10 @@
 package applicationfolder;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
@@ -14,7 +19,10 @@ public class UserTest {
         if(is_validate(file)) {
             return file.getPath();
         }
-        return "";
+        else {
+            winalert();
+            throw new RuntimeException();
+        }
     }
 
     private boolean is_validate (File file) {
@@ -65,4 +73,22 @@ public class UserTest {
         }
         else return false;
     }*/
+
+    private void winalert () {
+        Stage stage = new Stage();
+        Pane message = new Pane();
+        Text warning = new Text("File Error!");
+        warning.setTranslateX(50);
+        warning.setTranslateY(25);
+        Button exit = new Button("OK");
+        exit.setTranslateX(58);
+        exit.setTranslateY(40);
+        message.getChildren().addAll(exit, warning);
+        exit.setOnAction(event -> {
+            stage.close();
+        });
+        Scene scn = new Scene(message, 150, 100);
+        stage.setScene(scn);
+        stage.show();
+    }
 }

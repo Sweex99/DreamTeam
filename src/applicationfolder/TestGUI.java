@@ -8,9 +8,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,7 +20,7 @@ public class TestGUI extends AppLogic {
     private int i = 1;
     private int result = 0;
 
-    public void playtest(Stage primaryStage, String fileName, boolean b) throws IOException {
+    public void playtest(Stage primaryStage, String fileName, boolean b) /*throws IOException*/ {
         BorderPane root = new BorderPane();
         BorderPane subroot = new BorderPane();
         HBox titlebox = new HBox(10);
@@ -31,23 +29,18 @@ public class TestGUI extends AppLogic {
         questinbox.setAlignment(Pos.CENTER);
         VBox answerbox = new VBox(20);
 
-       /* VBox button_screen = new VBox(10);
-        button_screen.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(button_screen);
-        button_screen.setTranslateX(10);
-        button_screen.setTranslateY(20);*/
-
-
-       // Button full_screen = new Button("images");
-        //button_screen.getChildren().addAll(full_screen);
-//        full_screen.getStyleClass().add("fs");
-        //button_screen.setAlignment(Pos.BASELINE_RIGHT);
-
-///////////////////
-        /*full_screen.setOnAction(event -> {
-            primaryStage.setFullScreen(true);
+        /*Button full_screen = new Button();
+        full_screen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/imgonline-com-ua-Resize-hO56OLqmia1.png"))));
+        full_screen.setOnAction(event -> {
+            if(is_full_screen) {
+                primaryStage.setFullScreen(false);
+                is_full_screen = false;
+            }
+            else {
+                primaryStage.setFullScreen(true);
+                is_full_screen = true;
+            }
         });*/
-
 
         answerbox.setAlignment(Pos.CENTER);
         Text title = new Text();
@@ -87,7 +80,7 @@ public class TestGUI extends AppLogic {
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(0.1);
         progress.setAlignment(Pos.CENTER);
-        progress.getChildren().add(progressBar);
+        progress.getChildren().addAll(progressBar/*, full_screen*/);
         subroot.setBottom(progress);
         {
             arguments = testing(fileName, b);
@@ -132,7 +125,7 @@ public class TestGUI extends AppLogic {
         }
 
         Scene scene = new Scene(root, 600, 600);
-//        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(is_full_screen);
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);
