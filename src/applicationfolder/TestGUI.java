@@ -19,6 +19,7 @@ public class TestGUI extends AppLogic {
     private String[] arguments;
     private int i = 1;
     private int result = 0;
+    boolean is_full_screen = false;
 
     public void playtest(Stage primaryStage, String fileName, boolean b) /*throws IOException*/ {
         BorderPane root = new BorderPane();
@@ -29,7 +30,7 @@ public class TestGUI extends AppLogic {
         questinbox.setAlignment(Pos.CENTER);
         VBox answerbox = new VBox(20);
 
-        /*Button full_screen = new Button();
+        Button full_screen = new Button();
         full_screen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/imgonline-com-ua-Resize-hO56OLqmia1.png"))));
         full_screen.setOnAction(event -> {
             if(is_full_screen) {
@@ -40,7 +41,7 @@ public class TestGUI extends AppLogic {
                 primaryStage.setFullScreen(true);
                 is_full_screen = true;
             }
-        });*/
+        });
 
         answerbox.setAlignment(Pos.CENTER);
         Text title = new Text();
@@ -80,7 +81,7 @@ public class TestGUI extends AppLogic {
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(0.1);
         progress.setAlignment(Pos.CENTER);
-        progress.getChildren().addAll(progressBar/*, full_screen*/);
+        progress.getChildren().addAll(progressBar , full_screen);
         subroot.setBottom(progress);
         {
             arguments = testing(fileName, b);

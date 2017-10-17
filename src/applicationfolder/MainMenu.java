@@ -13,6 +13,7 @@ import java.io.*;
 
 public class MainMenu extends TestGUI {
     private UserTest ut = new UserTest();
+    TestCreator TC = new TestCreator();
 
     public void appearance_menu(Stage primaryStage) {
         TestGUI testGUI = new TestGUI();
@@ -56,12 +57,8 @@ public class MainMenu extends TestGUI {
             testGUI.playtest(primaryStage, s, false);
         });
         button2.setOnAction(event -> {
-            /*try {
-                primaryStage.close();
-                testGUI.playtest(primaryStage);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }*/
+            primaryStage.close();
+            TC.create_window(primaryStage);
         });
         button3.setOnAction(event -> {
             primaryStage.close();
