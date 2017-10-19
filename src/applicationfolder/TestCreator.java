@@ -45,7 +45,7 @@ public class TestCreator {
 
         add.setOnAction(event -> {
             if(question.getText().equals("") && answers1.getText().equals("") && answers2.getText().equals("") && answers3.getText().equals("") && answers4.getText().equals("")) {
-                winalert("Error!");
+                WindowMessage.winalert("Error!");
             }
             else {
                 content += write_text(question.getText(), answers1.getText(), answers2.getText(), answers3.getText(), answers4.getText());
@@ -60,7 +60,7 @@ public class TestCreator {
 
         save.setOnAction(event -> {
             if(count < 10) {
-                winalert("Error!");
+                WindowMessage.winalert("Error!");
             }
             else {
                 write_file();
@@ -85,23 +85,5 @@ public class TestCreator {
     private String write_text(String question, String ans1, String ans2, String ans3, String ans4) {
         String block = "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
         return block;
-    }
-
-    private void winalert (String alert) {
-        Stage stage = new Stage();
-        Pane message = new Pane();
-        Text warning = new Text(alert);
-        warning.setTranslateX(50);
-        warning.setTranslateY(25);
-        Button exit = new Button("OK");
-        exit.setTranslateX(58);
-        exit.setTranslateY(40);
-        message.getChildren().addAll(exit, warning);
-        exit.setOnAction(event -> {
-            stage.close();
-        });
-        Scene scn = new Scene(message, 150, 100);
-        stage.setScene(scn);
-        stage.show();
     }
 }

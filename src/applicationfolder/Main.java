@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        /*TestGUI testGUI = new TestGUI();
-        testGUI.playtest(primaryStage);*/
         MainMenu menu = new MainMenu();
         menu.appearance_menu(primaryStage);
 

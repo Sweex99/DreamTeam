@@ -14,14 +14,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 
 public class TestGUI extends AppLogic {
-    private String[] arguments;
-    private int i = 1;
+    private ArrayList<TestContent> arguments;
+    private int i = 0;
     private int result = 0;
     boolean is_full_screen = false;
 
-    public void playtest(Stage primaryStage, String fileName, boolean b) /*throws IOException*/ {
+    public void playtest(Stage primaryStage, String fileName, boolean  is_resource) {
         BorderPane root = new BorderPane();
         BorderPane subroot = new BorderPane();
         HBox titlebox = new HBox(10);
@@ -47,23 +48,22 @@ public class TestGUI extends AppLogic {
         Text title = new Text();
         title.setTranslateX(10);
         title.setTranslateY(5);
-        Text question = new Text(/*arguments[4]*/);
+        Text question = new Text();
 
         titlebox.getChildren().addAll(title);
         questinbox.getChildren().addAll(question);
         root.setTop(titlebox);
         root.setCenter(subroot);
         subroot.setTop(questinbox);
-        RadioButton rb1 = new RadioButton(/*arguments[0]*/);
-        RadioButton rb2 = new RadioButton(/*arguments[1]*/);
-        RadioButton rb3 = new RadioButton(/*arguments[2]*/);
-        RadioButton rb4 = new RadioButton(/*arguments[3]*/);
+        RadioButton rb1 = new RadioButton();
+        RadioButton rb2 = new RadioButton();
+        RadioButton rb3 = new RadioButton();
+        RadioButton rb4 = new RadioButton();
         ToggleGroup answers = new ToggleGroup();
         rb1.setToggleGroup(answers);
         rb2.setToggleGroup(answers);
         rb3.setToggleGroup(answers);
         rb4.setToggleGroup(answers);
-        rb1.setSelected(true);
         rb1.setUserData(1);
         rb2.setUserData(2);
         rb3.setUserData(3);
@@ -84,63 +84,50 @@ public class TestGUI extends AppLogic {
         progress.getChildren().addAll(progressBar , full_screen);
         subroot.setBottom(progress);
         {
-            arguments = testing(fileName, b);
-            title.setText("Питання №" + i);
-            rb1.setText(arguments[0]);
-            rb2.setText(arguments[1]);
-            rb3.setText(arguments[2]);
-            rb4.setText(arguments[3]);
-            question.setText(arguments[4]);
+            arguments = testing(fileName, is_resource);
+            nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
 
             submit.setOnAction(event -> {
-                try {
-                    String s = answers.getSelectedToggle().getUserData().toString();
-                    if (Integer.parseInt(s) == Integer.parseInt(arguments[5])) {
-                        //System.out.print("This is true");
-
-                        result++;
-                        progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        if (i == 10) {
-                            primaryStage.close();
-                            finalscore(primaryStage);
-                        }
-                        arguments = testing(fileName, b);
-                        i++;
-                        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
+                int correct = (int)answers.getSelectedToggle().getUserData();
+                if (correct == arguments.get(i).getCorrectAnswer()) {
+                    result++;
+                    if (i == 9) {
+                        primaryStage.close();
+                        finalscore(primaryStage);
                     } else {
-                        if (i == 10) {
-                            primaryStage.close();
-                            finalscore(primaryStage);
-                        }
                         progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        arguments = testing(fileName, b);
                         i++;
                         nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
-                        /*System.out.print(s);
-                        System.out.print(arguments[5]);*/
                     }
-                } catch (IOException e) {
-                    throw new UncheckedIOException(e);
+                } else {
+                    if (i == 9) {
+                        primaryStage.close();
+                        finalscore(primaryStage);
+                    } else {
+                        progressBar.setProgress(progressBar.getProgress() + 0.1);
+                        i++;
+                        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
+                    }
                 }
+
             });
         }
 
         Scene scene = new Scene(root, 600, 600);
-        //primaryStage.setFullScreen(is_full_screen);
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void nextScene(int i, String[] arguments, Text title, Text q, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) throws IOException {
-        title.setText("Питання №" + i);
-        rb1.setText(arguments[0]);
+    private void nextScene(int i, ArrayList<TestContent> arguments, Text title, Text q, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) {
+        title.setText("Питання №" + (i+1));
+        rb1.setText(arguments.get(i).getAnswers(0));
+        rb2.setText(arguments.get(i).getAnswers(1));
+        rb3.setText(arguments.get(i).getAnswers(2));
+        rb4.setText(arguments.get(i).getAnswers(3));
         rb1.setSelected(true);
-        rb2.setText(arguments[1]);
-        rb3.setText(arguments[2]);
-        rb4.setText(arguments[3]);
-        q.setText(movingline(arguments[4]));
+        q.setText(movingline(arguments.get(i).getQuestion()));
     }
 
     private String movingline(String str) {

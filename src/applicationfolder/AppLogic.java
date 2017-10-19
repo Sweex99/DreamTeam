@@ -1,107 +1,62 @@
 package applicationfolder;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class AppLogic {
     FileReading fileReading = new FileReading();
-    //private String fileName = "/text.txt";
+    private ArrayList<TestContent> testContent = new ArrayList<TestContent>(10);
     private ArrayList<String> text = new ArrayList<String>();
     private ArrayList<String> questions = new ArrayList<String>();
     private ArrayList<String> answers = new ArrayList<String>();
-    private int[] buffs = new int[10];
 
     private static int random_int(int to) {
         int n = 0 + (int) (Math.random() * to);
         return n;
     }
 
+    private void SplitFileText(String fileName, boolean is_resource) {
+        try {
+            text = fileReading.filetext(is_resource ? getClass().getResourceAsStream(fileName) : new FileInputStream(fileName));
 
-    /*public void setFileReading(String fileName) {
-        this.fileName = fileName;
-    }*/
-    /*public void tes////ting() throws IOException {
-        int num = 0;
-        int truenum = 0;
-        int result = 0;
-        int random = 0;
-        BufferedReader touch = new BufferedReader(new InputStreamReader(System.in));
-        qna();
-        for(int i = 0; i < 10; i++) {
-            random = random_int();
-            for(int k = 0; k < 10; k++) {
-                while(buffs[k] == random) random = random_int();
+            for (int i = 1; i < text.size(); i++) {
+                String s = text.get(i);
+                if (s.charAt(s.length() - 1) == '?') {
+                    questions.add(s);
+                } else {
+                    answers.add(s);
+                }
             }
-            buffs[i] = random;
-            for(int j = 0; j < 4; j++) {
-                if(answers.get(random*4 + j).endsWith("!true!")) truenum = j + 1;
-            }
-            System.out.println((i + 1) + "." + questions.get(random));
-            for(int t = 0; t < 4; t++) {
-                String str = answers.get(random*4 + t);
-                str = str.replaceAll("!true!", "");
-                System.out.println(str);
-            }
-            num = Integer.parseInt(touch.readLine());
-            if(num == truenum) result++;
-        }
-        //Runtime.getRuntime().exec("cls");
-        System.out.println("Ваш результат " + result + " правильних відповідей із 10!");
-        if(result == 10) System.out.println("Ви справжній програміст!!!");
-        else if(result > 7) System.out.println("Вітаю!");
-        else if(result >= 5) System.out.println("Непогано");
-        else if(result >= 2) System.out.println("Вам варто ще багато вивчити...");
-        else System.out.println("Ви часом не гуманітарій?");
-    }*/
-
-    private void qna(String fileName, boolean b) {
-        if(b) {
-            text = fileReading.filetext(fileName);
-        }
-        else text = fileReading.fileouttext(fileName);
-
-        for (int i = 1; i < text.size(); i++) {
-            String s = text.get(i);
-            if (s.charAt(s.length() - 1) == '?') {
-                questions.add(s);
-            } else {
-                answers.add(s);
-            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public String[] testing(String fileName, boolean b) {
-        int num = 0;
-        int truenum = 0;
-        int result = 0;
-        int random = 0;
-        String[] test = new String[6];
-        qna(fileName, b);
-        random = random_int(questions.size());
-            /*for(int k = 0; k < 10; k++) {
-                while(buffs[k] == random) random = random_int();
+    public ArrayList<TestContent> testing(String fileName, boolean is_resource) {
+        int random;
+        int [] IndexOfVariants = new int[10];
+        SplitFileText(fileName, is_resource);
+        for(int i = 0; i < 10; i++) {
+            TestContent unit_of_content = new TestContent();
+            random = random_int(questions.size());
+            for (int j = 0; j < 10; j++) {
+                while (IndexOfVariants[j] == random) random = random_int(questions.size());
             }
-            buffs[i] = random;*/
-        for (int j = 0; j < 4; j++) {
-            if (answers.get(random * 4 + j).endsWith("!true!")) truenum = j + 1;
+            IndexOfVariants[i] = random;
+
+            for (int j = 0; j < 4; j++) {
+                if (answers.get(IndexOfVariants[i] * 4 + j).endsWith("!true!")) unit_of_content.setCorrectAnswer(j + 1);
+            }
+            unit_of_content.setQuestion(questions.get(IndexOfVariants[i]));
+            for (int j = 0; j < 4; j++) {
+                String str = answers.get(IndexOfVariants[i] * 4 + j);
+                str = str.replaceAll("!true!", "");
+                unit_of_content.setAnswers(str, j);
+            }
+            testContent.add(unit_of_content);
         }
-        test[5] = truenum + "";
-        test[4] = questions.get(random);
-        for (int t = 0; t < 4; t++) {
-            String str = answers.get(random * 4 + t);
-            str = str.replaceAll("!true!", "");
-            //System.out.println(str);
-            test[t] = str;
-        }
-        // if(num == truenum) result++;
-        //Runtime.getRuntime().exec("cls");
-        /*System.out.println("Ваш результат " + result + " правильних відповідей із 10!");
-        if(result == 10) System.out.println("Ви справжній програміст!!!");
-        else if(result > 7) System.out.println("Вітаю!");
-        else if(result >= 5) System.out.println("Непогано");
-        else if(result >= 2) System.out.println("Вам варто ще багато вивчити...");
-        else System.out.println("Ви часом не гуманітарій?");*/
-        return test;
+        return testContent;
     }
 }
