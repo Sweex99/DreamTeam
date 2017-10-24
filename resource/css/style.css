@@ -1,17 +1,25 @@
-.button {
-    -fx-color:#1FC8C7;
+.button1, .button2, .button3  {
+    -fx-color: #1FC9C8;
     -fx-pref-height: 65px;
     -fx-pref-width: 215px;
-    -fx-background-radius: 30;
+   -fx-background-radius: 65px;
+   -fx-background-insets: -1;
 }
-.set {
-    -fx-color: #1FC8C7;
-    -fx-background-radius: 30;
 
-}
 .button:hover {
     -fx-color: #101010;
-
 }
+.button4 {
+    -fx-color:#9f0000;
+    -fx-pref-height: 120px;
+    -fx-pref-width: 120px;
+    -fx-background-insets: -1;
+}
+.button4:hover, {
+    -fx-color: red;
+}
+
+
+
 
 

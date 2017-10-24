@@ -8,7 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         MainMenu menu = new MainMenu();
-        menu.appearance_menu(primaryStage);
+        menu.appearanceMenu(primaryStage);
 
         Image ico = new Image("/images/main_icon3.png");
         primaryStage.getIcons().add(ico);

@@ -48,7 +48,7 @@ public class TestCreator {
                 WindowMessage.winalert("Error!");
             }
             else {
-                content += write_text(question.getText(), answers1.getText(), answers2.getText(), answers3.getText(), answers4.getText());
+                content += writeText(question.getText(), answers1.getText(), answers2.getText(), answers3.getText(), answers4.getText());
                 question.setText("");
                 answers1.setText("");
                 answers2.setText("");
@@ -63,7 +63,7 @@ public class TestCreator {
                 WindowMessage.winalert("Error!");
             }
             else {
-                write_file();
+                writeFile();
                 System.exit(0);
             }
         });
@@ -74,7 +74,7 @@ public class TestCreator {
         stage.show();
     }
 
-    private void write_file () {
+    private void writeFile () {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(created_file, true))) {
             bw.write(content);
         } catch (IOException e) {
@@ -82,7 +82,7 @@ public class TestCreator {
         }
     }
 
-    private String write_text(String question, String ans1, String ans2, String ans3, String ans4) {
+    private String writeText(String question, String ans1, String ans2, String ans3, String ans4) {
         String block = "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
         return block;
     }

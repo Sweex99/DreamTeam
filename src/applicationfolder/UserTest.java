@@ -16,16 +16,18 @@ public class UserTest {
                 new FileChooser.ExtensionFilter("Test file (.txt)", "*txt")
         );
         File file = fileChooser.showOpenDialog(stage);
-        if(is_validate(file)) {
+        if(isValidate(file)) {
             return file.getPath();
         }
         else {
             WindowMessage.winalert("File Error!");
+
             throw new RuntimeException();
         }
+
     }
 
-    private boolean is_validate (File file) {
+    private boolean isValidate (File file) {
         int lines = 0;
         boolean is_next_ans = false;
 
