@@ -1,22 +1,22 @@
 .button1, .button2, .button3  {
     -fx-color: #1FC9C8;
-    -fx-pref-height: 65px;
-    -fx-pref-width: 215px;
+    -fx-pref-height: 80px;
+    -fx-pref-width: 175px;
    -fx-background-radius: 65px;
    -fx-background-insets: -1;
 }
 
 .button:hover {
-    -fx-color: #101010;
+    -fx-color: #000000;
 }
 .button4 {
-    -fx-color:#9f0000;
-    -fx-pref-height: 120px;
-    -fx-pref-width: 120px;
+    -fx-color:black;
+    -fx-pref-height: 200px;
+    -fx-pref-width: 230px;
     -fx-background-insets: -1;
 }
 .button4:hover, {
-    -fx-color: red;
+    -fx-color: #1FC9C8;
 }
 
 
