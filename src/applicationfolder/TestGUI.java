@@ -20,41 +20,41 @@ public class TestGUI extends AppLogic {
     private ArrayList<TestContent> arguments;
     private int i = 0;
     private int result = 0;
-    boolean is_full_screen = false;
+    boolean isFullScreen = false;
 
     public void playtest(Stage primaryStage, String fileName, boolean  is_resource) {
         BorderPane root = new BorderPane();
-        BorderPane subroot = new BorderPane();
-        HBox titlebox = new HBox(10);
-        titlebox.setAlignment(Pos.BASELINE_LEFT);
-        HBox questinbox = new HBox(10);
-        questinbox.setAlignment(Pos.CENTER);
-        VBox answerbox = new VBox(20);
+        BorderPane subRoot = new BorderPane();
+        HBox titleBox = new HBox(10);
+        titleBox.setAlignment(Pos.BASELINE_LEFT);
+        HBox questinBox = new HBox(10);
+        questinBox.setAlignment(Pos.CENTER);
+        VBox answerBox = new VBox(20);
 
-        Button full_screen = new Button();
-        full_screen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/imgonline-com-ua-Resize-hO56OLqmia1.png"))));
-        full_screen.setOnAction(event -> {
-            if(is_full_screen) {
+        Button fullScreen = new Button();
+        fullScreen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/imgonline-com-ua-Resize-hO56OLqmia1.png"))));
+        fullScreen.setOnAction(event -> {
+            if(isFullScreen) {
                 primaryStage.setFullScreen(false);
-                is_full_screen = false;
+                isFullScreen = false;
             }
             else {
                 primaryStage.setFullScreen(true);
-                is_full_screen = true;
+                isFullScreen = true;
             }
         });
 
-        answerbox.setAlignment(Pos.CENTER);
+        answerBox.setAlignment(Pos.CENTER);
         Text title = new Text();
         title.setTranslateX(10);
         title.setTranslateY(5);
         Text question = new Text();
 
-        titlebox.getChildren().addAll(title);
-        questinbox.getChildren().addAll(question);
-        root.setTop(titlebox);
-        root.setCenter(subroot);
-        subroot.setTop(questinbox);
+        titleBox.getChildren().addAll(title);
+        questinBox.getChildren().addAll(question);
+        root.setTop(titleBox);
+        root.setCenter(subRoot);
+        subRoot.setTop(questinBox);
         RadioButton rb1 = new RadioButton();
         RadioButton rb2 = new RadioButton();
         RadioButton rb3 = new RadioButton();
@@ -68,21 +68,21 @@ public class TestGUI extends AppLogic {
         rb2.setUserData(2);
         rb3.setUserData(3);
         rb4.setUserData(4);
-        answerbox.getChildren().addAll(rb1, rb2, rb3, rb4);
-        subroot.setCenter(answerbox);
-        HBox submitbox = new HBox();
+        answerBox.getChildren().addAll(rb1, rb2, rb3, rb4);
+        subRoot.setCenter(answerBox);
+        HBox submitBox = new HBox();
         Button submit = new Button("Submit");
         submit.setTranslateX(-10);
         submit.setTranslateY(-10);
-        submitbox.getChildren().add(submit);
-        submitbox.setAlignment(Pos.BASELINE_RIGHT);
-        root.setBottom(submitbox);
+        submitBox.getChildren().add(submit);
+        submitBox.setAlignment(Pos.BASELINE_RIGHT);
+        root.setBottom(submitBox);
         HBox progress = new HBox();
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(0.1);
         progress.setAlignment(Pos.CENTER);
-        progress.getChildren().addAll(progressBar , full_screen);
-        subroot.setBottom(progress);
+        progress.getChildren().addAll(progressBar , fullScreen);
+        subRoot.setBottom(progress);
         {
             arguments = testing(fileName, is_resource);
             nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
@@ -91,25 +91,15 @@ public class TestGUI extends AppLogic {
                 int correct = (int)answers.getSelectedToggle().getUserData();
                 if (correct == arguments.get(i).getCorrectAnswer()) {
                     result++;
-                    if (i == 9) {
-                        primaryStage.close();
-                        finalscore(primaryStage);
-                    } else {
-                        progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        i++;
-                        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
-                    }
-                } else {
-                    if (i == 9) {
-                        primaryStage.close();
-                        finalscore(primaryStage);
-                    } else {
-                        progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        i++;
-                        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
-                    }
                 }
-
+                    if (i == 9) {
+                        primaryStage.close();
+                        finalScore(primaryStage);
+                    } else {
+                        progressBar.setProgress(progressBar.getProgress() + 0.1);
+                        i++;
+                        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
+                    }
             });
         }
 
@@ -127,10 +117,10 @@ public class TestGUI extends AppLogic {
         rb3.setText(arguments.get(i).getAnswers(2));
         rb4.setText(arguments.get(i).getAnswers(3));
         rb1.setSelected(true);
-        q.setText(movingline(arguments.get(i).getQuestion()));
+        q.setText(movingLine(arguments.get(i).getQuestion()));
     }
 
-    private String movingline(String str) {
+    private String movingLine(String str) {
         StringBuffer sb = new StringBuffer(str);
         for (int i = 50; i < str.length(); i += 50) {
             sb.insert(i, "-\n");
@@ -138,7 +128,7 @@ public class TestGUI extends AppLogic {
         return sb.toString();
     }
 
-    public void finalscore(Stage finalStage) {
+    public void finalScore(Stage finalStage) {
         String imageName = "";
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
@@ -146,12 +136,12 @@ public class TestGUI extends AppLogic {
         Text statement = new Text();
         VBox boxImg = new VBox();
         boxImg.setAlignment(Pos.BASELINE_CENTER);
-        HBox btnbox = new HBox();
-        btnbox.setAlignment(Pos.TOP_CENTER);
-        VBox scorebox = new VBox(10);
-        scorebox.setAlignment(Pos.CENTER);
-        btnbox.getChildren().add(exit);
-        scorebox.getChildren().addAll(score, statement);
+        HBox btnBox = new HBox();
+        btnBox.setAlignment(Pos.TOP_CENTER);
+        VBox scoreBox = new VBox(10);
+        scoreBox.setAlignment(Pos.CENTER);
+        btnBox.getChildren().add(exit);
+        scoreBox.getChildren().addAll(score, statement);
 
         if (result == 10) {
             imageName = "/images/brain.png";
@@ -179,8 +169,8 @@ public class TestGUI extends AppLogic {
             System.exit(0);
         });
 
-        root.setCenter(scorebox);
-        root.setBottom(btnbox);
+        root.setCenter(scoreBox);
+        root.setBottom(btnBox);
         root.setTop(boxImg);
 
 
@@ -188,7 +178,7 @@ public class TestGUI extends AppLogic {
 
         scene.getStylesheets().add("/css/style.css");
 
-        finalStage.setFullScreen(true);
+        finalStage.setFullScreen(false);
         finalStage.setMinHeight(300);
         finalStage.setMinWidth(300);
         finalStage.setMaxHeight(300);

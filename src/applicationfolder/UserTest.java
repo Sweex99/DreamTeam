@@ -20,7 +20,7 @@ public class UserTest {
             return file.getPath();
         }
         else {
-            WindowMessage.winalert("File Error!");
+            WindowMessage.winAlert("File Error!");
 
             throw new RuntimeException();
         }
@@ -29,7 +29,7 @@ public class UserTest {
 
     private boolean isValidate (File file) {
         int lines = 0;
-        boolean is_next_ans = false;
+        boolean isNextAns = false;
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new
                 FileInputStream(file.getPath())))){

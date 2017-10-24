@@ -19,7 +19,7 @@ public class AppLogic {
 
     private void splitFileText(String fileName, boolean isResource) {
         try {
-            text = fileReading.filetext(isResource ? getClass().getResourceAsStream(fileName) : new FileInputStream(fileName));
+            text = fileReading.fileText(isResource ? getClass().getResourceAsStream(fileName) : new FileInputStream(fileName));
 
             for (int i = 1; i < text.size(); i++) {
                 String s = text.get(i);

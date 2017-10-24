@@ -20,12 +20,12 @@ public class TestCreator {
 
     public void create_window (Stage stage) {
         BorderPane root = new BorderPane();
-        VBox mainbox = new VBox(15);
-        mainbox.setAlignment(Pos.CENTER);
-        HBox btnbox = new HBox(5);
-        btnbox.setAlignment(Pos.BOTTOM_RIGHT);
-        btnbox.setTranslateX(-10);
-        btnbox.setTranslateY(-10);
+        VBox mainBox = new VBox(15);
+        mainBox.setAlignment(Pos.CENTER);
+        HBox btnBox = new HBox(5);
+        btnBox.setAlignment(Pos.BOTTOM_RIGHT);
+        btnBox.setTranslateX(-10);
+        btnBox.setTranslateY(-10);
         Button add = new Button("Add");
         Button save = new Button("Save");
         TextField question = new TextField();
@@ -38,14 +38,14 @@ public class TestCreator {
         answers3.setMaxWidth(250);
         TextField answers4 = new TextField();
         answers4.setMaxWidth(250);
-        btnbox.getChildren().addAll(add, save);
-        mainbox.getChildren().addAll(question, answers1, answers2, answers3, answers4);
-        root.setBottom(btnbox);
-        root.setCenter(mainbox);
+        btnBox.getChildren().addAll(add, save);
+        mainBox.getChildren().addAll(question, answers1, answers2, answers3, answers4);
+        root.setBottom(btnBox);
+        root.setCenter(mainBox);
 
         add.setOnAction(event -> {
             if(question.getText().equals("") && answers1.getText().equals("") && answers2.getText().equals("") && answers3.getText().equals("") && answers4.getText().equals("")) {
-                WindowMessage.winalert("Error!");
+                WindowMessage.winAlert("Error!");
             }
             else {
                 content += writeText(question.getText(), answers1.getText(), answers2.getText(), answers3.getText(), answers4.getText());
@@ -60,7 +60,7 @@ public class TestCreator {
 
         save.setOnAction(event -> {
             if(count < 10) {
-                WindowMessage.winalert("Error!");
+                WindowMessage.winAlert("Error!");
             }
             else {
                 writeFile();

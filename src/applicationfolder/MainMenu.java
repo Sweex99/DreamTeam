@@ -18,7 +18,7 @@ import java.io.*;
 public class MainMenu extends TestGUI {
     private UserTest ut = new UserTest();
     TestCreator TC = new TestCreator();
-    applicationSound sound = new applicationSound();
+    ApplicationSound sound = new ApplicationSound();
 
 
     public void appearanceMenu(Stage primaryStage) {
@@ -48,7 +48,7 @@ public class MainMenu extends TestGUI {
         Button exit = new Button("Exit");
         exit.getStyleClass().add("button4");
 
-        goTesting.setShape(new Circle(20));
+        exit.setShape(new Circle(20));
 
         buttomSpace.getChildren().addAll(goTesting, goStudy, settings, exit);
         root.setCenter(buttomSpace);

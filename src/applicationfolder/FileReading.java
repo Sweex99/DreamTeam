@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class FileReading {
-    public ArrayList<String> filetext(InputStream inputStreamFile) {
+    public ArrayList<String> fileText(InputStream inputStreamFile) {
         ArrayList<String> text = new ArrayList<String>();
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStreamFile))) {

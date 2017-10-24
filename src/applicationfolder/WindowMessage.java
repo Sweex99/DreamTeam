@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class WindowMessage {
-    public static void winalert (String alert) {
+    public static void winAlert (String alert) {
         Stage stage = new Stage();
         Pane message = new Pane();
         Text warning = new Text(alert);
