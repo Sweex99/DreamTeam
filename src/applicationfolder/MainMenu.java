@@ -1,5 +1,6 @@
 package applicationfolder;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -9,9 +10,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class MainMenu extends TestGUI {
-<<<<<<< HEAD
-    private UserTest ut = new UserTest();
-    TestCreator TC = new TestCreator();
+
+    private UserTest userTest = new UserTest();
+    TestCreator createWindow = new TestCreator();
     ApplicationSound sound = new ApplicationSound();
     StackPane root = new StackPane();
 
@@ -29,32 +30,13 @@ public class MainMenu extends TestGUI {
     }
 
     public void appearanceMenu(Stage primaryStage) {
+
+//
         TestGUI testGUI = new TestGUI();
         ////////////////////////////////////add_background/////////////////////////////////////////////
         putMenuBackground("images/Main_menu.png");
-=======
-    private UserTest userTest = new UserTest();
-    private TestCreator testCreator = new TestCreator();
-    private ApplicationSound sound = new ApplicationSound();
-    private TestGUI testGUI = new TestGUI();
 
-    public void appearanceMenu(Stage primaryStage) {
 
-//
-
-        BorderPane root = new BorderPane();
-        VBox buttomSpace = new VBox(15);
-        buttomSpace.setAlignment(Pos.CENTER);
-        //////////////////////////Background_menu//////////////////////////////////////////
-        Image menuBackground = new Image(getClass().getClassLoader().getResourceAsStream("images/background1.png"));
-        ImageView menuBackgroundView = new ImageView(menuBackground);
-        menuBackgroundView.setFitHeight(menuBackground.getHeight());
-        menuBackgroundView.setFitWidth(menuBackground.getWidth());
-
-        root.setBackground(new Background(new BackgroundImage(menuBackground,
-                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
->>>>>>> 7a66e5c53969532c25ef05e516e51de6d465d3ed
         ////////////////////////////////////////////////////////////////////////////////
         //////////////////////////Button_option////////////////////////////////////////////////////////
         Button goTesting = new Button("Go Testing");
@@ -101,11 +83,7 @@ public class MainMenu extends TestGUI {
         settings.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
-<<<<<<< HEAD
-            TC.create_window(primaryStage);
-=======
-            testCreator.createFileWindow(primaryStage);
->>>>>>> 7a66e5c53969532c25ef05e516e51de6d465d3ed
+            createWindow.createFileWindow(primaryStage);
         });
         exit.setOnAction(event -> {
             sound.clickSound();
