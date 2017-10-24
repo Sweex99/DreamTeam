@@ -12,29 +12,19 @@ import javafx.stage.Stage;
 public class MainMenu extends TestGUI {
 
     private UserTest userTest = new UserTest();
-    TestCreator createWindow = new TestCreator();
-    ApplicationSound sound = new ApplicationSound();
-    StackPane root = new StackPane();
+    private TestCreator createWindow = new TestCreator();
+    private ApplicationSound sound = new ApplicationSound();
+    private StackPane root = new StackPane();
+    private AddBackgroundAnimation backgroundAnim = new AddBackgroundAnimation();
+    private MenuLanguage menuLanguage = new MenuLanguage();
 
-    public Image mb(String name) {
-        Image menuBackground = new Image(getClass().getClassLoader().getResourceAsStream(name));
-        ImageView menuBackgroundView1 = new ImageView(menuBackground);
-        menuBackgroundView1.setFitHeight(menuBackground.getHeight());
-        menuBackgroundView1.setFitWidth(menuBackground.getWidth());
-        return menuBackground;
-    }
-    public void putMenuBackground( String fileName){
-        root.setBackground(new Background(new BackgroundImage(mb(fileName),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
-    }
 
     public void appearanceMenu(Stage primaryStage) {
 
-//
+
         TestGUI testGUI = new TestGUI();
         ////////////////////////////////////add_background/////////////////////////////////////////////
-        putMenuBackground("images/Main_menu.png");
+        backgroundAnim.putMenuBackground(root,"images/Main_menu.png");
 
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -71,8 +61,8 @@ public class MainMenu extends TestGUI {
         goTesting.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
-            testGUI.playtest(primaryStage, "/text.txt", true);
-
+            //testGUI.playtest(primaryStage, "/text.txt", true);
+            menuLanguage.menuLanguageBackground(primaryStage);
         });
         goStudy.setOnAction(event -> {
             sound.clickSound();
@@ -90,50 +80,13 @@ public class MainMenu extends TestGUI {
             primaryStage.close();
             System.exit(0);
         });
-        goTesting.setOnMouseExited(event -> {
-            putMenuBackground("images/Main_menu.png");
-        });
-        goTesting.setOnMouseEntered(event -> {
-            putMenuBackground("images/Main_menu2.png");
-        });
-        goStudy.setOnMouseExited(event -> {
-            putMenuBackground("images/Main_menu.png");
-        });
-        goStudy.setOnMouseEntered(event -> {
-            putMenuBackground("images/Main_menu3.png");
 
-        });
 
-        exit.setOnMouseExited(event -> {
-            putMenuBackground("images/Main_menu.png");
-
-        });
-        exit.setOnMouseEntered(event -> {
-            putMenuBackground("images/exit.png");
-
-        });
-
-        settings.setOnMouseExited(event -> {
-            putMenuBackground("images/Main_menu.png");
-
-        });
-        settings.setOnMouseEntered(event -> {
-            putMenuBackground("images/Main_menu4.png");
-
-        });
-
-        user.setOnMouseExited(event -> {
-            putMenuBackground("images/Main_menu.png");
-
-        });
-        user.setOnMouseEntered(event -> {
-            putMenuBackground("images/Main_menu5.png");
-
-        });
+        backgroundAnim.animetionButton(goTesting,goStudy,exit,settings,user,root);
         /////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////Create scene////////////////////////////////////////
-        final Scene scene = new Scene(root, mb("images/Main_menu.png").getWidth(), mb("images/Main_menu.png").getHeight());
+        final Scene scene = new Scene(root, backgroundAnim.mb("images/Main_menu.png").getWidth(), backgroundAnim.mb("images/Main_menu.png").getHeight());
         /////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////add_icon_and_include_css//////////////////////////////////////////
         scene.getStylesheets().add("/css/style.css");

@@ -18,6 +18,13 @@
 .button4:hover, {
     -fx-color: #1FC9C8;
 }
+.back {
+    -fx-color:black;
+    -fx-pref-height: 100px;
+    -fx-pref-width: 200px;
+    -fx-background-radius:65px;
+    -fx-background-insets: -1;
+}
 
 
 
