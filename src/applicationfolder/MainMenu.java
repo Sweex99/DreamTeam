@@ -16,13 +16,13 @@ import java.io.*;
 
 
 public class MainMenu extends TestGUI {
-    private UserTest ut = new UserTest();
-    TestCreator TC = new TestCreator();
-    ApplicationSound sound = new ApplicationSound();
-
+    private UserTest userTest = new UserTest();
+    private TestCreator testCreator = new TestCreator();
+    private ApplicationSound sound = new ApplicationSound();
+    private TestGUI testGUI = new TestGUI();
 
     public void appearanceMenu(Stage primaryStage) {
-        TestGUI testGUI = new TestGUI();
+
 //
 
         BorderPane root = new BorderPane();
@@ -62,14 +62,14 @@ public class MainMenu extends TestGUI {
         });
         goStudy.setOnAction(event -> {
             sound.clickSound();
-            String s = ut.chooser(primaryStage);
+            String s = userTest.chooser(primaryStage);
             primaryStage.close();
             testGUI.playtest(primaryStage, s, false);
         });
         settings.setOnAction(event -> {
             sound.clickSound();
-//            primaryStage.close();
-//            TC.create_window(primaryStage);
+            primaryStage.close();
+            testCreator.createFileWindow(primaryStage);
         });
         exit.setOnAction(event -> {
             sound.clickSound();

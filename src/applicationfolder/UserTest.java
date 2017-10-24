@@ -29,7 +29,6 @@ public class UserTest {
 
     private boolean isValidate (File file) {
         int lines = 0;
-        boolean isNextAns = false;
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new
                 FileInputStream(file.getPath())))){

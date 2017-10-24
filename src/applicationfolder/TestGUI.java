@@ -20,11 +20,11 @@ public class TestGUI extends AppLogic {
     private ArrayList<TestContent> arguments;
     private int i = 0;
     private int result = 0;
-    boolean isFullScreen = false;
+    private boolean isFullScreen = false;
 
-    public void playtest(Stage primaryStage, String fileName, boolean  is_resource) {
+    public void playtest(Stage primaryStage, String fileName, boolean  isResource) {
         BorderPane root = new BorderPane();
-        BorderPane subRoot = new BorderPane();
+        BorderPane subroot = new BorderPane();
         HBox titleBox = new HBox(10);
         titleBox.setAlignment(Pos.BASELINE_LEFT);
         HBox questinBox = new HBox(10);
@@ -53,8 +53,8 @@ public class TestGUI extends AppLogic {
         titleBox.getChildren().addAll(title);
         questinBox.getChildren().addAll(question);
         root.setTop(titleBox);
-        root.setCenter(subRoot);
-        subRoot.setTop(questinBox);
+        root.setCenter(subroot);
+        subroot.setTop(questinBox);
         RadioButton rb1 = new RadioButton();
         RadioButton rb2 = new RadioButton();
         RadioButton rb3 = new RadioButton();
@@ -69,7 +69,7 @@ public class TestGUI extends AppLogic {
         rb3.setUserData(3);
         rb4.setUserData(4);
         answerBox.getChildren().addAll(rb1, rb2, rb3, rb4);
-        subRoot.setCenter(answerBox);
+        subroot.setCenter(answerBox);
         HBox submitBox = new HBox();
         Button submit = new Button("Submit");
         submit.setTranslateX(-10);
@@ -82,9 +82,9 @@ public class TestGUI extends AppLogic {
         progressBar.setProgress(0.1);
         progress.setAlignment(Pos.CENTER);
         progress.getChildren().addAll(progressBar , fullScreen);
-        subRoot.setBottom(progress);
+        subroot.setBottom(progress);
         {
-            arguments = testing(fileName, is_resource);
+            arguments = testing(fileName, isResource);
             nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
 
             submit.setOnAction(event -> {
@@ -129,7 +129,7 @@ public class TestGUI extends AppLogic {
     }
 
     public void finalScore(Stage finalStage) {
-        String imageName = "";
+        String imageName;
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
         Text score = new Text(result + "/10");

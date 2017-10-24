@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class AppLogic {
-    FileReading fileReading = new FileReading();
+    private FileReading fileReading = new FileReading();
     private ArrayList<TestContent> testContent = new ArrayList<TestContent>(10);
     private ArrayList<String> text = new ArrayList<String>();
     private ArrayList<String> questions = new ArrayList<String>();
