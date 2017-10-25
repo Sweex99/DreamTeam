@@ -13,15 +13,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.Random;
 
 public class TestCreator {
-    private String fileName = "test.tst";
+
+    private int randomName = 100 + (int) Math.random() * 100000;
+    private String fileName = randomName + "";
     private String folderName = "created test files";
     private File createFile = new File(folderName, fileName);
     private String content = "<TST>";
     private int count = 0;
 
-    public void createFileWindow (Stage stage) {
+
+    public void createFileWindow (Stage primaryStage) {
+        Text questionText = new Text("Питання: ");
+        Text answerText1 = new Text("Відповідь 1:");
+        Text answerText2 = new Text("Відповідь 2:");
+        Text answerText3 = new Text("Відповідь 3:");
+        Text answerText4 = new Text("Відповідь 4:");
+
+
+        MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
         VBox mainBox = new VBox(15);
         mainBox.setAlignment(Pos.CENTER);
@@ -53,6 +65,7 @@ public class TestCreator {
         isTrueVariant4.setUserData(4);
         Button add = new Button("Add");
         Button save = new Button("Save");
+        Button back = new Button("Back");
         TextField question = new TextField();
         question.setMaxWidth(400);
         TextField answer1 = new TextField();
@@ -64,12 +77,12 @@ public class TestCreator {
         answer3.setMaxWidth(250);
         TextField answer4 = new TextField();
         answer4.setMaxWidth(250);
-        answerBox1.getChildren().addAll(isTrueVariant1, answer1);
-        answerBox2.getChildren().addAll(isTrueVariant2, answer2);
-        answerBox3.getChildren().addAll(isTrueVariant3, answer3);
-        answerBox4.getChildren().addAll(isTrueVariant4, answer4);
-        btnBox.getChildren().addAll(add, save);
-        mainBox.getChildren().addAll(question, answerBox1, answerBox2, answerBox3, answerBox4);
+        answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
+        answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
+        answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
+        answerBox4.getChildren().addAll(answerText4, isTrueVariant4, answer4);
+        btnBox.getChildren().addAll(add, save, back);
+        mainBox.getChildren().addAll(questionText, question, answerBox1, answerBox2, answerBox3, answerBox4);
         root.setBottom(btnBox);
         root.setCenter(mainBox);
 
@@ -77,23 +90,23 @@ public class TestCreator {
             int selectedVariant = (int)variants.getSelectedToggle().getUserData();
 
             if(question.getText().equals("") || answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("") || answer4.getText().equals("")) {
-                WindowMessage.winAlert("Error!");
+                WindowMessage.winAlert("Ви повинні запонити всі строки");
             }
             else {
                 content += writeText(selectedVariant, question.getText(), answer1.getText(), answer2.getText(), answer3.getText(), answer4.getText());
                 isTrueVariant1.setSelected(true);
-                //question.setText("");
-                //answer1.setText("");
-                //answer2.setText("");
-                //answer3.setText("");
-                //answer4.setText("");
+                question.setText("");
+                answer1.setText("");
+                answer2.setText("");
+                answer3.setText("");
+                answer4.setText("");
                 count++;
             }
         });
 
         save.setOnAction(event -> {
-            if(count < 1) {
-                WindowMessage.winAlert("Error!");
+            if(count < 10) {
+                WindowMessage.winAlert("Ви повинні внести 10 блоків");
             }
             else {
                 File folder = new File(folderName);
@@ -106,11 +119,13 @@ public class TestCreator {
                 System.exit(0);
             }
         });
-
+        back.setOnAction(event -> {
+            mainMenu.appearanceMenu(primaryStage);
+        });
 
         Scene scene = new Scene(root, 600, 600);
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     private void writeFile () {

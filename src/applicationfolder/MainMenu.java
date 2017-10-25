@@ -17,6 +17,8 @@ public class MainMenu extends TestGUI {
     private StackPane root = new StackPane();
     private AddBackgroundAnimation backgroundAnim = new AddBackgroundAnimation();
     private MenuLanguage menuLanguage = new MenuLanguage();
+    private TestCreator testCreator = new TestCreator();
+
 
 
     public void appearanceMenu(Stage primaryStage) {
@@ -33,16 +35,16 @@ public class MainMenu extends TestGUI {
         goTesting.getStyleClass().add("button1");
         Button goStudy = new Button("Go study");
         goStudy.getStyleClass().add("button2");
-        Button settings = new Button("Settings");
-        settings.getStyleClass().add("button3");
+        Button createTest = new Button("Create Test");
+        createTest.getStyleClass().add("button3");
         Button exit = new Button("Exit");
         exit.getStyleClass().add("button4");
-        Button user = new Button("User Test");
+        Button user = new Button("User file Test");
         user.getStyleClass().add("button1");
 
         exit.setShape(new Circle(20));
 
-        root.getChildren().addAll(goTesting,goStudy,settings,user,exit);
+        root.getChildren().addAll(goTesting,goStudy,createTest,user,exit);
 
         goTesting.setTranslateX(-195);
         goTesting.setTranslateY(-130);
@@ -50,8 +52,8 @@ public class MainMenu extends TestGUI {
         goStudy.setTranslateX(210);
         goStudy.setTranslateY(-128);
 
-        settings.setTranslateX(210);
-        settings.setTranslateY(130);
+        createTest.setTranslateX(210);
+        createTest.setTranslateY(130);
 
         user.setTranslateX(-197);
         user.setTranslateY(135);
@@ -70,19 +72,22 @@ public class MainMenu extends TestGUI {
             primaryStage.close();
             testGUI.playtest(primaryStage, s, false);
         });
-        settings.setOnAction(event -> {
+        createTest.setOnAction(event -> {
             sound.clickSound();
-            primaryStage.close();
-            createWindow.createFileWindow(primaryStage);
+            testCreator.createFileWindow(primaryStage);
+            /*primaryStage.close();
+            createWindow.createFileWindow(primaryStage);*/
         });
         exit.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
             System.exit(0);
         });
+        user.setOnAction(event -> {
+            userTest.chooser(primaryStage);
+        });
 
-
-        backgroundAnim.animetionButton(goTesting,goStudy,exit,settings,user,root);
+        backgroundAnim.animetionButton(goTesting,goStudy,exit,createTest,user,root);
         /////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////Create scene////////////////////////////////////////
