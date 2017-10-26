@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 public class MenuLanguage {
     private StackPane root = new StackPane();
     private AddBackgroundAnimation backgroundAnim = new AddBackgroundAnimation();
-
+    private ApplicationSound sound = new ApplicationSound();
+    private TestGUI testGUI = new TestGUI();
 
     public void menuLanguageBackground(Stage primaryStage) {
          MainMenu main = new MainMenu();
@@ -43,12 +44,12 @@ public class MenuLanguage {
         php.setTranslateX(-197);
         php.setTranslateY(135);
 
-       /* goTesting.setOnAction(event -> {
+        cpp.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
-            //testGUI.playtest(primaryStage, "/text.txt", true);
-            menuLanguage.menuLanguageBackground(primaryStage);
-        });
+            testGUI.playtest(primaryStage, "/text.txt", true);
+
+        });/*
         goStudy.setOnAction(event -> {
             sound.clickSound();
             String s = userTest.chooser(primaryStage);
