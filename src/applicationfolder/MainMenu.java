@@ -1,32 +1,28 @@
 package applicationfolder;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class MainMenu extends TestGUI {
+public class MainMenu {
 
     private UserTest userTest = new UserTest();
-    private TestCreator createWindow = new TestCreator();
     private ApplicationSound sound = new ApplicationSound();
     private StackPane root = new StackPane();
-    private AddBackgroundAnimation backgroundAnim = new AddBackgroundAnimation();
+    private BackgroundAnimation backgroundAnim = new BackgroundAnimation();
     private MenuLanguage menuLanguage = new MenuLanguage();
     private TestCreator testCreator = new TestCreator();
-
+    private TestGUI testGUI = new TestGUI();
 
 
     public void appearanceMenu(Stage primaryStage) {
 
 
-        TestGUI testGUI = new TestGUI();
         ////////////////////////////////////add_background/////////////////////////////////////////////
-        backgroundAnim.putMenuBackground(root,"images/Main_menu.png");
+        backgroundAnim.putMenuBackground(root, "images/Main_menu.png");
 
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +40,7 @@ public class MainMenu extends TestGUI {
 
         exit.setShape(new Circle(20));
 
-        root.getChildren().addAll(goTesting,goStudy,createTest,user,exit);
+        root.getChildren().addAll(goTesting, goStudy, createTest, user, exit);
 
         goTesting.setTranslateX(-195);
         goTesting.setTranslateY(-130);
@@ -63,20 +59,14 @@ public class MainMenu extends TestGUI {
         goTesting.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
-            //testGUI.playtest(primaryStage, "/text.txt", true);
             menuLanguage.menuLanguageBackground(primaryStage);
         });
         goStudy.setOnAction(event -> {
             sound.clickSound();
-            String s = userTest.chooser(primaryStage);
-            primaryStage.close();
-            testGUI.playtest(primaryStage, s, false);
         });
         createTest.setOnAction(event -> {
             sound.clickSound();
             testCreator.createFileWindow(primaryStage);
-            /*primaryStage.close();
-            createWindow.createFileWindow(primaryStage);*/
         });
         exit.setOnAction(event -> {
             sound.clickSound();
@@ -84,14 +74,16 @@ public class MainMenu extends TestGUI {
             System.exit(0);
         });
         user.setOnAction(event -> {
-            userTest.chooser(primaryStage);
+            String pathOfFile = userTest.getPathOfChosenFile(primaryStage);
+            if (pathOfFile != null)
+                testGUI.playtest(primaryStage, pathOfFile, false);
         });
 
-        backgroundAnim.animetionButton(goTesting,goStudy,exit,createTest,user,root);
+        backgroundAnim.animationButton(root, goTesting, goStudy, exit, createTest, user);
         /////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////Create scene////////////////////////////////////////
-        final Scene scene = new Scene(root, backgroundAnim.mb("images/Main_menu.png").getWidth(), backgroundAnim.mb("images/Main_menu.png").getHeight());
+        final Scene scene = new Scene(root, backgroundAnim.loadedImage("images/Main_menu.png").getWidth(), backgroundAnim.loadedImage("images/Main_menu.png").getHeight());
         /////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////add_icon_and_include_css//////////////////////////////////////////
         scene.getStylesheets().add("/css/style.css");

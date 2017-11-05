@@ -2,31 +2,27 @@ package applicationfolder;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.*;
-import java.util.Random;
 
 public class TestCreator {
 
-    private int randomName = 100 + (int) Math.random() * 100000;
-    private String fileName = randomName + "";
+    private int randomName = 1000 + (int) (Math.random() * 1000000);
+    private String fileName = randomName + ".tst";
     private String folderName = "created test files";
     private File createFile = new File(folderName, fileName);
     private String content = "<TST>";
     private int count = 0;
 
 
-    public void createFileWindow (Stage primaryStage) {
-        Text questionText = new Text("Питання: ");
+    public void createFileWindow(Stage primaryStage) {
+        Text questionText = new Text("Внесено питань: " + count);
         Text answerText1 = new Text("Відповідь 1:");
         Text answerText2 = new Text("Відповідь 2:");
         Text answerText3 = new Text("Відповідь 3:");
@@ -66,17 +62,17 @@ public class TestCreator {
         Button add = new Button("Add");
         Button save = new Button("Save");
         Button back = new Button("Back");
-        TextField question = new TextField();
-        question.setMaxWidth(400);
+        TextArea question = new TextArea();
+        question.setWrapText(true);
+        question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
-        //answer1.setPrefSize(200, 100);
-        answer1.setMaxWidth(250);
+        answer1.setPrefWidth(250);
         TextField answer2 = new TextField();
-        answer2.setMaxWidth(250);
+        answer2.setPrefWidth(250);
         TextField answer3 = new TextField();
-        answer3.setMaxWidth(250);
+        answer3.setPrefWidth(250);
         TextField answer4 = new TextField();
-        answer4.setMaxWidth(250);
+        answer4.setPrefWidth(250);
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
@@ -87,12 +83,11 @@ public class TestCreator {
         root.setCenter(mainBox);
 
         add.setOnAction(event -> {
-            int selectedVariant = (int)variants.getSelectedToggle().getUserData();
+            int selectedVariant = (int) variants.getSelectedToggle().getUserData();
 
-            if(question.getText().equals("") || answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("") || answer4.getText().equals("")) {
+            if (question.getText().equals("") || answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("") || answer4.getText().equals("")) {
                 WindowMessage.winAlert("Ви повинні запонити всі строки");
-            }
-            else {
+            } else {
                 content += writeText(selectedVariant, question.getText(), answer1.getText(), answer2.getText(), answer3.getText(), answer4.getText());
                 isTrueVariant1.setSelected(true);
                 question.setText("");
@@ -102,13 +97,14 @@ public class TestCreator {
                 answer4.setText("");
                 count++;
             }
+
+            questionText.setText("Внесено питань: " + count);
         });
 
         save.setOnAction(event -> {
-            if(count < 10) {
+            if (count < 10) {
                 WindowMessage.winAlert("Ви повинні внести 10 блоків");
-            }
-            else {
+            } else {
                 File folder = new File(folderName);
                 if (!folder.exists()) {
                     folder.mkdir();
@@ -128,7 +124,7 @@ public class TestCreator {
         primaryStage.show();
     }
 
-    private void writeFile () {
+    private void writeFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(createFile, true))) {
             bw.write(content);
         } catch (IOException e) {
@@ -137,15 +133,19 @@ public class TestCreator {
     }
 
     private String writeText(int selectedVariant, String question, String ans1, String ans2, String ans3, String ans4) {
-        switch(selectedVariant) {
-            case 1: ans1 += "!true!";
-            break;
-            case 2: ans2 += "!true!";
-            break;
-            case 3: ans3 += "!true!";
-            break;
-            case 4: ans4 += "!true!";
-            break;
+        switch (selectedVariant) {
+            case 1:
+                ans1 += "!true!";
+                break;
+            case 2:
+                ans2 += "!true!";
+                break;
+            case 3:
+                ans3 += "!true!";
+                break;
+            case 4:
+                ans4 += "!true!";
+                break;
         }
         String block = "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
         return block;
