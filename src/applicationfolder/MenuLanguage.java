@@ -8,15 +8,15 @@ import javafx.stage.Stage;
 
 public class MenuLanguage {
     private StackPane root = new StackPane();
-    private AddBackgroundAnimation backgroundAnim = new AddBackgroundAnimation();
+    private BackgroundAnimation backgroundAnim = new BackgroundAnimation();
     private ApplicationSound sound = new ApplicationSound();
     private TestGUI testGUI = new TestGUI();
 
     public void menuLanguageBackground(Stage primaryStage) {
-         MainMenu main = new MainMenu();
+        MainMenu main = new MainMenu();
 
 
-        backgroundAnim.putMenuBackground(root,"images/Main_menu.png");
+        backgroundAnim.putMenuBackground(root, "images/Main_menu.png");
 
         //////////////////////////////////button_settings////////////////////////////////////////////////
         Button java = new Button("Java");
@@ -30,7 +30,7 @@ public class MenuLanguage {
         Button php = new Button("PHP");
         php.getStyleClass().add("button1");
 
-        root.getChildren().addAll(java,cpp,web,php,back);
+        root.getChildren().addAll(java, cpp, web, php, back);
 
         java.setTranslateX(-195);
         java.setTranslateY(-130);
@@ -65,10 +65,10 @@ public class MenuLanguage {
             main.appearanceMenu(primaryStage);
         });
 
-        backgroundAnim.animetionButton(java,cpp,back,web,php,root);
+        backgroundAnim.animationButton(root, java, cpp, back, web, php);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////create_scene/////////////////////////////////////////
-        final Scene scene = new Scene(root, backgroundAnim.mb("images/Main_menu.png").getWidth(), backgroundAnim.mb("images/Main_menu.png").getHeight());
+        final Scene scene = new Scene(root, backgroundAnim.loadedImage("images/Main_menu.png").getWidth(), backgroundAnim.loadedImage("images/Main_menu.png").getHeight());
 
         scene.getStylesheets().add("/css/style.css");
         Image ico = new Image("images/main_icon3.png");
