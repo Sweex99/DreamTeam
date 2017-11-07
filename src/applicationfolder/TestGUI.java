@@ -12,12 +12,17 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class TestGUI extends AppLogic {
     private ArrayList<TestContent> arguments;
+    private ArrayList<String> links;
+    private FileReading fileReading = new FileReading();
     private int i = 0;
     private int result = 0;
     private boolean isFullScreen = false;
@@ -130,8 +135,13 @@ public class TestGUI extends AppLogic {
 
     public void finalScore(Stage finalStage) {
         String imageName;
+        MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
+        Button idea = new Button("Lamp");
+
+        root.setRight(idea);
+
         Text score = new Text(result + "/10");
         Text statement = new Text();
         VBox boxImg = new VBox();
@@ -165,8 +175,23 @@ public class TestGUI extends AppLogic {
         img.setFitWidth(128);
         boxImg.getChildren().add(img);
 
+        links = fileReading.fileText(getClass().getResourceAsStream("/text/links.txt"));
+
+        idea.setOnAction(event -> {
+            int randIndex = (int)(Math.random() * links.size());
+            try {
+                URI uri = new URI(links.get(randIndex));
+                Desktop.getDesktop().browse(uri);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            idea.setVisible(false);
+        });
+
         exit.setOnAction(event -> {
             System.exit(0);
+            //finalStage.close();
+            //mainMenu.appearanceMenu(finalStage);
         });
 
         root.setCenter(scoreBox);
@@ -176,9 +201,12 @@ public class TestGUI extends AppLogic {
 
         Scene scene = new Scene(root);
 
+        //finalStage.setResizable(false);
+
         scene.getStylesheets().add("/css/style.css");
 
-        finalStage.setFullScreen(false);
+        //finalStage.setFullScreen(false);
+
         finalStage.setMinHeight(300);
         finalStage.setMinWidth(300);
         finalStage.setMaxHeight(300);
@@ -186,5 +214,4 @@ public class TestGUI extends AppLogic {
         finalStage.setScene(scene);
         finalStage.show();
     }
-
 }
