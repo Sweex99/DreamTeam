@@ -16,6 +16,7 @@ public class MainMenu {
     private MenuLanguage menuLanguage = new MenuLanguage();
     private TestCreator testCreator = new TestCreator();
     private TestGUI testGUI = new TestGUI();
+    private WindowStudy windowStudy = new WindowStudy();
 
 
     public void appearanceMenu(Stage primaryStage) {
@@ -63,6 +64,7 @@ public class MainMenu {
         });
         goStudy.setOnAction(event -> {
             sound.clickSound();
+            windowStudy.startStudy(primaryStage);
         });
         createTest.setOnAction(event -> {
             sound.clickSound();

@@ -6,43 +6,30 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class WindowStudy {
-    private MenuLanguage menuLanguage = new MenuLanguage();
-    private BackgroundAnimation backgroundAnim = new BackgroundAnimation();
-    private Menu menu = new Menu("Меню тем");
+    private Menu menuThemes = new Menu("Меню тем");
     private MenuBar menuBar = new MenuBar();
-    private ApplicationSound sound = new ApplicationSound();
 
-    private void linkStudy(String fileName) {
+    private String getStudyFile(String fileName) {
         StringBuilder sb = new StringBuilder();
 
-
-        File file = new File(fileName);
-        try {
-            //Объект для чтения файла в буфер
-
-            try (BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()))) {
-                //В цикле построчно считываем файл
-                String s;
-                while ((s = in.readLine()) != null) {
-                    sb.append(s);
-                    sb.append("\n");
-                }
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)))) {
+            String strLine;
+            while ((strLine = in.readLine()) != null) {
+                sb.append(strLine);
+                sb.append("\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return sb.toString();
     }
 
 
@@ -52,45 +39,65 @@ public class WindowStudy {
 
         for (int i = 0; i < strings.length; i++) {
             menuItems[i] = new MenuItem(strings[i]);
-            menu.getItems().addAll(menuItems[i]);
+            menuThemes.getItems().addAll(menuItems[i]);
         }
         return menuItems;
     }
 
     public void startStudy(Stage primaryStage) {
+        /*
+        *
+        * Cpp
+        *
+         */
         Pane root = new Pane();
         TextArea textArea = new TextArea();
         Scene scene = new Scene(root, 800, 600);
+        MainMenu mainMenu = new MainMenu();
+        Menu menuExit = new Menu("Вихід");
         MenuItem[] menuItems;
-        menu.getStyleClass().add("menu");
+        MenuItem itemExit = new MenuItem("Вихід");
+        menuThemes.getStyleClass().add("menu");
 
-        Region spacer = new Region();
-        spacer.getStyleClass().add("menu-bar");
-        HBox.setHgrow(spacer, Priority.SOMETIMES);
-//        HBox menuBars = new HBox(menuBar, spacer);
-
-        menuBar.getMenus().addAll(menu);
+        menuBar.getMenus().add(menuThemes);
+        menuBar.getMenus().add(menuExit);
+        menuExit.getItems().add(itemExit);
 
         menuBar.setPrefWidth(root.getWidth());
 
-        menuItems = themeStudy("Коля", "Бабай", "Не чіпай мене", "flux", "block", "goodHunter", "String");
+        menuItems = themeStudy("Тема1", "Тема2", "Тема3", "Тема4", "Тема5", "Тема6");
 
-        for(MenuItem item : menuItems) {
-            item.setOnAction(event -> {
-                linkStudy(getClass().getResourceAsStream("/text.txt").toString());
-            });
-        }
+        menuItems[0].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text1.txt"));
+        });
+        menuItems[1].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text2.txt"));
+        });
+        menuItems[2].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text3.txt"));
+        });
+        menuItems[3].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text4.txt"));
+        });
+        menuItems[4].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text5.txt"));
+        });
+        menuItems[5].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/text6.txt"));
+        });
+        itemExit.setOnAction(event -> {
+            mainMenu.appearanceMenu(primaryStage);
+        });
 
 
         textArea.setWrapText(true);
-        //textArea.setEditable(false);
+        textArea.setEditable(false);
         textArea.setMinSize(scene.getWidth(), scene.getHeight());
         textArea.getStyleClass().add("textArea");
         textArea.setTranslateY(20);
 
 
         root.getChildren().addAll(textArea, menuBar);
-
 
 
         scene.getStylesheets().add("/css/style.css");

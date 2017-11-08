@@ -47,7 +47,7 @@ public class MenuLanguage {
         cpp.setOnAction(event -> {
             sound.clickSound();
             primaryStage.close();
-            testGUI.playtest(primaryStage, "/text.txt", true);
+            testGUI.playtest(primaryStage, "/texts/text.txt", true);
 
         });/*
         goStudy.setOnAction(event -> {

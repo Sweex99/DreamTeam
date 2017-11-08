@@ -13,10 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class TestGUI extends AppLogic {
@@ -37,7 +34,7 @@ public class TestGUI extends AppLogic {
         VBox answerBox = new VBox(20);
 
         Button fullScreen = new Button();
-        fullScreen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/imgonline-com-ua-Resize-hO56OLqmia1.png"))));
+        fullScreen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/resize.png"))));
         fullScreen.setOnAction(event -> {
             if(isFullScreen) {
                 primaryStage.setFullScreen(false);
@@ -133,14 +130,14 @@ public class TestGUI extends AppLogic {
         return sb.toString();
     }
 
-    public void finalScore(Stage finalStage) {
+    public void finalScore(Stage primaryStage) {
+        Stage finalStage = new Stage();
         String imageName;
         MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
-        Button idea = new Button("Lamp");
-
-        root.setRight(idea);
+        Button idea = new Button();
+        idea.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/idea.png"))));
 
         Text score = new Text(result + "/10");
         Text statement = new Text();
@@ -175,7 +172,7 @@ public class TestGUI extends AppLogic {
         img.setFitWidth(128);
         boxImg.getChildren().add(img);
 
-        links = fileReading.fileText(getClass().getResourceAsStream("/text/links.txt"));
+        links = fileReading.fileText(getClass().getResourceAsStream("/texts/links.txt"));
 
         idea.setOnAction(event -> {
             int randIndex = (int)(Math.random() * links.size());
@@ -189,28 +186,21 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
-            System.exit(0);
-            //finalStage.close();
-            //mainMenu.appearanceMenu(finalStage);
+            finalStage.close();
+            mainMenu.appearanceMenu(primaryStage);
         });
 
         root.setCenter(scoreBox);
         root.setBottom(btnBox);
         root.setTop(boxImg);
+        root.setRight(idea);
 
 
-        Scene scene = new Scene(root);
-
-        //finalStage.setResizable(false);
+        Scene scene = new Scene(root, 300, 300);
 
         scene.getStylesheets().add("/css/style.css");
 
-        //finalStage.setFullScreen(false);
-
-        finalStage.setMinHeight(300);
-        finalStage.setMinWidth(300);
-        finalStage.setMaxHeight(300);
-        finalStage.setMaxWidth(300);
+        finalStage.setResizable(false);
         finalStage.setScene(scene);
         finalStage.show();
     }
