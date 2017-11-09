@@ -50,6 +50,7 @@ public class WindowStudy {
         * Cpp
         *
          */
+        Stage stage = new Stage();
         Pane root = new Pane();
         TextArea textArea = new TextArea();
         Scene scene = new Scene(root, 800, 600);
@@ -65,27 +66,38 @@ public class WindowStudy {
 
         menuBar.setPrefWidth(root.getWidth());
 
-        menuItems = themeStudy("Тема1", "Тема2", "Тема3", "Тема4", "Тема5", "Тема6");
+        menuItems = themeStudy("Алгоритм", "Граф основні поняття та визначення", "Дек", "Дерева", "Динамічні масиви даних",
+                "Динамічні структури даних", "Класифікація структур даних", "Контейнер List", "Контейнер Set");
 
         menuItems[0].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text1.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme1.txt"));
         });
         menuItems[1].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text2.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme2.txt"));
         });
         menuItems[2].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text3.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme3.txt"));
         });
         menuItems[3].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text4.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme4.txt"));
         });
         menuItems[4].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text5.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme5.txt"));
         });
         menuItems[5].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/text6.txt"));
+            textArea.setText(getStudyFile("/study/cpp/theme6.txt"));
+        });
+        menuItems[6].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/theme7.txt"));
+        });
+        menuItems[7].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/theme8.txt"));
+        });
+        menuItems[8].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/theme9.txt"));
         });
         itemExit.setOnAction(event -> {
+            stage.close();
             mainMenu.appearanceMenu(primaryStage);
         });
 
@@ -102,10 +114,10 @@ public class WindowStudy {
 
         scene.getStylesheets().add("/css/style.css");
         Image ico = new Image("images/main_icon3.png");
-        primaryStage.setResizable(false);
-        primaryStage.getIcons().add(ico);
-        primaryStage.setTitle("Навчання");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setResizable(false);
+        stage.getIcons().add(ico);
+        stage.setTitle("Навчання");
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -64,6 +64,7 @@ public class MainMenu {
         });
         goStudy.setOnAction(event -> {
             sound.clickSound();
+            primaryStage.close();
             windowStudy.startStudy(primaryStage);
         });
         createTest.setOnAction(event -> {
