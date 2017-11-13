@@ -34,6 +34,7 @@ public class TestGUI extends AppLogic {
         VBox answerBox = new VBox(20);
 
         Button fullScreen = new Button();
+        fullScreen.getStyleClass().add("fullScreen");
         fullScreen.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/resize.png"))));
         fullScreen.setOnAction(event -> {
             if(isFullScreen) {
@@ -106,6 +107,7 @@ public class TestGUI extends AppLogic {
         }
 
         Scene scene = new Scene(root, 600, 600);
+        scene.getStylesheets().add("/css/style.css");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);

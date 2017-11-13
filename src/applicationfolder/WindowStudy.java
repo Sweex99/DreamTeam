@@ -1,10 +1,7 @@
 package applicationfolder;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -60,8 +57,10 @@ public class WindowStudy {
         MenuItem itemExit = new MenuItem("Вихід");
         menuThemes.getStyleClass().add("menu");
 
-        menuBar.getMenus().add(menuThemes);
-        menuBar.getMenus().add(menuExit);
+
+
+        menuBar.getMenus().addAll(menuThemes, menuExit);
+
         menuExit.getItems().add(itemExit);
 
         menuBar.setPrefWidth(root.getWidth());
@@ -102,11 +101,12 @@ public class WindowStudy {
         });
 
 
+
         textArea.setWrapText(true);
         textArea.setEditable(false);
         textArea.setMinSize(scene.getWidth(), scene.getHeight());
         textArea.getStyleClass().add("textArea");
-        textArea.setTranslateY(20);
+        textArea.setTranslateY(30);
 
 
         root.getChildren().addAll(textArea, menuBar);

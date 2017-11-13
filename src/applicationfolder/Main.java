@@ -14,6 +14,7 @@ public class Main extends Application {
         MainMenu menu = new MainMenu();
         menu.appearanceMenu(primaryStage);
 
+
         Image ico = new Image("/images/main_icon3.png");
         primaryStage.getIcons().add(ico);
     }

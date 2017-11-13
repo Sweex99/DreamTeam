@@ -1,30 +1,240 @@
-.button1, .button2, .button3  {
-    -fx-color: #1FC9C8;
-    -fx-pref-height: 80px;
-    -fx-pref-width: 175px;
-   -fx-background-radius: 65px;
-   -fx-background-insets: -1;
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-pref-width: 155px;
+    -fx-pref-height: 65px;
+}
+.button:hover {
+    -fx-background-color: #3a3a3a;
 }
 
-.button:hover {
-    -fx-color: #000000;
+.button:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
-.button4 {
-    -fx-color:black;
-    -fx-pref-height: 200px;
-    -fx-pref-width: 230px;
-    -fx-background-insets: -1;
+.labelTesting {
+    -fx-pref-width: 155px;
+    -fx-pref-height: 65px;
+    -fx-border-color:  #1d1d1d #1d1d1d #1d1d1d red;
+    -fx-padding: 0px 0px 0px 30px;
 }
-.button4:hover, {
-    -fx-color: #1FC9C8;
+.labelStudy {
+    -fx-pref-width: 155px;
+    -fx-pref-height: 65px;
+    -fx-border-color:  #1d1d1d red #1d1d1d #1d1d1d ;
+    -fx-padding: 0px 30px 0px 0px;
 }
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
 .back {
-    -fx-color:black;
-    -fx-pref-height: 100px;
-    -fx-pref-width: 200px;
-    -fx-background-radius:65px;
-    -fx-background-insets: -1;
+    -fx-pref-width: 34px;
+    -fx-pref-height: 34px;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: inherit;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: inherit;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 0px;
+    -fx-text-fill: inherit;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-background-image: url("/images/back_white.png") ;
+    -fx-background-repeat: no-repeat;
+
+   
 }
+.back:hover {
+    -fx-background-color: #d8d8d8;
+    -fx-background-image: url("/images/back.png") ;
+    -fx-background-repeat: no-repeat;
+}
+.complexity {
+    -fx-border-color: red;
+
+}
+.button1, .button2, .button3 {
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-max-height: 32px;
+    -fx-max-width: 55px;
+    -fx-font-size: 15px;
+}
+.button1:hover {
+    -fx-background-color: green;
+    -fx-text-fill: black;
+}
+.button2:hover {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
+}
+.button3:hover {
+    -fx-background-color: red;
+    -fx-text-fill: black;
+}
+.redLine {
+    -fx-pref-height: 65px;
+    -fx-border-color:  #1d1d1d red #1d1d1d #1d1d1d ;
+}
+.redLine1 {
+    -fx-pref-width: 155px;
+    -fx-border-color: red #1d1d1d #1d1d1d #1d1d1d ;
+}
+.addQuestion {
+    -fx-text-fill: white;
+}
+.addQuestion .content {
+    -fx-background-color: #1d1d1d;
+}
+.exit {
+
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: none;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 0px;
+    -fx-text-fill: none;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-background-image: url("/images/logout.png");
+    -fx-background-repeat: no-repeat;
+}
+.exit:hover {
+    -fx-background-color: none;
+
+    -fx-background-image: url("/images/logoutWhite.png");
+    -fx-background-repeat: no-repeat;
+}
+.exit:focused {
+    -fx-border-color: transparent;
+}
+
+.background {
+    -fx-background-color: #1d1d1d;
+}
+
+
+
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d,20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+.label2  {
+    -fx-background-color: #3a3a3a;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 30px;
+    -fx-background-radius: 20px;
+}
+.settings {
+
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+    -fx-padding: 0 0 0 0;
+
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: none;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 0px;
+    -fx-text-fill: none;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-background-image: url("/images/settings.png");
+    -fx-background-repeat: no-repeat;
+}
+.settings:hover {
+    -fx-background-color: none;
+
+    -fx-background-image: url("/images/settingsWhite.png");
+    -fx-background-repeat: no-repeat;
+}
+.settings:focused {
+    -fx-border-color: transparent;
+
+
+}
+
+.swapAccount {
+
+    -fx-pref-width: 25px;
+    -fx-pref-height: 25px;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: none;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: none;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 0px;
+    -fx-text-fill: none;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-background-image: url("/images/exitButton.png");
+    -fx-background-repeat: no-repeat;
+}
+.swapAccount:hover {
+    -fx-background-color: none;
+    -fx-border-color: none;
+    -fx-background-image: url("/images/exitButtonWhite.png");
+    -fx-background-repeat: no-repeat;
+}
+.swapAccount:focused {
+    -fx-border-color: transparent;
+}
+.fullScreen {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+}
+.fullScreen:hover {
+    -fx-background-image: url("/images/logoutWhite.png");
+}
+
+
+
 
 
 

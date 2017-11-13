@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,14 +21,22 @@ public class TestCreator {
     private String content = "<TST>";
     private int count = 0;
 
+    private void tieUp(Label label, RadioButton radioButton) {
+            radioButton.setSelected(true);
+    }
+
 
     public void createFileWindow(Stage primaryStage) {
-        Text questionText = new Text("Внесено питань: " + count);
-        Text answerText1 = new Text("Відповідь 1:");
-        Text answerText2 = new Text("Відповідь 2:");
-        Text answerText3 = new Text("Відповідь 3:");
-        Text answerText4 = new Text("Відповідь 4:");
-
+        Label questionText = new Label("Внесено питань: " + count);
+        questionText.setStyle("-fx-text-fill: white");
+        Label answerText1 = new Label("Відповідь 1:");
+        answerText1.setStyle("-fx-text-fill: white");
+        Label answerText2 = new Label("Відповідь 2:");
+        answerText2.setStyle("-fx-text-fill: white");
+        Label answerText3 = new Label("Відповідь 3:");
+        answerText3.setStyle("-fx-text-fill: white");
+        Label answerText4 = new Label("Відповідь 4:");
+        answerText4.setStyle("-fx-text-fill: white");
 
         MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
@@ -47,10 +56,10 @@ public class TestCreator {
         answerBox4.setAlignment(Pos.CENTER);
         ToggleGroup variants = new ToggleGroup();
         RadioButton isTrueVariant1 = new RadioButton();
-        isTrueVariant1.setSelected(true);
         RadioButton isTrueVariant2 = new RadioButton();
         RadioButton isTrueVariant3 = new RadioButton();
         RadioButton isTrueVariant4 = new RadioButton();
+        isTrueVariant1.setSelected(true);
         isTrueVariant1.setToggleGroup(variants);
         isTrueVariant2.setToggleGroup(variants);
         isTrueVariant3.setToggleGroup(variants);
@@ -61,8 +70,18 @@ public class TestCreator {
         isTrueVariant4.setUserData(4);
         Button add = new Button("Add");
         Button save = new Button("Save");
-        Button back = new Button("Back");
+
+
+        Button back = new Button();
+        back.getStyleClass().add("back");
+        back.setShape(new Circle(6));
+
+        back.setTranslateY(6);
+        back.setTranslateX(10);
+
+
         TextArea question = new TextArea();
+        question.getStyleClass().add("addQuestion");
         question.setWrapText(true);
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
@@ -77,10 +96,25 @@ public class TestCreator {
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
         answerBox4.getChildren().addAll(answerText4, isTrueVariant4, answer4);
-        btnBox.getChildren().addAll(add, save, back);
+        btnBox.getChildren().addAll(add, save);
         mainBox.getChildren().addAll(questionText, question, answerBox1, answerBox2, answerBox3, answerBox4);
         root.setBottom(btnBox);
         root.setCenter(mainBox);
+        root.setTop(back);
+        root.getStyleClass().add("background");
+
+        answerText1.setOnMouseClicked(event -> {
+            tieUp(answerText1, isTrueVariant1);
+        });
+        answerText2.setOnMouseClicked(event -> {
+            tieUp(answerText2, isTrueVariant2);
+        });
+        answerText3.setOnMouseClicked(event -> {
+            tieUp(answerText3, isTrueVariant3);
+        });
+        answerText4.setOnMouseClicked(event -> {
+            tieUp(answerText4, isTrueVariant4);
+        });
 
         add.setOnAction(event -> {
             int selectedVariant = (int) variants.getSelectedToggle().getUserData();
@@ -119,7 +153,8 @@ public class TestCreator {
             mainMenu.appearanceMenu(primaryStage);
         });
 
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 900, 600);
+        scene.getStylesheets().add("/css/style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
