@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><persons>
+    <person id="1">
+        <nickname>Admin</nickname>
+        <login>admin</login>
+        <password>admin</password>
+    </person>
+<person id="3"><nickname>Vasia</nickname><nickname>Vas</nickname><nickname>1234</nickname></person></persons>
