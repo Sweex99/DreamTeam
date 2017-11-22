@@ -18,9 +18,4 @@ sourceSets {
 jar {
     from configurations.compile.collect { zipTree it }
     manifest.attributes "Main-Class": "applicationfolder.Main"
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> origin/master
