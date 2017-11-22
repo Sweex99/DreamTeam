@@ -13,8 +13,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class DataBaseDriver {
     private static Document document;
@@ -27,6 +26,8 @@ public class DataBaseDriver {
 
     DataBaseDriver() {
         try {
+            XMLExists();
+
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             document = documentBuilder.parse("database/users.xml");
 
@@ -124,6 +125,24 @@ public class DataBaseDriver {
             StreamResult result = new StreamResult(new FileOutputStream("database/users.xml"));
             tr.transform(source, result);
         } catch (TransformerException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void XMLExists () {
+        try {
+            File folder = new File("database");
+            File xmlFile = new File("database/users.xml");
+            if (!folder.exists() && !xmlFile.exists()) {
+                folder.mkdir();
+                xmlFile.createNewFile();
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter("database/users.xml"))) {
+                    bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><persons></persons>");
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
