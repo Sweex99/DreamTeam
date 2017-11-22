@@ -29,9 +29,7 @@ public class WindowStudy {
         return sb.toString();
     }
 
-
     private MenuItem[] themeStudy(String... strings) {
-
         MenuItem[] menuItems = new MenuItem[strings.length];
 
         for (int i = 0; i < strings.length; i++) {
@@ -50,14 +48,12 @@ public class WindowStudy {
         Stage stage = new Stage();
         Pane root = new Pane();
         TextArea textArea = new TextArea();
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 900, 600);
         MainMenu mainMenu = new MainMenu();
         Menu menuExit = new Menu("Вихід");
         MenuItem[] menuItems;
         MenuItem itemExit = new MenuItem("Вихід");
         menuThemes.getStyleClass().add("menu");
-
-
 
         menuBar.getMenus().addAll(menuThemes, menuExit);
 
@@ -80,9 +76,7 @@ public class WindowStudy {
         menuItems[3].setOnAction(event -> {
             textArea.setText(getStudyFile("/study/cpp/theme4.txt"));
         });
-        menuItems[4].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme5.txt"));
-        });
+        menuItems[4].setOnAction(event -> textArea.setText(getStudyFile("/study/cpp/theme5.txt")));
         menuItems[5].setOnAction(event -> {
             textArea.setText(getStudyFile("/study/cpp/theme6.txt"));
         });
@@ -100,17 +94,13 @@ public class WindowStudy {
             mainMenu.appearanceMenu(primaryStage);
         });
 
-
-
         textArea.setWrapText(true);
         textArea.setEditable(false);
         textArea.setMinSize(scene.getWidth(), scene.getHeight());
         textArea.getStyleClass().add("textArea");
         textArea.setTranslateY(30);
 
-
         root.getChildren().addAll(textArea, menuBar);
-
 
         scene.getStylesheets().add("/css/style.css");
         Image ico = new Image("images/main_icon3.png");

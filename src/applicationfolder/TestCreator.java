@@ -1,8 +1,10 @@
 package applicationfolder;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,7 +26,6 @@ public class TestCreator {
     private void tieUp(Label label, RadioButton radioButton) {
             radioButton.setSelected(true);
     }
-
 
     public void createFileWindow(Stage primaryStage) {
         Label questionText = new Label("Внесено питань: " + count);
@@ -70,15 +71,16 @@ public class TestCreator {
         isTrueVariant4.setUserData(4);
         Button add = new Button("Add");
         Button save = new Button("Save");
+        save.getStyleClass().add("save1");
 
+        HBox answerBox = new HBox();
 
         Button back = new Button();
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
 
-        back.setTranslateY(6);
-        back.setTranslateX(10);
-
+        back.setTranslateY(3);
+        back.setTranslateX(3);
 
         TextArea question = new TextArea();
         question.getStyleClass().add("addQuestion");
@@ -86,19 +88,25 @@ public class TestCreator {
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
         answer1.setPrefWidth(250);
+        answer1.getStyleClass().add("text-field");
         TextField answer2 = new TextField();
         answer2.setPrefWidth(250);
+        answer2.getStyleClass().add("text-field");
         TextField answer3 = new TextField();
         answer3.setPrefWidth(250);
+        answer3.getStyleClass().add("text-field");
         TextField answer4 = new TextField();
         answer4.setPrefWidth(250);
+        answer4.getStyleClass().add("text-field");
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
         answerBox4.getChildren().addAll(answerText4, isTrueVariant4, answer4);
-        btnBox.getChildren().addAll(add, save);
-        mainBox.getChildren().addAll(questionText, question, answerBox1, answerBox2, answerBox3, answerBox4);
+        answerBox.getChildren().addAll(answerBox1, answerBox2);
+        btnBox.getChildren().addAll(save);
+        mainBox.getChildren().addAll(questionText, question, answerBox1, answerBox2, answerBox3, answerBox4, add);
         root.setBottom(btnBox);
+
         root.setCenter(mainBox);
         root.setTop(back);
         root.getStyleClass().add("background");
@@ -116,7 +124,7 @@ public class TestCreator {
             tieUp(answerText4, isTrueVariant4);
         });
 
-        add.setOnAction(event -> {
+        add.setOnMouseClicked(event -> {
             int selectedVariant = (int) variants.getSelectedToggle().getUserData();
 
             if (question.getText().equals("") || answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("") || answer4.getText().equals("")) {
@@ -130,6 +138,9 @@ public class TestCreator {
                 answer3.setText("");
                 answer4.setText("");
                 count++;
+                if(count >= 10){
+                    save.setStyle("-fx-border-color:white;-fx-text-fill: #e2e2e2;");
+                }
             }
 
             questionText.setText("Внесено питань: " + count);
@@ -139,6 +150,7 @@ public class TestCreator {
             if (count < 10) {
                 WindowMessage.winAlert("Ви повинні внести 10 блоків");
             } else {
+//                save.getStyleClass().add("button");
                 File folder = new File(folderName);
                 if (!folder.exists()) {
                     folder.mkdir();
@@ -150,6 +162,7 @@ public class TestCreator {
             }
         });
         back.setOnAction(event -> {
+            primaryStage.close();
             mainMenu.appearanceMenu(primaryStage);
         });
 

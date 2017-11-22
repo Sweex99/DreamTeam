@@ -23,6 +23,7 @@ public class DataBaseDriver {
     private Node nickname;
     private Node login;
     private Node password;
+    public String userName;
 
     DataBaseDriver() {
         try {
@@ -62,7 +63,6 @@ public class DataBaseDriver {
 
     public boolean authorization(String login, String password) {
         if(!searchPerson(login)) {
-            WindowMessage.winAlert("Такого логіна не існує");
             return false;
         }
         setNickname(person.getChildNodes().item(1));

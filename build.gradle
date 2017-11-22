@@ -1,0 +1,22 @@
+repositories {
+    mavenCentral()
+}
+
+apply plugin:'java'
+
+dependencies {
+    compile group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4'
+}
+
+sourceSets {
+    main.java.srcDir "src"
+    main.resources {
+        srcDir "resource"
+    }
+}
+
+jar {
+    from configurations.compile.collect { zipTree it }
+    manifest.attributes "Main-Class": "applicationfolder.Main"
+}
+

@@ -18,12 +18,8 @@ public class MenuLanguage {
     private ApplicationSound sound = new ApplicationSound();
     private TestGUI testGUI = new TestGUI();
 
-
-
-
     public void menuLanguageBackground(Stage primaryStage) {
         MainMenu main = new MainMenu();
-        //backgroundAnim.putMenuBackground(root, "images/Main_menu.png");
 
         //////////////////////////////////button_settings////////////////////////////////////////////////
         Button java = new Button("Java");
@@ -70,7 +66,6 @@ public class MenuLanguage {
         Button buton3 = new Button("hard");
         buton3.getStyleClass().add("button3");
 
-
         textLabel.setVisible(false);
         buton1.setVisible(false);
         buton2.setVisible(false);
@@ -79,7 +74,6 @@ public class MenuLanguage {
         back.setShape(new Circle(6));
 
         root.getStyleClass().add("background");
-
 
         root.getChildren().addAll(java, cpp, web, php, back, buton1, buton2, buton3, textLabel, label1, label2, label3, label4);
 
@@ -123,6 +117,7 @@ public class MenuLanguage {
             animationMenu(primaryStage, php, buton1, buton2, buton3);
         });
         back.setOnAction(event -> {
+            primaryStage.close();
             main.appearanceMenu(primaryStage);
         });
         root.setOnMouseClicked(event -> {
@@ -136,7 +131,6 @@ public class MenuLanguage {
             buton3.setVisible(false);
         });
 
-        //backgroundAnim.animationButton(root, java, cpp, back, web, php);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////create_scene/////////////////////////////////////////
         final Scene scene = new Scene(root, 900, 600);
@@ -159,7 +153,7 @@ public class MenuLanguage {
         buttons[1].setOnAction(event1 -> {
         });
         buttons[2].setOnAction(event1 -> {
-            testGUI.playtest(primaryStage,"/texts/text.txt", true);
+            testGUI.playTest(primaryStage,"/texts/text.txt", true);
         });
         buttons[3].setOnAction(event1 -> {
             sound.clickSound();
