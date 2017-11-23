@@ -1,28 +1,21 @@
 package applicationfolder;
 
-import com.sun.deploy.util.Waiter;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.awt.Label;
 import java.net.URI;
 import java.util.ArrayList;
-
-import static java.awt.event.KeyEvent.VK_ENTER;
 
 public class TestGUI extends AppLogic {
     private ArrayList<TestContent> arguments;
@@ -32,7 +25,7 @@ public class TestGUI extends AppLogic {
     private int result = 0;
     private boolean isFullScreen = false;
 
-    public void playTest(Stage primaryStage, String fileName, boolean  isResource) {
+    public void playTest(Stage primaryStage, String fileName, boolean isResource) {
         MenuLanguage main = new MenuLanguage();
         BorderPane root = new BorderPane();
         root.getStyleClass().add("background");
@@ -58,11 +51,10 @@ public class TestGUI extends AppLogic {
         fullScreen.getStyleClass().add("fullScreen");
 
         fullScreen.setOnAction(event -> {
-            if(isFullScreen) {
+            if (isFullScreen) {
                 primaryStage.setFullScreen(false);
                 isFullScreen = false;
-            }
-            else {
+            } else {
                 primaryStage.setFullScreen(true);
                 isFullScreen = true;
             }
@@ -180,7 +172,7 @@ public class TestGUI extends AppLogic {
         {
             submit.setOnAction(event -> {
                 submit.setText("Submit (Enter)");
-                Correct(primaryStage, "/texts/text.txt", true,  title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
+                Correct(primaryStage, "/texts/text.txt", true, title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
             });
         }
 
@@ -200,7 +192,7 @@ public class TestGUI extends AppLogic {
         nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
 
         submit.setOnAction(event -> {
-            int correct = (int)group.getSelectedToggle().getUserData();
+            int correct = (int) group.getSelectedToggle().getUserData();
             if (correct == arguments.get(i).getCorrectAnswer()) {
                 result++;
 
@@ -217,7 +209,7 @@ public class TestGUI extends AppLogic {
     }
 
     private void nextScene(int i, ArrayList<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
-        title.setText("Питання №" + (i+1));
+        title.setText("Питання №" + (i + 1));
         rb1.setText(arguments.get(i).getAnswers(0));
         rb2.setText(arguments.get(i).getAnswers(1));
         rb3.setText(arguments.get(i).getAnswers(2));
@@ -227,7 +219,7 @@ public class TestGUI extends AppLogic {
         q.setText(movingLine(arguments.get(i).getQuestion()));
     }
 
-    private void youAnswer(int i, ArrayList<TestContent> arguments, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4){
+    private void youAnswer(int i, ArrayList<TestContent> arguments, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
         rb1.setOnAction(event -> {
             System.out.println(arguments.get(i).getAnswers(0));
         });
@@ -295,7 +287,7 @@ public class TestGUI extends AppLogic {
         links = fileReading.fileText(getClass().getResourceAsStream("/texts/links.txt"));
 
         idea.setOnAction(event -> {
-            int randIndex = (int)(Math.random() * links.size());
+            int randIndex = (int) (Math.random() * links.size());
             try {
                 URI uri = new URI(links.get(randIndex));
                 Desktop.getDesktop().browse(uri);

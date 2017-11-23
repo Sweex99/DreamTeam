@@ -1,14 +1,10 @@
 package applicationfolder;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Box;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -143,6 +139,7 @@ public class MenuLanguage {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     private void animationMenu(Stage primaryStage, Button... buttons) {
 
         buttons[0].setStyle("-fx-background-color: #d8d8d8;-fx-text-fill: black");
@@ -153,7 +150,7 @@ public class MenuLanguage {
         buttons[1].setOnAction(event1 -> {
         });
         buttons[2].setOnAction(event1 -> {
-            testGUI.playTest(primaryStage,"/texts/text.txt", true);
+            testGUI.playTest(primaryStage, "/texts/text.txt", true);
         });
         buttons[3].setOnAction(event1 -> {
             sound.clickSound();

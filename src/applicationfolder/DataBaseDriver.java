@@ -22,7 +22,6 @@ public class DataBaseDriver {
     private Node nickname;
     private Node login;
     private Node password;
-    public String userName;
 
     DataBaseDriver() {
         try {
@@ -63,12 +62,12 @@ public class DataBaseDriver {
     }
 
     public boolean authorization(String login, String password) {
-        if(!searchPerson(login)) {
+        if (!searchPerson(login)) {
             return false;
         }
-        setNickname(person.getChildNodes().item(1));
-        setLogin(person.getChildNodes().item(3));
-        setPassword(person.getChildNodes().item(5));
+        setNickname(person.getChildNodes().item(0));
+        setLogin(person.getChildNodes().item(1));
+        setPassword(person.getChildNodes().item(2));
 
         String passwordTextContent = getPassword().getTextContent();
 
@@ -77,14 +76,13 @@ public class DataBaseDriver {
 
     public void registration(String nicknameValue, String loginValue, String passwordValue) {
         if (searchPerson(loginValue)) {
-            WindowMessage.winAlert("Такий логін вже зайнятий");
             return;
         }
 
         Node persons = document.getDocumentElement();
 
         Element person = document.createElement("person");
-        person.setAttribute("id", ((personsList.getLength() - 1) / 2) + "");
+        person.setAttribute("id", personsList.getLength() + "");
 
         Element nickname = document.createElement("nickname");
         nickname.setTextContent(nicknameValue);
@@ -129,7 +127,7 @@ public class DataBaseDriver {
         }
     }
 
-    private void XMLExists () {
+    private void XMLExists() {
         try {
             File folder = new File("database");
             File xmlFile = new File("database/users.xml");

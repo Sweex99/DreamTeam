@@ -4,6 +4,8 @@ repositories {
 
 apply plugin:'java'
 
+compileJava.options.encoding = 'UTF-8'
+
 dependencies {
     compile group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4'
 }

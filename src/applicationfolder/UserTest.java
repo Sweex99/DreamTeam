@@ -12,7 +12,7 @@ public class UserTest {
                 new FileChooser.ExtensionFilter("Test file (.tst)", "*tst")
         );
         File file = fileChooser.showOpenDialog(stage);
-        if(file == null) return null;
+        if (file == null) return null;
         if (isValidate(file)) {
             return file.getPath();
         } else {

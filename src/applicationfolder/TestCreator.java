@@ -1,15 +1,12 @@
 package applicationfolder;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -24,7 +21,7 @@ public class TestCreator {
     private int count = 0;
 
     private void tieUp(Label label, RadioButton radioButton) {
-            radioButton.setSelected(true);
+        radioButton.setSelected(true);
     }
 
     public void createFileWindow(Stage primaryStage) {
@@ -138,7 +135,7 @@ public class TestCreator {
                 answer3.setText("");
                 answer4.setText("");
                 count++;
-                if(count >= 10){
+                if (count >= 10) {
                     save.setStyle("-fx-border-color:white;-fx-text-fill: #e2e2e2;");
                 }
             }

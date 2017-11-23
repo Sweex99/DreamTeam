@@ -2,7 +2,6 @@ package applicationfolder;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class AppLogic {
@@ -36,9 +35,9 @@ public class AppLogic {
 
     public ArrayList<TestContent> testing(String fileName, boolean isResource) {
         int random;
-        int [] IndexOfVariants = new int[10];
+        int[] IndexOfVariants = new int[10];
         splitFileText(fileName, isResource);
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             TestContent unitOfContent = new TestContent();
             random = randomInt(questions.size());
             for (int j = 0; j < 10; j++) {
