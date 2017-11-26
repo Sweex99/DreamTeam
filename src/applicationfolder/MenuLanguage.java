@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class MenuLanguage {
     private StackPane root = new StackPane();
-
+    private DataBaseDriver dataBaseDriver = new DataBaseDriver();
     private ApplicationSound sound = new ApplicationSound();
     private TestGUI testGUI = new TestGUI();
 
@@ -134,7 +134,7 @@ public class MenuLanguage {
         scene.getStylesheets().add("/css/style.css");
         Image ico = new Image("images/main_icon3.png");
         primaryStage.getIcons().add(ico);
-        primaryStage.setTitle("Main Menu");
+        primaryStage.setTitle("Меню вибору мов");
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();

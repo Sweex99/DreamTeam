@@ -1,5 +1,6 @@
 package applicationfolder;
 
+import javafx.scene.control.Label;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,10 +10,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 import java.awt.*;
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,11 +42,19 @@ public class TestGUI extends AppLogic {
         HBox titleBox = new HBox(10);
         titleBox.setAlignment(Pos.BASELINE_LEFT);
 
-        HBox questionBox = new HBox();
-        questionBox.setStyle("-fx-border-color: white");
-        questionBox.setMaxWidth(220);
+        BorderPane questionBox = new BorderPane();
+        questionBox.setStyle("-fx-max-height: 50px;-fx-max-width: 300px;");
         questionBox.setTranslateY(50);
-        questionBox.setTranslateX(320);
+        questionBox.setTranslateX(340);
+
+        Text question = new Text();
+        question.setText("Ви готові до найскладнішого тесту у вашому житті???)))");
+        question.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-max-height: 50px;-fx-max-width: 200px;");
+        question.setWrappingWidth(400);
+        question.wrappingWidthProperty().bind(questionBox.widthProperty());
+        /*question.setMaxWidth(Double.MAX_VALUE);
+        question.setAlignment(Pos.CENTER);*/
+        question.setFill(Color.WHITE);
 
         VBox answerBox = new VBox(20);
 
@@ -64,8 +75,6 @@ public class TestGUI extends AppLogic {
         Text title = new Text();
         title.setTranslateX(10);
         title.setTranslateY(5);
-        Text question = new Text();
-        question.setStyle("-fx-text-fill: red");
 
         back.setOnAction(event -> {
             main.menuLanguageBackground(primaryStage);
@@ -81,22 +90,22 @@ public class TestGUI extends AppLogic {
         ToggleGroup group = new ToggleGroup();
         ToggleButton rb1 = new ToggleButton();
         rb1.setToggleGroup(group);
-        //rb1.getStyleClass().add("button");
+        rb1.getStyleClass().add("button");
         rb1.setTextOverrun(OverrunStyle.CLIP);
         rb1.setWrapText(true);
         ToggleButton rb2 = new ToggleButton();
         rb2.setToggleGroup(group);
-        //rb2.getStyleClass().add("button");
+        rb2.getStyleClass().add("button");
         rb2.setTextOverrun(OverrunStyle.CLIP);
         rb2.setWrapText(true);
         ToggleButton rb3 = new ToggleButton();
         rb3.setToggleGroup(group);
-        //rb3.getStyleClass().add("button");
+        rb3.getStyleClass().add("button");
         rb3.setTextOverrun(OverrunStyle.CLIP);
         rb3.setWrapText(true);
         ToggleButton rb4 = new ToggleButton();
         rb4.setToggleGroup(group);
-        //rb4.getStyleClass().add("button");
+        rb4.getStyleClass().add("button");
         rb4.setTextOverrun(OverrunStyle.CLIP);
         rb4.setWrapText(true);
         rb1.setUserData(1);
@@ -105,46 +114,53 @@ public class TestGUI extends AppLogic {
         rb4.setUserData(4);
 
         rb1.setTranslateX(-195);
-        rb1.setTranslateY(100);
+        rb1.setTranslateY(119);
 
         rb2.setTranslateX(210);
-        rb2.setTranslateY(30);
+        rb2.setTranslateY(55);
 
         rb3.setTranslateX(-197);
-        rb3.setTranslateY(170);
+        rb3.setTranslateY(195);
 
         rb4.setTranslateX(210);
-        rb4.setTranslateY(100);
+        rb4.setTranslateY(130);
 
-        javafx.scene.control.Label label1 = new javafx.scene.control.Label();
+        Label label1 = new javafx.scene.control.Label();
         label1.getStyleClass().add("redLine");
-        javafx.scene.control.Label label2 = new javafx.scene.control.Label();
+        Label label2 = new Label();
         label2.getStyleClass().add("redLine");
 
-        label1.setTranslateY(-175);
+        label1.setTranslateY(-125);
         label1.setTranslateX(10);
-        label2.setTranslateY(-38);
+        label2.setTranslateY(12);
         label2.setTranslateX(10);
 
-        javafx.scene.control.Label label3 = new javafx.scene.control.Label();
+        Label label3 = new Label();
         label3.getStyleClass().add("redLine1");
-        javafx.scene.control.Label label4 = new javafx.scene.control.Label();
+        Label label4 = new Label();
         label4.getStyleClass().add("redLine1");
 
-        label3.setTranslateY(-185);
+        label3.setTranslateY(-135);
         label3.setTranslateX(210);
-        label4.setTranslateY(-225);
+        label4.setTranslateY(-175);
         label4.setTranslateX(-195);
 
-        javafx.scene.control.Label labelAnswer = new javafx.scene.control.Label();
-        labelAnswer.setText("Ваша остаточна відповідь:");
+        Label youAnswer = new Label();
+        youAnswer.setStyle("-fx-text-fill: #e2e2e2;-fx-pref-height: 70px;-fx-max-width: 250px;");
+        youAnswer.setWrapText(true);
+        youAnswer.setMaxWidth(Double.MAX_VALUE);
+        youAnswer.setAlignment(Pos.CENTER);
 
-        answerBox.getChildren().addAll(rb1, rb2, rb3, rb4, label1, label2, label3, label4);
+        youAnswer.setTranslateX(13);
+        youAnswer.setTranslateY(270);
+
+        subroot.setTop(questionBox);
+        answerBox.getChildren().addAll(youAnswer, rb1, rb2, rb3, rb4, label1, label2, label3, label4);
         subroot.setCenter(answerBox);
 
-        subroot.getChildren().addAll(labelAnswer);
         HBox submitBox = new HBox();
-        Button submit = new Button("You are ready?");
+        Button submit = new Button("Ви готові???");
+        submit.setWrapText(true);
         submit.setDefaultButton(true);
         submit.getStyleClass().add("submit");
         submit.setTextOverrun(OverrunStyle.CLIP);
@@ -171,67 +187,90 @@ public class TestGUI extends AppLogic {
         });
         {
             submit.setOnAction(event -> {
-                submit.setText("Submit (Enter)");
-                Correct(primaryStage, "/texts/text.txt", true, title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
+                submit.getStyleClass().add("nextQuestion");
+                submit.setText("Підтвердити (Enter)");
+                Correct(youAnswer, primaryStage, fileName, isResource, title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
             });
         }
-
         Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add("/css/style.css");
         primaryStage.setResizable(false);
+        primaryStage.setTitle("");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void Correct(Stage primaryStage, String fileName, boolean isResource
+    private void Correct(Label youAnswer, Stage primaryStage, String fileName, boolean isResource
             , Text title, ProgressBar progressBar, Text question, ToggleGroup group, ToggleButton rb1,
                          ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
         arguments = testing(fileName, isResource);
-        nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
+        nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
+        int correct = (int)group.getSelectedToggle().getUserData();
 
         submit.setOnAction(event -> {
-            int correct = (int) group.getSelectedToggle().getUserData();
-            if (correct == arguments.get(i).getCorrectAnswer()) {
-                result++;
+            clickButton(false, rb1, rb2, rb3, rb4);
+            youAnswer.setText("");
+            if(correct > 0) {
+                if (correct == arguments.get(i).getCorrectAnswer()) {
+                    result++;
+                }
+                if (i == 9) {
 
-            }
-            if (i == 9) {
-                primaryStage.close();
-                finalScore(primaryStage);
-            } else {
-                progressBar.setProgress(progressBar.getProgress() + 0.1);
-                i++;
-                nextScene(i, arguments, title, question, rb1, rb2, rb3, rb4);
+                    finalScore(primaryStage);
+                } else {
+                    progressBar.setProgress(progressBar.getProgress() + 0.1);
+                    i++;
+                    nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
+                }
             }
         });
     }
 
-    private void nextScene(int i, ArrayList<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
+    private void nextScene(Label youAnswer, int i, ArrayList<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
         title.setText("Питання №" + (i + 1));
         rb1.setText(arguments.get(i).getAnswers(0));
         rb2.setText(arguments.get(i).getAnswers(1));
         rb3.setText(arguments.get(i).getAnswers(2));
         rb4.setText(arguments.get(i).getAnswers(3));
-        youAnswer(i, arguments, rb1, rb2, rb3, rb4);
+        youAnswer(youAnswer, rb1, rb2, rb3, rb4);
         rb1.setSelected(true);
         q.setText(movingLine(arguments.get(i).getQuestion()));
     }
 
-    private void youAnswer(int i, ArrayList<TestContent> arguments, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
+    private void youAnswer(Label youAnswer, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
         rb1.setOnAction(event -> {
-            System.out.println(arguments.get(i).getAnswers(0));
+            youAnswer.setText(rb1.getText());
+            clickButton(true, rb1, rb2, rb3, rb4);
         });
         rb2.setOnAction(event -> {
-            System.out.println(arguments.get(i).getAnswers(1));
+            youAnswer.setText(rb2.getText());
+            clickButton(true, rb2, rb1, rb3, rb4);
         });
         rb3.setOnAction(event -> {
-            System.out.println(arguments.get(i).getAnswers(2));
+            youAnswer.setText(rb3.getText());
+            clickButton(true, rb3, rb1, rb2, rb4);
         });
         rb4.setOnAction(event -> {
-            System.out.println(arguments.get(i).getAnswers(3));
+            youAnswer.setText(rb4.getText());
+            clickButton(true, rb4, rb2, rb3, rb1);
         });
+    }
+
+    private void clickButton(boolean bool, ToggleButton...rb){
+        if(bool) {
+            rb[0].setStyle("-fx-background-color: white;-fx-text-fill: #1d1d1d;");
+            rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[3].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+        }
+        else{
+            rb[0].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[3].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+        }
     }
 
     private String movingLine(String str) {
@@ -245,7 +284,7 @@ public class TestGUI extends AppLogic {
     public void finalScore(Stage primaryStage) {
         Stage finalStage = new Stage();
         String imageName;
-        MainMenu mainMenu = new MainMenu();
+        MenuLanguage mainMenu = new MenuLanguage();
         BorderPane root = new BorderPane();
         Button exit = new Button("Exit");
         Button idea = new Button();
@@ -298,8 +337,8 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
+            mainMenu.menuLanguageBackground(primaryStage);
             finalStage.close();
-            mainMenu.appearanceMenu(primaryStage);
         });
 
         root.setCenter(scoreBox);
@@ -308,9 +347,11 @@ public class TestGUI extends AppLogic {
         root.setRight(idea);
 
         Scene scene = new Scene(root, 300, 300);
-
+        finalStage.initOwner(primaryStage);
+        finalStage.initModality(Modality.WINDOW_MODAL);
         scene.getStylesheets().add("/css/style.css");
         primaryStage.setResizable(false);
+        finalStage.initStyle(StageStyle.UNDECORATED);
         finalStage.setResizable(false);
         finalStage.setScene(scene);
         finalStage.show();

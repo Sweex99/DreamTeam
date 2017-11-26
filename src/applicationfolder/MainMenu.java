@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-
 public class MainMenu {
     private UserTest userTest = new UserTest();
     private ApplicationSound sound = new ApplicationSound();
@@ -183,48 +182,55 @@ public class MainMenu {
                 errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
                 errorsLabel.setVisible(true);
             } else {
-                redLabelOne.setTranslateX(0);
-                firstName.setText("Login");
-                lastName.setText("Password");
+                if(dataBaseDriver.searchPerson(inputLogin.getText())){
+                    errorsLabel.setText("Логін який ви ввели вже існує");
+                    errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
+                    errorsLabel.setVisible(true);
+                }
+                else {
+                    redLabelOne.setTranslateX(0);
+                    firstName.setText("Login");
+                    lastName.setText("Password");
 
-                errorsLabel.setText("Заповніть всі поля форми реєстрації");
-                errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
-                errorsLabel.setVisible(true);
+                    errorsLabel.setText("Заповніть всі поля форми реєстрації");
+                    errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
+                    errorsLabel.setVisible(true);
 
-                inputLogin.setVisible(false);
-                labelLogin.setVisible(false);
-                inputPassword.setVisible(false);
-                inputFName.setVisible(false);
-                inputLName.setVisible(false);
-                labelPassword.setVisible(false);
-                firstName.setVisible(false);
-                lastName.setVisible(false);
+                    inputLogin.setVisible(false);
+                    labelLogin.setVisible(false);
+                    inputPassword.setVisible(false);
+                    inputFName.setVisible(false);
+                    inputLName.setVisible(false);
+                    labelPassword.setVisible(false);
+                    firstName.setVisible(false);
+                    lastName.setVisible(false);
 
-                comboBox.setVisible(true);
-                secretQuestion.setVisible(true);
-                answerQuestion.setVisible(true);
+                    comboBox.setVisible(true);
+                    secretQuestion.setVisible(true);
+                    answerQuestion.setVisible(true);
 
-                answer.setVisible(true);
-                next.setOnAction(event1 -> {
-                    if (answer.getText().trim().isEmpty() || comboBox.getValue() == "-Виберіть питання-") {
-                        errorsLabel.setText("Деякі поля у формі не заповненні");
-                        errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
-                        errorsLabel.setVisible(true);
-                    } else {
-                        errorsLabel.setVisible(false);
-                        secretQuestion.setVisible(false);
-                        answer.setVisible(false);
-                        answerQuestion.setVisible(false);
-                        comboBox.setVisible(false);
-                        next.setVisible(false);
-                        redLabelOne.setTranslateX(305);
-                        finishRegistration.setVisible(true);
-                        finishText.setVisible(true);
-                        img.setVisible(true);
+                    answer.setVisible(true);
+                    next.setOnAction(event1 -> {
+                        if (answer.getText().trim().isEmpty() || comboBox.getValue() == "-Виберіть питання-") {
+                            errorsLabel.setText("Деякі поля у формі не заповненні");
+                            errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
+                            errorsLabel.setVisible(true);
+                        } else {
+                            errorsLabel.setVisible(false);
+                            secretQuestion.setVisible(false);
+                            answer.setVisible(false);
+                            answerQuestion.setVisible(false);
+                            comboBox.setVisible(false);
+                            next.setVisible(false);
+                            redLabelOne.setTranslateX(305);
+                            finishRegistration.setVisible(true);
+                            finishText.setVisible(true);
+                            img.setVisible(true);
 
-                        dataBaseDriver.registration(inputFName.getText().toString() + " " + inputLName.getText().toString(), inputLogin.getText().toString(), inputPassword.getText().toString());
-                    }
-                });
+                            dataBaseDriver.registration(inputFName.getText().toString() + " " + inputLName.getText().toString(), inputLogin.getText().toString(), inputPassword.getText().toString());
+                        }
+                    });
+                }
             }
         });
 
@@ -341,7 +347,11 @@ public class MainMenu {
     public void appearanceMenu(Stage primaryStage) {
         StackPane root = new StackPane();
         root.getStyleClass().add("background");
-
+        String userName = "";
+        if(dataBaseDriver.userName == null);
+        else {
+            userName = dataBaseDriver.userName;
+        }
         vBox.getStyleClass().add("accountInfo");
 
         Button goTesting = new Button("Go Testing");
@@ -365,7 +375,6 @@ public class MainMenu {
         Button settings = new Button("");
         settings.getStyleClass().add("settings");
 
-
         Button swapAccount = new Button("");
         swapAccount.getStyleClass().add("swapAccount");
 
@@ -375,8 +384,9 @@ public class MainMenu {
         testUser.getStyleClass().add("labelStudy");
 
         Label label12 = new Label();
+        label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
-        label12.setText(dataBaseDriver.getNickname().getTextContent());
+        label12.setText(userName);
         Label title = new Label();
         title.setStyle("-fx-text-fill: white");
 
@@ -415,7 +425,6 @@ public class MainMenu {
         testCreateTest.setTranslateX(86);
         testCreateTest.setTranslateY(70);
 
-
         user.setTranslateX(120);
         user.setTranslateY(165);
         testUser.setTranslateX(-68);
@@ -431,7 +440,6 @@ public class MainMenu {
         settings.setTranslateX(-330);
 
         root.getChildren().addAll(goTesting, goStudy, createTest, user, exit, settings, swapAccount);
-
 
         goTesting.setOnAction(event -> {
             sound.clickSound();
@@ -454,8 +462,10 @@ public class MainMenu {
         });
         user.setOnAction(event -> {
             String pathOfFile = userTest.getPathOfChosenFile(primaryStage);
-            if (pathOfFile != null)
+            System.out.print(pathOfFile);
+            if (pathOfFile != null) {
                 testGUI.playTest(primaryStage, pathOfFile, false);
+        }
         });
         settings.setOnMouseEntered(event -> {
             title.setText("Настройки");
@@ -464,6 +474,9 @@ public class MainMenu {
         });
         settings.setOnMouseExited(event -> {
             title.setText("");
+        });
+        settings.setOnAction(event -> {
+            WindowMessage.winAlert("Даний функціонал у розробці. Дочекайтеся наступного оновлення))");
         });
         swapAccount.setOnAction(event -> {
             authorization(primaryStage);

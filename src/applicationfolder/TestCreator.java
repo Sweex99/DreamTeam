@@ -147,15 +147,13 @@ public class TestCreator {
             if (count < 10) {
                 WindowMessage.winAlert("Ви повинні внести 10 блоків");
             } else {
-//                save.getStyleClass().add("button");
                 File folder = new File(folderName);
                 if (!folder.exists()) {
                     folder.mkdir();
                 }
-
                 writeFile();
-
-                System.exit(0);
+                primaryStage.close();
+                mainMenu.appearanceMenu(primaryStage);
             }
         });
         back.setOnAction(event -> {
@@ -165,6 +163,7 @@ public class TestCreator {
 
         Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add("/css/style.css");
+        primaryStage.setTitle("Файл зі своїми тестами");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

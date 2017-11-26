@@ -20,7 +20,7 @@ public class WindowStudy {
     private String getStudyFile(String fileName) {
         StringBuilder sb = new StringBuilder();
 
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName),"UTF-8"))) {
             String strLine;
             while ((strLine = in.readLine()) != null) {
                 sb.append(strLine);
@@ -79,7 +79,9 @@ public class WindowStudy {
         menuItems[3].setOnAction(event -> {
             textArea.setText(getStudyFile("/study/cpp/theme4.txt"));
         });
-        menuItems[4].setOnAction(event -> textArea.setText(getStudyFile("/study/cpp/theme5.txt")));
+        menuItems[4].setOnAction(event -> {
+            textArea.setText(getStudyFile("/study/cpp/theme5.txt"));
+        });
         menuItems[5].setOnAction(event -> {
             textArea.setText(getStudyFile("/study/cpp/theme6.txt"));
         });

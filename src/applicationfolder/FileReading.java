@@ -7,7 +7,7 @@ public class FileReading {
     public ArrayList<String> fileText(InputStream inputStreamFile) {
         ArrayList<String> text = new ArrayList<String>();
 
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStreamFile))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStreamFile,"UTF-8"))) {
             String s;
             while ((s = in.readLine()) != null) {
                 text.add(s);

@@ -22,6 +22,7 @@ public class DataBaseDriver {
     private Node nickname;
     private Node login;
     private Node password;
+    public static String userName;
 
     DataBaseDriver() {
         try {
@@ -71,14 +72,19 @@ public class DataBaseDriver {
 
         String passwordTextContent = getPassword().getTextContent();
 
+        setNameUser();
+
         return BCrypt.checkpw(password, passwordTextContent);
+    }
+
+    public void setNameUser(){
+        this.userName = getNickname().getTextContent();
     }
 
     public void registration(String nicknameValue, String loginValue, String passwordValue) {
         if (searchPerson(loginValue)) {
             return;
         }
-
         Node persons = document.getDocumentElement();
 
         Element person = document.createElement("person");
@@ -102,7 +108,7 @@ public class DataBaseDriver {
         updateXMLDocument();
     }
 
-    private boolean searchPerson(String request) {
+    public boolean searchPerson(String request) {
         try {
             String expression = "persons/person[login='" + request + "']";
             XPathFactory pathFactory = XPathFactory.newInstance();

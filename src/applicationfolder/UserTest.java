@@ -8,9 +8,7 @@ import java.io.*;
 public class UserTest {
     public String getPathOfChosenFile(Stage stage) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Test file (.tst)", "*tst")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Test file (.tst)", "*tst"));
         File file = fileChooser.showOpenDialog(stage);
         if (file == null) return null;
         if (isValidate(file)) {
