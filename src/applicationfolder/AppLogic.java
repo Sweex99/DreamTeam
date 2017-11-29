@@ -12,7 +12,7 @@ public class AppLogic {
     private ArrayList<String> answers = new ArrayList<String>();
 
     private static int randomInt(int to) {
-        int n = 0 + (int) (Math.random() * to);
+        int n = (int) (Math.random() * to);
         return n;
     }
 

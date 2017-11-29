@@ -10,11 +10,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestCreator {
-
-    private int randomName = 1000 + (int) (Math.random() * 1000000);
-    private String fileName = randomName + ".tst";
+    private SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
+    private String dateName = formatForDateNow.format(new Date());
+    private String fileName = dateName + ".tst";
     private String folderName = "created test files";
     private File createFile = new File(folderName, fileName);
     private String content = "<TST>";

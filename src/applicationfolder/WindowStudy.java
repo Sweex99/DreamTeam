@@ -9,18 +9,26 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class WindowStudy {
     private Menu menuThemes = new Menu("Меню тем");
+    private Menu menuUser = new Menu("Користувацькі теми");
+    private Menu menuExit = new Menu("Вихід");
     private MenuBar menuBar = new MenuBar();
+    private File studyFolder = new File("study");
 
-    private String getStudyFile(String fileName) {
+    WindowStudy() {
+        File folder = new File("study");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+    }
+
+    private String getStudyFile(InputStream inputStream) {
         StringBuilder sb = new StringBuilder();
 
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName),"UTF-8"))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             String strLine;
             while ((strLine = in.readLine()) != null) {
                 sb.append(strLine);
@@ -32,72 +40,69 @@ public class WindowStudy {
         return sb.toString();
     }
 
-    private MenuItem[] themeStudy(String... strings) {
-        MenuItem[] menuItems = new MenuItem[strings.length];
-
-        for (int i = 0; i < strings.length; i++) {
-            menuItems[i] = new MenuItem(strings[i]);
-            menuThemes.getItems().addAll(menuItems[i]);
+    private String[] getFolderFileNames(File folder) {
+        try {
+            int i = 0;
+            File[] folderEntries = folder.listFiles();
+            String[] names = new String[folderEntries.length];
+            for (File entry : folderEntries) {
+                names[i] = entry.getName();
+                names[i] = names[i].replaceAll(".txt", "");
+                i++;
+            }
+            return names;
+        } catch (NullPointerException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private MenuItem[] themeStudy(TextArea textArea, String lang, String... themeNames) {
+        MenuItem[] menuItems = new MenuItem[themeNames.length];
+        boolean isResource = !lang.equals("");
+
+        for (int i = 0; i < themeNames.length; i++) {
+            menuItems[i] = new MenuItem(themeNames[i]);
+            String file = themeNames[i];
+            menuItems[i].setOnAction(event -> {
+                System.out.println(file);
+                try {
+                    textArea.setText(getStudyFile(isResource ?
+                            getClass().getResourceAsStream("/study/" + lang + "/" + file)
+                            : new FileInputStream("/study/" + file)));
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
         return menuItems;
     }
 
     public void startStudy(Stage primaryStage) {
-        /*
-        *
-        * Cpp
-        *
-         */
         Stage stage = new Stage();
         Pane root = new Pane();
         TextArea textArea = new TextArea();
         Scene scene = new Scene(root, 900, 600);
         MainMenu mainMenu = new MainMenu();
-        Menu menuExit = new Menu("Вихід");
         MenuItem[] menuItems;
+        MenuItem[] menuItemsUser;
         MenuItem itemExit = new MenuItem("Вихід");
+
         menuThemes.getStyleClass().add("menu");
 
-        menuBar.getMenus().addAll(menuThemes, menuExit);
-
-        menuExit.getItems().add(itemExit);
-
+        menuBar.getMenus().addAll(menuThemes, menuUser, menuExit);
         menuBar.setPrefWidth(root.getWidth());
 
-        menuItems = themeStudy("Алгоритм", "Граф основні поняття та визначення", "Дек", "Дерева", "Динамічні масиви даних",
-                "Динамічні структури даних", "Класифікація структур даних", "Контейнер List", "Контейнер Set");
-
-        menuItems[0].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme1.txt"));
-        });
-        menuItems[1].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme2.txt"));
-        });
-        menuItems[2].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme3.txt"));
-        });
-        menuItems[3].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme4.txt"));
-        });
-        menuItems[4].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme5.txt"));
-        });
-        menuItems[5].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme6.txt"));
-        });
-        menuItems[6].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme7.txt"));
-        });
-        menuItems[7].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme8.txt"));
-        });
-        menuItems[8].setOnAction(event -> {
-            textArea.setText(getStudyFile("/study/cpp/theme9.txt"));
-        });
+        menuItems = themeStudy(textArea, "cpp", "theme1", "theme2", "theme3"); //замінити теми на пошук файлів по папці
+        menuItemsUser = themeStudy(textArea, "", getFolderFileNames(studyFolder));
         itemExit.setOnAction(event -> {
             stage.close();
             mainMenu.appearanceMenu(primaryStage);
         });
+
+        menuThemes.getItems().addAll(menuItems);
+        menuUser.getItems().addAll(menuItemsUser);
+        menuExit.getItems().add(itemExit);
 
         textArea.setWrapText(true);
         textArea.setEditable(false);
