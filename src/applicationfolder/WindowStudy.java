@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 import java.io.*;
 
 public class WindowStudy {
-    private Menu menuThemes = new Menu("Меню тем");
-    private Menu menuUser = new Menu("Користувацькі теми");
-    private Menu menuExit = new Menu("Вихід");
+
     private MenuBar menuBar = new MenuBar();
     private File studyFolder = new File("study");
 
@@ -64,11 +62,10 @@ public class WindowStudy {
             menuItems[i] = new MenuItem(themeNames[i]);
             String file = themeNames[i];
             menuItems[i].setOnAction(event -> {
-                System.out.println(file);
                 try {
                     textArea.setText(getStudyFile(isResource ?
-                            getClass().getResourceAsStream("/study/" + lang + "/" + file)
-                            : new FileInputStream("/study/" + file)));
+                            getClass().getResourceAsStream("/study/" + lang + "/" + file + ".txt")
+                            : new FileInputStream("study/" + file + ".txt")));
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
@@ -87,6 +84,10 @@ public class WindowStudy {
         MenuItem[] menuItems;
         MenuItem[] menuItemsUser;
         MenuItem itemExit = new MenuItem("Вихід");
+
+        Menu menuThemes = new Menu("Меню тем");
+        Menu menuUser = new Menu("Користувацькі теми");
+        Menu menuExit = new Menu("Вихід");
 
         menuThemes.getStyleClass().add("menu");
 
