@@ -9,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class MainMenu {
     private UserTest userTest = new UserTest();
-    private ApplicationSound sound = new ApplicationSound();
     private MenuLanguage menuLanguage = new MenuLanguage();
     private TestCreator testCreator = new TestCreator();
     private TestGUI testGUI = new TestGUI();
@@ -22,7 +24,52 @@ public class MainMenu {
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
 
-    public void registration(Stage primaryStage) {
+    public void setting(Stage primaryStage){
+        StackPane root = new StackPane();
+        root.getStyleClass().add("background");
+
+        Button back = new Button();
+        back.getStyleClass().add("back");
+        back.setShape(new Circle(6));
+
+        Label alertData = new Label();
+
+        Label youData = new Label("Ваші дані");
+
+        Label changePassword = new Label("Змінити Пароль");
+
+        TextField youName = new TextField();
+        youName.getStyleClass().add("field");
+        Label labelName = new Label();
+
+        TextField youLName = new TextField();
+        youLName.getStyleClass().add("field");
+        Label labelLName = new Label();
+
+        
+
+        back.setTranslateX(-430);
+        back.setTranslateY(-280);
+
+        back.setOnAction(event -> {
+            appearanceMenu(primaryStage);
+        });
+
+        root.getChildren().addAll(alertData, youData, changePassword, youLName, youName, labelLName, labelName, back);
+
+        Scene scene = new Scene(root, 900, 600);
+
+        scene.getStylesheets().add("/css/style.css");
+        Image ico = new Image("images/main_icon3.png");
+        primaryStage.getIcons().add(ico);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Registration");
+        primaryStage.setFullScreen(false);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void registration(Stage primaryStage) {
         StackPane root = new StackPane();
         root.getStyleClass().add("background");
 
@@ -44,29 +91,25 @@ public class MainMenu {
 
         TextField inputFName = new TextField();
         inputFName.getStyleClass().add("field");
-
         Label firstName = new Label("Ваше Ім'я");
         firstName.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
 
         TextField inputLName = new TextField();
         inputLName.getStyleClass().add("field");
-
         Label lastName = new Label("Прізвище");
         lastName.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
 
         TextField inputLogin = new TextField();
         inputLogin.getStyleClass().add("field");
-
         Label labelLogin = new Label("Логін");
         labelLogin.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
 
         PasswordField inputPassword = new PasswordField();
         inputPassword.getStyleClass().add("field");
-
         Label labelPassword = new Label("Пароль");
         labelPassword.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
 
-        Button next = new Button("Дільше");
+        Button next = new Button("Дальше");
         next.getStyleClass().add("login");
         next.setStyle("-fx-background-color: #1d1d1d;");
         next.setDefaultButton(true);
@@ -87,7 +130,7 @@ public class MainMenu {
                 FXCollections.observableArrayList(
                         "Ваша улюблена марка автомобіля",
                         "Назва вашого улюбленця",
-                        "Дівоча фамілія матері",
+                        "Дівоче прізвище матері",
                         "Ваша улюблена річ",
                         "Ім'я вашого дідуся",
                         "Ім'я вашої бабусі"
@@ -189,8 +232,6 @@ public class MainMenu {
                 }
                 else {
                     redLabelOne.setTranslateX(0);
-                    firstName.setText("Login");
-                    lastName.setText("Password");
 
                     errorsLabel.setText("Заповніть всі поля форми реєстрації");
                     errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
@@ -208,8 +249,8 @@ public class MainMenu {
                     comboBox.setVisible(true);
                     secretQuestion.setVisible(true);
                     answerQuestion.setVisible(true);
-
                     answer.setVisible(true);
+
                     next.setOnAction(event1 -> {
                         if (answer.getText().trim().isEmpty() || comboBox.getValue() == "-Виберіть питання-") {
                             errorsLabel.setText("Деякі поля у формі не заповненні");
@@ -222,7 +263,9 @@ public class MainMenu {
                             answerQuestion.setVisible(false);
                             comboBox.setVisible(false);
                             next.setVisible(false);
+
                             redLabelOne.setTranslateX(305);
+
                             finishRegistration.setVisible(true);
                             finishText.setVisible(true);
                             img.setVisible(true);
@@ -254,6 +297,7 @@ public class MainMenu {
     }
 
     public void authorization(Stage primaryStage) {
+
         StackPane root = new StackPane();
 
         root.getStyleClass().add("background");
@@ -312,7 +356,6 @@ public class MainMenu {
                 errorsLabel.setVisible(true);
             } else {
                 errorsLabel.setVisible(false);
-
                 String log_in = loginField.getText();
                 String password = passwordField.getText();
 
@@ -330,7 +373,7 @@ public class MainMenu {
             registration(primaryStage);
         });
 
-        root.getChildren().addAll(errorsLabel, login, loginButton, loginField, loginLabel, passwordField, passwordLabel, registration);
+        root.getChildren().addAll( errorsLabel, login, loginButton, loginField, loginLabel, passwordField, passwordLabel, registration);
 
         final Scene scene = new Scene(root, 900, 600);
 
@@ -442,21 +485,19 @@ public class MainMenu {
         root.getChildren().addAll(goTesting, goStudy, createTest, user, exit, settings, swapAccount);
 
         goTesting.setOnAction(event -> {
-            sound.clickSound();
             primaryStage.close();
             menuLanguage.menuLanguageBackground(primaryStage);
         });
         goStudy.setOnAction(event -> {
-            sound.clickSound();
+
             primaryStage.close();
             windowStudy.startStudy(primaryStage);
         });
         createTest.setOnAction(event -> {
-            sound.clickSound();
+
             testCreator.createFileWindow(primaryStage);
         });
         exit.setOnAction(event -> {
-            sound.clickSound();
             primaryStage.close();
             System.exit(0);
         });
@@ -476,7 +517,7 @@ public class MainMenu {
             title.setText("");
         });
         settings.setOnAction(event -> {
-            WindowMessage.winAlert("Даний функціонал у розробці. Дочекайтеся наступного оновлення))");
+            setting(primaryStage);
         });
         swapAccount.setOnAction(event -> {
             authorization(primaryStage);
@@ -505,7 +546,6 @@ public class MainMenu {
         Image ico = new Image("images/main_icon3.png");
         primaryStage.getIcons().add(ico);
         primaryStage.setResizable(false);
-
         primaryStage.setTitle("Main Menu");
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);

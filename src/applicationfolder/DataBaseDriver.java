@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -66,9 +67,9 @@ public class DataBaseDriver {
         if (!searchPerson(login)) {
             return false;
         }
-        setNickname(person.getChildNodes().item(0));
-        setLogin(person.getChildNodes().item(1));
-        setPassword(person.getChildNodes().item(2));
+        setNickname(person.getChildNodes().item(1));
+        setLogin(person.getChildNodes().item(3));
+        setPassword(person.getChildNodes().item(5));
 
         String passwordTextContent = getPassword().getTextContent();
 
@@ -88,7 +89,7 @@ public class DataBaseDriver {
         Node persons = document.getDocumentElement();
 
         Element person = document.createElement("person");
-        person.setAttribute("id", personsList.getLength() + "");
+        person.setAttribute("id", (personsList.getLength()-1)/2 + "");
 
         Element nickname = document.createElement("nickname");
         nickname.setTextContent(nicknameValue);
@@ -125,6 +126,8 @@ public class DataBaseDriver {
     private void updateXMLDocument() {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
+            tr.setOutputProperty(OutputKeys.INDENT, "yes");
+            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream("database/users.xml"));
             tr.transform(source, result);

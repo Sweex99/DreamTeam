@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class MenuLanguage {
     private StackPane root = new StackPane();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
-    private ApplicationSound sound = new ApplicationSound();
+
     private TestGUI testGUI = new TestGUI();
 
     public void menuLanguageBackground(Stage primaryStage) {
@@ -126,7 +126,6 @@ public class MenuLanguage {
             buton2.setVisible(false);
             buton3.setVisible(false);
         });
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////create_scene/////////////////////////////////////////
         final Scene scene = new Scene(root, 900, 600);
@@ -153,7 +152,7 @@ public class MenuLanguage {
             testGUI.playTest(primaryStage, "/texts/text.txt", true);
         });
         buttons[3].setOnAction(event1 -> {
-            sound.clickSound();
+
         });
     }
 }

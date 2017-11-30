@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persons>
+    <person id="0">
+        <nickname>Taras Matiiv</nickname>
+        <login>Sweex99</login>
+        <password>$2a$10$EKmbgMh5rMaA0dy6d27e1eEvNat.6riqFRyKIk.T/d4UKFHqn10AG</password>
+    </person>
+    <person id="1">
+        <nickname>q q</nickname>
+        <login>q</login>
+        <password>$2a$10$wcFV5.raOrlTRfZ45QBpfO3NDSvXbyoIcf1RH.fgxIcsEv18Vh9iO</password>
+    </person>
+    <person id="2">
+        <nickname>b b</nickname>
+        <login>b</login>
+        <password>$2a$10$YJilOIXaCzBJof6NW0seLuACKzy1cDTv1.PaTlmTxJSSR402GUHiu</password>
+    </person>
+    <person id="3">
+        <nickname>n n</nickname>
+        <login>n</login>
+        <password>$2a$10$swD0CV7nj26l0kKDTjDnO.1.FkCZPT8VF8dLGIvtKUktBvQog15Zu</password>
+    </person>
+    <person id="9">
+        <nickname>y y</nickname>
+        <login>y</login>
+        <password>$2a$10$D.gUqaSdLIDBah4aSc5yS.4kfJ4Wr8W4P7qq9yR46CYk40Bi3bog6</password>
+    </person>
+    <person id="11">
+        <nickname>j j</nickname>
+        <login>j</login>
+        <password>$2a$10$QB7zt5EnYnvdefprIp5VieBFxIK/jR0W9g0Xa/Tay5s.shsnTMSEm</password>
+    </person>
+<person id="6">
+    <nickname>g g</nickname>
+    <login>g</login>
+    <password>$2a$10$Ai4XMIp7Wt5ZB44QySRnweHP6ABYZfXJ6HQbl/wmL99LxJKkJ9clW</password>
+  </person>
+<person id="7">
+    <nickname>й й</nickname>
+    <login>й</login>
+    <password>$2a$10$Yrk4nr5BN7/NPiuvz4dkxehU6.eqDUZ1Wy5deyVJM8/TaQ4ynJlei</password>
+  </person>
+</persons>
