@@ -47,6 +47,11 @@ public class DataBaseDriver {
         this.nickname = nickname;
     }
 
+    public void editNickname(String content) {
+        this.nickname.setTextContent(content);
+        updateXMLDocument();
+    }
+
     public Node getLogin() {
         return login;
     }
@@ -57,6 +62,12 @@ public class DataBaseDriver {
 
     public Node getPassword() {
         return password;
+    }
+
+    public void editPassword(String content) {
+        String hashed = BCrypt.hashpw(content, BCrypt.gensalt());
+        this.password.setTextContent(hashed);
+        updateXMLDocument();
     }
 
     public void setPassword(Node password) {
