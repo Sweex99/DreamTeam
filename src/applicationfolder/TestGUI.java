@@ -24,6 +24,7 @@ public class TestGUI extends AppLogic {
     private ArrayList<TestContent> arguments;
     private ArrayList<String> links;
     private FileReading fileReading = new FileReading();
+    private DataBaseDriver dataBaseDriver = new DataBaseDriver();
     private int i = 0;
     private int result = 0;
 
@@ -51,12 +52,9 @@ public class TestGUI extends AppLogic {
         question.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-max-height: 50px;-fx-max-width: 200px;");
         question.setWrappingWidth(400);
         question.wrappingWidthProperty().bind(questionBox.widthProperty());
-        /*question.setMaxWidth(Double.MAX_VALUE);
-        question.setAlignment(Pos.CENTER);*/
         question.setFill(Color.WHITE);
 
         VBox answerBox = new VBox(20);
-
 
         answerBox.setAlignment(Pos.CENTER);
         Text title = new Text();
@@ -325,6 +323,7 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
+            dataBaseDriver.updateStatistic(result);
             mainMenu.menuLanguageBackground(primaryStage);
             finalStage.close();
         });

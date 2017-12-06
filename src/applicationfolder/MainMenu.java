@@ -27,7 +27,7 @@ public class MainMenu {
         root.getStyleClass().add("background");
 
         String[] splitNick;
-        splitNick = dataBaseDriver.userName.split(" ");
+        splitNick = dataBaseDriver.getNickname().split(" ");
 
         Button back = new Button();
         back.getStyleClass().add("back");
@@ -109,24 +109,30 @@ public class MainMenu {
         });
         save.setOnAction(event -> {
             if(youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])){
-                if(youPassword.getText() == null && confirmPassword.getText() == null){
+                if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ви не ввели нові дані");
                     alertData.setStyle("-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
+                    alertData.setText("Ваші дані збережені");
+                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
                 }
             }
             else {
-                alertData.setVisible(true);
                 dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
-                if(youPassword.getText() == null && confirmPassword.getText() == null){
+                if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
+                    alertData.setText("Ваші дані збережені");
+                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
+                    alertData.setText("Ваші дані збережені");
+                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setVisible(true);
                 }
             }
         });
@@ -510,7 +516,11 @@ public class MainMenu {
         Label label12 = new Label();
         label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
-        label12.setText(dataBaseDriver.getNickName());
+        label12.setText(dataBaseDriver.getNickname());
+        label12.setOnMouseClicked(event -> {
+            WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseDriver.getTestings() + "\n"
+                    + "Відсоток правильний відповідей: " + dataBaseDriver.getPercent() + " %");
+        });
         Label title = new Label();
         title.setStyle("-fx-text-fill: white");
 

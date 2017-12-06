@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
@@ -19,9 +20,8 @@ import static javafx.util.Duration.*;
 public class SoundMedia {
     private MediaPlayer player;
     private MainMenu mainMenu = new MainMenu();
-
+    private AudioClip sound = new AudioClip(this.getClass().getResource("/sound/click_sound.mp3").toExternalForm());
     public void clickSound() {
-        AudioClip sound = new AudioClip(this.getClass().getResource("/sound/click_sound.mp3").toExternalForm());
         sound.play();
     }
 
@@ -31,7 +31,7 @@ public class SoundMedia {
         player = new MediaPlayer(new Media(getClass().getResource("/sound/intro/intro.mp4").toExternalForm()));
         MediaView mediaView = new MediaView(player);
 
-        Label pressEnter = new Label("Press [Mouse] Key");
+        Label pressEnter = new Label("Нажміть [SPACE]");
         pressEnter.setStyle("-fx-text-fill: #d8d8d8;-fx-font-size: 20pt");
 
 
@@ -44,6 +44,8 @@ public class SoundMedia {
         pressEnter.setVisible(false);
         player.getBufferProgressTime();
 
+        final Scene scene =  new Scene(root, 900, 595);
+
         if (player.getStatus().equals(MediaPlayer.Status.READY)) {}
         else {
             Timeline timeline = new Timeline(new KeyFrame(
@@ -54,6 +56,19 @@ public class SoundMedia {
                             player.stop();
                             mediaView.setVisible(false);
                             mainMenu.authorization(primaryStage);
+                        });
+                        pressEnter.setOnMouseClicked((MouseEvent event) -> {
+                            player.stop();
+                            mediaView.setVisible(false);
+                            mainMenu.authorization(primaryStage);
+                        });
+                        scene.setOnKeyPressed(ev -> {
+                            if (ev.getCode() == KeyCode.SPACE) {
+                                player.stop();
+                                mediaView.setVisible(false);
+                                primaryStage.close();
+                                mainMenu.authorization(primaryStage);
+                            }
                         });
                     }));
             timeline.play();
@@ -70,14 +85,10 @@ public class SoundMedia {
 
         root.getChildren().addAll(mediaView, pressEnter);
 
-        final Scene scene = new Scene(root, 900, 580);
-
         primaryStage.setResizable(false);
         primaryStage.setTitle("Log in");
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
     }
 }

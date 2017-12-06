@@ -136,8 +136,6 @@ public class DataBaseDriver {
     private void updateXMLDocument() {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
-            //tr.setOutputProperty(OutputKeys.INDENT, "yes");
-            //tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream("database/users.xml"));
             tr.transform(source, result);
