@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 
 public class MenuLanguage {
     private StackPane root = new StackPane();
-    private DataBaseDriver dataBaseDriver = new DataBaseDriver();
-
     private TestGUI testGUI = new TestGUI();
 
     public void menuLanguageBackground(Stage primaryStage) {
@@ -96,21 +94,19 @@ public class MenuLanguage {
 
         java.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, java, buton1, buton2, buton3);
-
-            //testGUI.playtest(primaryStage,"/texts/text.txt", true);
+            animationMenu(primaryStage, "java", java, buton1, buton2, buton3);
         });
         cpp.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, cpp, buton1, buton2, buton3);
+            animationMenu(primaryStage, "cpp", cpp, buton1, buton2, buton3);
         });
         web.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, web, buton1, buton2, buton3);
+            animationMenu(primaryStage, "web", web, buton1, buton2, buton3);
         });
         php.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, php, buton1, buton2, buton3);
+            animationMenu(primaryStage, "php", php, buton1, buton2, buton3);
         });
         back.setOnAction(event -> {
             primaryStage.close();
@@ -139,20 +135,15 @@ public class MenuLanguage {
         primaryStage.show();
     }
 
-    private void animationMenu(Stage primaryStage, Button... buttons) {
+    private void animationMenu(Stage primaryStage, String lang, Button... buttons) {
 
         buttons[0].setStyle("-fx-background-color: #d8d8d8;-fx-text-fill: black");
 
         buttons[1].setVisible(true);
         buttons[2].setVisible(true);
         buttons[3].setVisible(true);
-        buttons[1].setOnAction(event1 -> {
-        });
-        buttons[2].setOnAction(event1 -> {
-            testGUI.playTest(primaryStage, "/texts/text.txt", true);
-        });
-        buttons[3].setOnAction(event1 -> {
-
-        });
+        buttons[1].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_easy.txt", true));
+        buttons[2].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_middle.txt", true));
+        buttons[3].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_hard.txt", true));
     }
 }
