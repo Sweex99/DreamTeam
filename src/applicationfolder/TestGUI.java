@@ -1,9 +1,9 @@
 package applicationfolder;
 
+import javafx.scene.control.Label;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.awt.*;
 import java.net.URI;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ public class TestGUI extends AppLogic {
     private FileReading fileReading = new FileReading();
     private int i = 0;
     private int result = 0;
-    private boolean isFullScreen = false;
 
     public void playTest(Stage primaryStage, String fileName, boolean isResource) {
         MenuLanguage main = new MenuLanguage();
@@ -59,18 +57,6 @@ public class TestGUI extends AppLogic {
 
         VBox answerBox = new VBox(20);
 
-        Button fullScreen = new Button();
-        fullScreen.getStyleClass().add("fullScreen");
-
-        fullScreen.setOnAction(event -> {
-            if (isFullScreen) {
-                primaryStage.setFullScreen(false);
-                isFullScreen = false;
-            } else {
-                primaryStage.setFullScreen(true);
-                isFullScreen = true;
-            }
-        });
 
         answerBox.setAlignment(Pos.CENTER);
         Text title = new Text();
@@ -83,7 +69,7 @@ public class TestGUI extends AppLogic {
 
         titleBox.getChildren().addAll(title);
         questionBox.getChildren().addAll(question);
-        root.getChildren().addAll(fullScreen);
+
         root.setTop(back);
         root.setCenter(subroot);
 
@@ -196,6 +182,7 @@ public class TestGUI extends AppLogic {
         Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add("/css/style.css");
         primaryStage.setResizable(false);
+        primaryStage.setFullScreen(false);
         primaryStage.setTitle("");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
@@ -208,12 +195,12 @@ public class TestGUI extends AppLogic {
                          ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
         arguments = testing(fileName, isResource);
         nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
-        int correct = (int) group.getSelectedToggle().getUserData();
+        int correct = (int)group.getSelectedToggle().getUserData();
 
         submit.setOnAction(event -> {
             clickButton(false, rb1, rb2, rb3, rb4);
             youAnswer.setText("");
-            if (correct > 0) {
+            if(correct > 0) {
                 if (correct == arguments.get(i).getCorrectAnswer()) {
                     result++;
                 }
@@ -259,13 +246,14 @@ public class TestGUI extends AppLogic {
         });
     }
 
-    private void clickButton(boolean bool, ToggleButton... rb) {
-        if (bool) {
+    private void clickButton(boolean bool, ToggleButton...rb){
+        if(bool) {
             rb[0].setStyle("-fx-background-color: white;-fx-text-fill: #1d1d1d;");
             rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
             rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
             rb[3].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-        } else {
+        }
+        else{
             rb[0].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
             rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
             rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
@@ -318,8 +306,6 @@ public class TestGUI extends AppLogic {
             statement.setText("Ви часом не гуманітарій?");
         }
 
-        DataBaseDriver db = new DataBaseDriver();
-
         ImageView img = new ImageView(new Image(getClass().getResourceAsStream(imageName)));
         img.setFitHeight(128);
         img.setFitWidth(128);
@@ -339,7 +325,6 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
-            db.updateStatistic(result);
             mainMenu.menuLanguageBackground(primaryStage);
             finalStage.close();
         });

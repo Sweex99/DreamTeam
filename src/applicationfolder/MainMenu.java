@@ -9,11 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import sun.security.util.Password;
 
 public class MainMenu {
     private UserTest userTest = new UserTest();
@@ -28,34 +26,121 @@ public class MainMenu {
         StackPane root = new StackPane();
         root.getStyleClass().add("background");
 
+        String[] splitNick;
+        splitNick = dataBaseDriver.userName.split(" ");
+
         Button back = new Button();
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
 
-        Label alertData = new Label();
+        Button save = new Button("Зберегти");
+
+        Label alertData = new Label("Ваші дані успішно збережені");
+        alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+        alertData.setVisible(false);
+
+        Label redLabelData = new Label();
+        redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+
+        Label redLabelSystemData = new Label();
+        redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
 
         Label youData = new Label("Ваші дані");
 
-        Label changePassword = new Label("Змінити Пароль");
+        PasswordField youPassword = new PasswordField();
+        youPassword.getStyleClass().add("field");
+        Label youPass = new Label("Ваш пароль");
 
-        TextField youName = new TextField();
+        PasswordField confirmPassword = new PasswordField();
+        confirmPassword.getStyleClass().add("field");
+        Label youConfPass = new Label("Повторіть Пароль");
+
+        Label changeSystemData = new Label("Системні дані");
+
+        TextField youName = new TextField(splitNick[0]);
         youName.getStyleClass().add("field");
-        Label labelName = new Label();
+        Label labelName = new Label("Ім'я");
 
-        TextField youLName = new TextField();
+        TextField youLName = new TextField(splitNick[1]);
         youLName.getStyleClass().add("field");
-        Label labelLName = new Label();
+        Label labelLName = new Label("Прізвище");
 
-        
+        youName.setTranslateX(-200);
+        youName.setTranslateY(-20);
+        labelName.setTranslateX(-300);
+        labelName.setTranslateY(-50);
+
+        youLName.setTranslateX(-200);
+        youLName.setTranslateY(50);
+        labelLName.setTranslateX(-285);
+        labelLName.setTranslateY(20);
+
+        youData.setTranslateX(-200);
+        youData.setTranslateY(-100);
+
+        youPassword.setTranslateX(200);
+        youPassword.setTranslateY(-22);
+
+        confirmPassword.setTranslateX(200);
+        confirmPassword.setTranslateY(50);
+
+        changeSystemData.setTranslateY(-100);
+        changeSystemData.setTranslateX(200);
+
+        youPass.setTranslateX(123);
+        youPass.setTranslateY(-50);
+
+        youConfPass.setTranslateY(20);
+        youConfPass.setTranslateX(140);
+
+        redLabelSystemData.setTranslateX(200);
+        redLabelData.setTranslateX(-200);
+
+        alertData.setTranslateY(-200);
+
+        save.setTranslateY(200);
 
         back.setTranslateX(-430);
         back.setTranslateY(-280);
 
         back.setOnAction(event -> {
+            primaryStage.close();
             appearanceMenu(primaryStage);
         });
+        save.setOnAction(event -> {
+            if(youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])){
+                if(youPassword.getText() == null && confirmPassword.getText() == null){
+                    alertData.setText("Ви не ввели нові дані");
+                    alertData.setStyle("-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setVisible(true);
+                }
+                else{
+                    dataBaseDriver.editPassword(confirmPassword.getText());
+                    alertData.setVisible(true);
+                }
+            }
+            else {
+                alertData.setVisible(true);
+                dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
+                if(youPassword.getText() == null && confirmPassword.getText() == null){
+                    alertData.setVisible(true);
+                }
+                else{
+                    dataBaseDriver.editPassword(confirmPassword.getText());
+                }
+            }
+        });
 
-        root.getChildren().addAll(alertData, youData, changePassword, youLName, youName, labelLName, labelName, back);
+        redLabelData.setOnMouseClicked(event -> {
+            redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+        });
+        redLabelSystemData.setOnMouseClicked(event -> {
+            redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+        });
+
+        root.getChildren().addAll(save, redLabelSystemData, youConfPass, youPass, confirmPassword, youPassword, alertData, redLabelData, youData, changeSystemData, youLName, youName, labelLName, labelName, back);
 
         Scene scene = new Scene(root, 900, 600);
 
@@ -63,7 +148,7 @@ public class MainMenu {
         Image ico = new Image("images/main_icon3.png");
         primaryStage.getIcons().add(ico);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Registration");
+        primaryStage.setTitle("Settings");
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -390,11 +475,7 @@ public class MainMenu {
     public void appearanceMenu(Stage primaryStage) {
         StackPane root = new StackPane();
         root.getStyleClass().add("background");
-        String userName = "";
-        if(dataBaseDriver.userName == null);
-        else {
-            userName = dataBaseDriver.userName;
-        }
+
         vBox.getStyleClass().add("accountInfo");
 
         Button goTesting = new Button("Go Testing");
@@ -429,7 +510,7 @@ public class MainMenu {
         Label label12 = new Label();
         label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
-        label12.setText(userName);
+        label12.setText(dataBaseDriver.getNickName());
         Label title = new Label();
         title.setStyle("-fx-text-fill: white");
 
@@ -489,7 +570,6 @@ public class MainMenu {
             menuLanguage.menuLanguageBackground(primaryStage);
         });
         goStudy.setOnAction(event -> {
-
             primaryStage.close();
             windowStudy.startStudy(primaryStage);
         });
@@ -517,6 +597,7 @@ public class MainMenu {
             title.setText("");
         });
         settings.setOnAction(event -> {
+//
             setting(primaryStage);
         });
         swapAccount.setOnAction(event -> {
