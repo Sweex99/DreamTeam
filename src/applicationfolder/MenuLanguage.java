@@ -94,19 +94,23 @@ public class MenuLanguage {
 
         java.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, "java", java, buton1, buton2, buton3);
+            complexity(primaryStage, "java", java, buton1, buton2, buton3);
+            animationMenu(cpp, web, php);
         });
         cpp.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, "cpp", cpp, buton1, buton2, buton3);
+            complexity(primaryStage, "cpp", cpp, buton1, buton2, buton3);
+            animationMenu(java, web, php);
         });
         web.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, "web", web, buton1, buton2, buton3);
+            complexity(primaryStage, "web", web, buton1, buton2, buton3);
+            animationMenu(java, cpp, php);
         });
         php.setOnAction(event -> {
             textLabel.setVisible(true);
-            animationMenu(primaryStage, "php", php, buton1, buton2, buton3);
+            complexity(primaryStage, "php", php, buton1, buton2, buton3);
+            animationMenu(java, cpp, web);
         });
         back.setOnAction(event -> {
             primaryStage.close();
@@ -135,7 +139,7 @@ public class MenuLanguage {
         primaryStage.show();
     }
 
-    private void animationMenu(Stage primaryStage, String lang, Button... buttons) {
+    private void complexity(Stage primaryStage, String lang, Button... buttons) {
 
         buttons[0].setStyle("-fx-background-color: #d8d8d8;-fx-text-fill: black");
 
@@ -145,5 +149,10 @@ public class MenuLanguage {
         buttons[1].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_easy.txt", true));
         buttons[2].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_middle.txt", true));
         buttons[3].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_hard.txt", true));
+    }
+    private void animationMenu(Button...buttons){
+        for(int i = 0;i < 3; i++){
+            buttons[i].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: #d8d8d8");
+        }
     }
 }

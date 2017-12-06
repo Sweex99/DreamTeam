@@ -15,7 +15,6 @@ public class UserTest {
             return file.getPath();
         } else {
             WindowMessage.winAlert("Несумісність файлу!");
-
             return null;
         }
 
