@@ -7,7 +7,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -18,16 +17,14 @@ import java.io.*;
 
 public class DataBaseDriver {
     private static Document document;
-    private NodeList personsList;
-    private Node person;
-    private Node nickname;
-    private Node login;
-    private Node password;
-    public static String userName;
+    private static NodeList personsList;
+    private static Node person;
+    private static Node nickname;
+    private static int id;
 
     DataBaseDriver() {
         try {
-            XMLExists();
+            XMLInit();
 
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             document = documentBuilder.parse("database/users.xml");
@@ -39,58 +36,41 @@ public class DataBaseDriver {
         }
     }
 
-    public Node getNickname() {
-        return nickname;
+    public String getNickname() {
+        return nickname.getTextContent();
     }
 
-    public void setNickname(Node nickname) {
-        this.nickname = nickname;
+    public String getTestings() {
+        return personsList.item(id).getChildNodes().item(3).getTextContent();
     }
 
-    public void editNickname(String content) {
-        this.nickname.setTextContent(content);
+    public String getPercent() {
+        return personsList.item(id).getChildNodes().item(4).getTextContent();
+    }
+
+    public void editNickname(String nick) {
+        personsList.item(id).getChildNodes().item(0).setTextContent(nick);
+        nickname.setTextContent(nick);
         updateXMLDocument();
     }
 
-    public Node getLogin() {
-        return login;
-    }
-
-    public void setLogin(Node login) {
-        this.login = login;
-    }
-
-    public Node getPassword() {
-        return password;
-    }
-
-    public void editPassword(String content) {
-        String hashed = BCrypt.hashpw(content, BCrypt.gensalt());
-        this.password.setTextContent(hashed);
+    public void editPassword(String pass) {
+        String hashed = BCrypt.hashpw(pass, BCrypt.gensalt());
+        personsList.item(id).getChildNodes().item(2).setTextContent(hashed);
         updateXMLDocument();
-    }
-
-    public void setPassword(Node password) {
-        this.password = password;
     }
 
     public boolean authorization(String login, String password) {
         if (!searchPerson(login)) {
             return false;
         }
-        setNickname(person.getChildNodes().item(1));
-        setLogin(person.getChildNodes().item(3));
-        setPassword(person.getChildNodes().item(5));
+        this.nickname = person.getChildNodes().item(0);
+        Node passNode = person.getChildNodes().item(2);
+        this.id = Integer.parseInt(person.getAttributes().item(0).getTextContent());
 
-        String passwordTextContent = getPassword().getTextContent();
-
-        setNameUser();
+        String passwordTextContent = passNode.getTextContent();
 
         return BCrypt.checkpw(password, passwordTextContent);
-    }
-
-    public void setNameUser(){
-        this.userName = getNickname().getTextContent();
     }
 
     public void registration(String nicknameValue, String loginValue, String passwordValue) {
@@ -100,7 +80,7 @@ public class DataBaseDriver {
         Node persons = document.getDocumentElement();
 
         Element person = document.createElement("person");
-        person.setAttribute("id", (personsList.getLength()-1)/2 + "");
+        person.setAttribute("id", personsList.getLength() + "");
 
         Element nickname = document.createElement("nickname");
         nickname.setTextContent(nicknameValue);
@@ -112,9 +92,17 @@ public class DataBaseDriver {
         String hash = BCrypt.hashpw(passwordValue, BCrypt.gensalt());
         password.setTextContent(hash);
 
+        Element testings = document.createElement("testings");
+        testings.setTextContent("0");
+
+        Element percent = document.createElement("percent");
+        percent.setTextContent("0");
+
         person.appendChild(nickname);
         person.appendChild(login);
         person.appendChild(password);
+        person.appendChild(testings);
+        person.appendChild(percent);
         persons.appendChild(person);
 
         updateXMLDocument();
@@ -134,11 +122,22 @@ public class DataBaseDriver {
         }
     }
 
+    public void updateStatistic(int result) {
+        int percent = Integer.parseInt(personsList.item(id).getChildNodes().item(4).getTextContent());
+        int number = Integer.parseInt(personsList.item(id).getChildNodes().item(3).getTextContent());
+        int arithmeticMean = (percent * number + result * 10) / (number + 1);
+        number++;
+        personsList.item(id).getChildNodes().item(3).setTextContent(number + "");
+        personsList.item(id).getChildNodes().item(4).setTextContent(arithmeticMean + "");
+
+        updateXMLDocument();
+    }
+
     private void updateXMLDocument() {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
-            tr.setOutputProperty(OutputKeys.INDENT, "yes");
-            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            //tr.setOutputProperty(OutputKeys.INDENT, "yes");
+            //tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream("database/users.xml"));
             tr.transform(source, result);
@@ -147,11 +146,11 @@ public class DataBaseDriver {
         }
     }
 
-    private void XMLExists() {
+    private void XMLInit() {
         try {
             File folder = new File("database");
             File xmlFile = new File("database/users.xml");
-            if (!folder.exists() && !xmlFile.exists()) {
+            if (!folder.exists() || !xmlFile.exists()) {
                 folder.mkdir();
                 xmlFile.createNewFile();
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter("database/users.xml"))) {

@@ -11,4 +11,12 @@ public class WindowMessage {
 
         alert.showAndWait();
     }
+
+    final public static void winInfo(String infoText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(infoText);
+
+        alert.showAndWait();
+    }
 }
