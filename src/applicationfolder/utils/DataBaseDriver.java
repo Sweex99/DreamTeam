@@ -1,4 +1,4 @@
-package applicationfolder;
+package applicationfolder.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.w3c.dom.*;
@@ -18,11 +18,10 @@ import java.io.*;
 public class DataBaseDriver {
     private static Document document;
     private static NodeList personsList;
-    private static Node person;
-    private static Node nickname;
     private static int id;
+    private Node person;
 
-    DataBaseDriver() {
+    public DataBaseDriver() {
         try {
             XMLInit();
 
@@ -37,7 +36,7 @@ public class DataBaseDriver {
     }
 
     public String getNickname() {
-        return nickname.getTextContent();
+        return personsList.item(id).getChildNodes().item(0).getTextContent();
     }
 
     public String getTestings() {
@@ -50,7 +49,6 @@ public class DataBaseDriver {
 
     public void editNickname(String nick) {
         personsList.item(id).getChildNodes().item(0).setTextContent(nick);
-        nickname.setTextContent(nick);
         updateXMLDocument();
     }
 
@@ -64,9 +62,8 @@ public class DataBaseDriver {
         if (!searchPerson(login)) {
             return false;
         }
-        this.nickname = person.getChildNodes().item(0);
         Node passNode = person.getChildNodes().item(2);
-        this.id = Integer.parseInt(person.getAttributes().item(0).getTextContent());
+        id = Integer.parseInt(person.getAttributes().item(0).getTextContent());
 
         String passwordTextContent = passNode.getTextContent();
 
@@ -115,7 +112,7 @@ public class DataBaseDriver {
             XPath xpath = pathFactory.newXPath();
             XPathExpression pathExpression = xpath.compile(expression);
             Node node = (Node) pathExpression.evaluate(document, XPathConstants.NODE);
-            this.person = node;
+            person = node;
             return node != null;
         } catch (DOMException | XPathExpressionException e) {
             throw new RuntimeException(e);

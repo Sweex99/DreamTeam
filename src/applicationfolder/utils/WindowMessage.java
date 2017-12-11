@@ -1,4 +1,4 @@
-package applicationfolder;
+package applicationfolder.utils;
 
 import javafx.scene.control.Alert;
 

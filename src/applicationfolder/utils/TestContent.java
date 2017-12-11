@@ -1,4 +1,4 @@
-package applicationfolder;
+package applicationfolder.utils;
 
 public class TestContent {
     private String question;

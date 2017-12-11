@@ -1,4 +1,4 @@
-package applicationfolder;
+package applicationfolder.menu;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;

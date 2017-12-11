@@ -1,5 +1,6 @@
-package applicationfolder;
+package applicationfolder.menu;
 
+import applicationfolder.utils.WindowMessage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

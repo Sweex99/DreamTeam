@@ -1,5 +1,7 @@
-package applicationfolder;
+package applicationfolder.menu;
 
+import applicationfolder.utils.DataBaseDriver;
+import applicationfolder.utils.WindowMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +13,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import sun.security.util.Password;
 
 public class MainMenu {
     private UserTest userTest = new UserTest();
@@ -637,7 +638,7 @@ public class MainMenu {
         Image ico = new Image("images/main_icon3.png");
         primaryStage.getIcons().add(ico);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Main Menu");
+        primaryStage.setTitle("Main menu");
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
