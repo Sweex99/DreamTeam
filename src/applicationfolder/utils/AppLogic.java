@@ -3,22 +3,37 @@ package applicationfolder.utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class AppLogic {
+    private final int NUMBEROFVARIANTS = 10;   //upper or lower case
     private FileReading fileReading = new FileReading();
-    private ArrayList<TestContent> testContent = new ArrayList<TestContent>(10);
-    private ArrayList<String> text = new ArrayList<String>();
-    private ArrayList<String> questions = new ArrayList<String>();
-    private ArrayList<String> answers = new ArrayList<String>();
+    private ArrayList<TestContent> testContent = new ArrayList<>(NUMBEROFVARIANTS);
+    private ArrayList<String> questions = new ArrayList<>();
+    private ArrayList<String> answers = new ArrayList<>();
 
-    private static int randomInt(int to) {
-        int n = (int) (Math.random() * to);
-        return n;
+    private int[] randomVariantsOfQuestions(int bound) {
+        int[] randomVariants = new int[NUMBEROFVARIANTS];
+        Random random = new Random();
+        Set<Integer> generated = new HashSet<>();
+        int tempInt;
+        while (generated.size() < NUMBEROFVARIANTS){
+            while (generated.contains(tempInt = random.nextInt(bound)));
+            generated.add(tempInt);
+        }
+        int i = 0;
+        for (int gen : generated) {
+            randomVariants[i] = gen;
+            i++;
+        }
+        return randomVariants;
     }
 
     private void splitFileText(String fileName, boolean isResource) {
         try {
-            text = fileReading.fileText(isResource ? getClass().getResourceAsStream(fileName) : new FileInputStream(fileName));
+            ArrayList<String> text = fileReading.fileText(isResource ? getClass().getResourceAsStream(fileName) : new FileInputStream(fileName));
 
             for (int i = 1; i < text.size(); i++) {
                 String s = text.get(i);
@@ -33,24 +48,18 @@ public class AppLogic {
         }
     }
 
-    public ArrayList<TestContent> testing(String fileName, boolean isResource) {
-        int random;
-        int[] IndexOfVariants = new int[10];
+    protected ArrayList<TestContent> testing(String fileName, boolean isResource) {
         splitFileText(fileName, isResource);
-        for (int i = 0; i < 10; i++) {
+        int[] IndexesOfVariants = randomVariantsOfQuestions(questions.size());
+        for (int i = 0; i < NUMBEROFVARIANTS; i++) {
             TestContent unitOfContent = new TestContent();
-            random = randomInt(questions.size());
-            for (int j = 0; j < 10; j++) {
-                while (IndexOfVariants[j] == random) random = randomInt(questions.size());
-            }
-            IndexOfVariants[i] = random;
 
             for (int j = 0; j < 4; j++) {
-                if (answers.get(IndexOfVariants[i] * 4 + j).endsWith("!true!")) unitOfContent.setCorrectAnswer(j + 1);
+                if (answers.get(IndexesOfVariants[i] * 4 + j).endsWith("!true!")) unitOfContent.setCorrectAnswer(j + 1);
             }
-            unitOfContent.setQuestion(questions.get(IndexOfVariants[i]));
+            unitOfContent.setQuestion(questions.get(IndexesOfVariants[i]));
             for (int j = 0; j < 4; j++) {
-                String str = answers.get(IndexOfVariants[i] * 4 + j);
+                String str = answers.get(IndexesOfVariants[i] * 4 + j);
                 str = str.replaceAll("!true!", "");
                 unitOfContent.setAnswers(str, j);
             }
