@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     compile group: 'de.svenkubiak', name: 'jBCrypt', version: '0.4'
-    compile 'com.google.apis:google-api-services-drive:v2-rev285-1.23.0'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
 }
 
 sourceSets {
