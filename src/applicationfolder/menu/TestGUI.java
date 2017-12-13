@@ -2,7 +2,6 @@ package applicationfolder.menu;
 
 import applicationfolder.utils.AppLogic;
 import applicationfolder.utils.DataBaseDriver;
-import applicationfolder.utils.FileReading;
 import applicationfolder.utils.TestContent;
 import javafx.scene.control.Label;
 import javafx.geometry.Pos;
@@ -21,13 +20,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
+
+import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
-    private ArrayList<TestContent> arguments;
-    private ArrayList<String> links;
-    private FileReading fileReading = new FileReading();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
     private int i = 0;
     private int result = 0;
@@ -74,7 +74,6 @@ public class TestGUI extends AppLogic {
 
         root.setTop(back);
         root.setCenter(subroot);
-
 
         ToggleGroup group = new ToggleGroup();
         ToggleButton rb1 = new ToggleButton();
@@ -195,7 +194,7 @@ public class TestGUI extends AppLogic {
     private void Correct(Label youAnswer, Stage primaryStage, String fileName, boolean isResource
             , Text title, ProgressBar progressBar, Text question, ToggleGroup group, ToggleButton rb1,
                          ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
-        arguments = testing(fileName, isResource);
+        List<TestContent> arguments = testing(fileName, isResource);
         nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
         int correct = (int)group.getSelectedToggle().getUserData();
 
@@ -218,7 +217,7 @@ public class TestGUI extends AppLogic {
         });
     }
 
-    private void nextScene(Label youAnswer, int i, ArrayList<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
+    private void nextScene(Label youAnswer, int i, List<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
         title.setText("Питання №" + (i + 1));
         rb1.setText(arguments.get(i).getAnswers(0));
         rb2.setText(arguments.get(i).getAnswers(1));
@@ -313,11 +312,11 @@ public class TestGUI extends AppLogic {
         img.setFitWidth(128);
         boxImg.getChildren().add(img);
 
-        links = fileReading.fileText(getClass().getResourceAsStream("/texts/links.txt"));
-
         idea.setOnAction(event -> {
-            int randIndex = (int) (Math.random() * links.size());
+
             try {
+                List<String> links = readLines(getClass().getResourceAsStream("/texts/links.txt"), "UTF-8");
+                int randIndex = (int) (Math.random() * links.size());
                 URI uri = new URI(links.get(randIndex));
                 Desktop.getDesktop().browse(uri);
             } catch (Exception e) {
