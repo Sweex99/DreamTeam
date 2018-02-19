@@ -20,11 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
@@ -44,6 +41,8 @@ public class TestGUI extends AppLogic {
         back.setShape(new Circle(6));
 
         HBox titleBox = new HBox(10);
+
+
         titleBox.setAlignment(Pos.BASELINE_LEFT);
 
         BorderPane questionBox = new BorderPane();
