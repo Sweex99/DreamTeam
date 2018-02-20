@@ -12,9 +12,6 @@ public class Main extends Application {
        SoundMedia sound = new SoundMedia();
        sound.start(primaryStage);
 
-//        MainMenu mainMenu = new MainMenu();
-//        mainMenu.setting(primaryStage);
-
         Image ico = new Image("/images/main_icon3.png");
         primaryStage.getIcons().add(ico);
     }
