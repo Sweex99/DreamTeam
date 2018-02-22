@@ -147,18 +147,23 @@ public class MainMenu {
             redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
         });
 
-        root.getChildren().addAll(save, redLabelSystemData, youConfPass, youPass, confirmPassword, youPassword, alertData, redLabelData, youData, changeSystemData, youLName, youName, labelLName, labelName, back);
 
-        Scene scene = new Scene(root, 900, 600);
+//        Scene scene = new Scene(root, 900, 600);
 
-        scene.getStylesheets().add("/css/style.css");
+
         Image ico = new Image("images/main_icon3.png");
         primaryStage.getIcons().add(ico);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Settings");
         primaryStage.setFullScreen(false);
+
+        root.getChildren().addAll(save, redLabelSystemData, youConfPass, youPass, confirmPassword, youPassword, alertData, redLabelData, youData, changeSystemData, youLName, youName, labelLName, labelName, back);
+        Scene scene = new Scene(root, 900, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+        scene.getStylesheets().add("/css/style.css");
     }
 
     private void registration(Stage primaryStage) {
