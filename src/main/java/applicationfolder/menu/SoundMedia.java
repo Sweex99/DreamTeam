@@ -1,6 +1,5 @@
 package applicationfolder.menu;
 
-import applicationfolder.menu.MainMenu;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;

@@ -14,13 +14,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.4'
 }
 
-sourceSets {
-    main.java.srcDir "src"
-    main.resources {
-        srcDir "resource"
-    }
-}
-
 jar {
     from configurations.compile.collect { zipTree it }
     manifest.attributes "Main-Class": "applicationfolder.Main"
