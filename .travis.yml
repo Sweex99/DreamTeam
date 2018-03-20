@@ -7,6 +7,6 @@ after_success:
 addons:
   artifacts:
     paths:
-    - $HOME/build/Sweex99/DreamTeam/build/libs/*.jar
+    - $HOME
     target_paths:
     - /$TRAVIS_OS_NAME
