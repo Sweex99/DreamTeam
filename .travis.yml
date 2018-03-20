@@ -7,4 +7,4 @@ after_success:
 addons:
   artifacts:
     paths:
-    - /home/travis/build/Sweex99/DreamTeam/build/libs
+    - /home/travis/build/Sweex99/DreamTeam/build/libs/*.jar
