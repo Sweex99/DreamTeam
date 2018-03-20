@@ -7,6 +7,4 @@ after_success:
 addons:
   artifacts:
     paths:
-    - $HOME
-    target_paths:
-    - /$TRAVIS_OS_NAME
+    - $(git ls-files -o | grep 'Sweex99/DreamTeam/build/libs')
