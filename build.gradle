@@ -3,6 +3,10 @@ apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 
+version = '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -23,8 +27,6 @@ sourceSets {
     }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
 }
@@ -37,7 +39,12 @@ dependencies {
 
 jar {
     from configurations.compile.collect { zipTree it }
-    manifest.attributes "Main-Class": "applicationfolder.Main"
+    manifest {
+		attributes "Main-Class": "applicationfolder.Main",
+		"Implementation-Title": "Gradle Jar File",
+		"Implementation-Version": version
+	}
+	baseName = project.name
 }
 
 jacoco{
@@ -53,4 +60,5 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+check.dependsOn jar
 test.finalizedBy jacocoTestReport
