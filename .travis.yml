@@ -6,5 +6,7 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 addons:
   artifacts:
+    target_paths:
+    - /home/travis/build/Sweex99/DreamTeam/build/libs
     paths:
-    - /home/travis/build/Sweex99/DreamTeam/build/libs/*.jar
+    - DreamTeam-1.0-SNAPSHOT.jar
