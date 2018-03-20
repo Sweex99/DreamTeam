@@ -7,6 +7,6 @@ after_success:
 addons:
   artifacts:
     target_paths:
-    - /
+    - /artifacts
     paths:
-    - /home/travis/build/Sweex99/DreamTeam/build/libs/DreamTeam-1.0-SNAPSHOT.jar
+    - $(ls $HOME/build/Sweex99/DreamTeam/build/libs | tr "\n" ":")
