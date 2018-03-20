@@ -5,6 +5,4 @@ sudo: true
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 addons:
-  artifacts:
-    paths:
-    - $(git ls-files -o | grep 'Sweex99/DreamTeam/build/libs')
+  artifacts: true
