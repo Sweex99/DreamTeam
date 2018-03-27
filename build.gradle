@@ -2,6 +2,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
+apply plugin: "com.zoltu.git-versioning"
+
+//TODO
 
 version = '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -15,6 +18,17 @@ mainClassName = "src.java.applicationfolder"
 
 repositories {
     maven { url 'http://repo1.maven.org/maven2' }
+}
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.zoltu.gradle.plugin:git-versioning:3.0.3"
+  }
 }
 
 sourceSets {
