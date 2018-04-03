@@ -60,7 +60,7 @@ jacocoTestReport {
 
 pitest {
     targetClasses = ['applicationfolder.*']
-    outputFormats = ['XML']
+    outputFormats = ['XML', 'HTML']
     timestampedReports = false
 }
 
