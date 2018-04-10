@@ -11,10 +11,8 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         SoundMedia sound = new SoundMedia();
         sound.start(primaryStage);
-
         Image ico = new Image("/images/main_icon3.png");
         primaryStage.getIcons().add(ico);
-        //Головна функція
     }
     public static void main(String[] args) { launch(args); }
 }
