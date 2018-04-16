@@ -28,19 +28,19 @@ public class TestCreator {
     }
 
     public void createFileWindow(Stage primaryStage) {
-        final String WHITE_STYLE = "-fx-text-fill: white";
-        final String CLASS_STYLE = "text-field";
+        final String whiteColorStyle = "-fx-text-fill: white";
+        final String textFieldStyle = "text-field";
 
         Label questionText = new Label("Внесено питань: " + count);
-        questionText.setStyle(WHITE_STYLE);
+        questionText.setStyle(whiteColorStyle);
         Label answerText1 = new Label("Відповідь 1:");
-        answerText1.setStyle(WHITE_STYLE);
+        answerText1.setStyle(whiteColorStyle);
         Label answerText2 = new Label("Відповідь 2:");
-        answerText2.setStyle(WHITE_STYLE);
+        answerText2.setStyle(whiteColorStyle);
         Label answerText3 = new Label("Відповідь 3:");
-        answerText3.setStyle(WHITE_STYLE);
+        answerText3.setStyle(whiteColorStyle);
         Label answerText4 = new Label("Відповідь 4:");
-        answerText4.setStyle(WHITE_STYLE);
+        answerText4.setStyle(whiteColorStyle);
 
         MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
@@ -68,10 +68,10 @@ public class TestCreator {
         isTrueVariant2.setToggleGroup(variants);
         isTrueVariant3.setToggleGroup(variants);
         isTrueVariant4.setToggleGroup(variants);
-        isTrueVariant1.setUserData(1);
-        isTrueVariant2.setUserData(2);
-        isTrueVariant3.setUserData(3);
-        isTrueVariant4.setUserData(4);
+        isTrueVariant1.setUserData(0);
+        isTrueVariant2.setUserData(1);
+        isTrueVariant3.setUserData(2);
+        isTrueVariant4.setUserData(3);
         Button add = new Button("Add");
         Button save = new Button("Save");
         save.getStyleClass().add("save1");
@@ -91,16 +91,16 @@ public class TestCreator {
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
         answer1.setPrefWidth(250);
-        answer1.getStyleClass().add(CLASS_STYLE);
+        answer1.getStyleClass().add(textFieldStyle);
         TextField answer2 = new TextField();
         answer2.setPrefWidth(250);
-        answer2.getStyleClass().add(CLASS_STYLE);
+        answer2.getStyleClass().add(textFieldStyle);
         TextField answer3 = new TextField();
         answer3.setPrefWidth(250);
-        answer3.getStyleClass().add(CLASS_STYLE);
+        answer3.getStyleClass().add(textFieldStyle);
         TextField answer4 = new TextField();
         answer4.setPrefWidth(250);
-        answer4.getStyleClass().add(CLASS_STYLE);
+        answer4.getStyleClass().add(textFieldStyle);
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
@@ -174,21 +174,22 @@ public class TestCreator {
         }
     }
 
-    private String writeText(int selectedVariant, String question, String ans1, String ans2, String ans3, String ans4) {
-        final String TRUE_TARGET = "!true!";
+    private String writeText(int selectedVariant, String question, String...answers) {
+        final String trueTarget = "!true!";
 
-        switch (selectedVariant) {
+        answers[selectedVariant] += trueTarget;
+        /*switch (selectedVariant) {
             case 1:
-                ans1 += TRUE_TARGET;
+                ans1 += trueTarget;
                 break;
             case 2:
-                ans2 += TRUE_TARGET;
+                ans2 += trueTarget;
                 break;
             case 3:
-                ans3 += TRUE_TARGET;
+                ans3 += trueTarget;
                 break;
             case 4:
-                ans4 += TRUE_TARGET;
+                ans4 += trueTarget;
                 break;
             default:
                 ans1 += "";
@@ -196,7 +197,7 @@ public class TestCreator {
                 ans3 += "";
                 ans4 += "";
                 break;
-        }
-        return "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
+        }*/
+        return "\n" + question + "?\n" + answers[0] + "\n" + answers[1] + "\n" + answers[2] + "\n" + answers[3];
     }
 }
