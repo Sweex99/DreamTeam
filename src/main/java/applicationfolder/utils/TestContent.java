@@ -17,8 +17,8 @@ public class TestContent {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(int correct_answer) {
-        this.correctAnswer = correct_answer;
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
     public String getQuestion() {
