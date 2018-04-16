@@ -7,7 +7,7 @@ public class WindowMessage {
         throw new IllegalStateException("Utility class");
     }
 
-    public final static void winAlert(String alertText) {
+    public static final void winAlert(String alertText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -16,7 +16,7 @@ public class WindowMessage {
         alert.showAndWait();
     }
 
-    public final static void winInfo(String infoText) {
+    public static final void winInfo(String infoText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setContentText(infoText);

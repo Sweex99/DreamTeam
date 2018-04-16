@@ -7,17 +7,17 @@ import java.util.*;
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class AppLogic {
-    private static final int numberOfVariants = 10;
-    private List<TestContent> testContent = new ArrayList<>(numberOfVariants);
+    private static final int NUMBER_OF_VARIANTS = 10;
+    private List<TestContent> testContent = new ArrayList<>(NUMBER_OF_VARIANTS);
     private List<String> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
 
     private int[] randomVariantsOfQuestions(int bound) {
-        int[] randomVariants = new int[numberOfVariants];
+        int[] randomVariants = new int[NUMBER_OF_VARIANTS];
         Random random = new Random();
         int tempInt;
         Set<Integer> generated = new HashSet<>();
-        while (generated.size() < numberOfVariants){
+        while (generated.size() < NUMBER_OF_VARIANTS){
             do{
                 tempInt = random.nextInt(bound);
             }
@@ -53,7 +53,7 @@ public class AppLogic {
         splitFileText(fileName, isResource);
         int[] indexesOfVariants = randomVariantsOfQuestions(questions.size());
 
-        for (int i = 0; i < numberOfVariants; i++) {
+        for (int i = 0; i < NUMBER_OF_VARIANTS; i++) {
             TestContent unitOfContent = new TestContent();
 
             for (int j = 0; j < 4; j++) {

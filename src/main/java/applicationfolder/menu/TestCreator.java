@@ -23,21 +23,24 @@ public class TestCreator {
     private String content = "<TST>";
     private int count = 0;
 
-    private void tieUp(Label label, RadioButton radioButton) {
+    private void tieUp(RadioButton radioButton) {
         radioButton.setSelected(true);
     }
 
     public void createFileWindow(Stage primaryStage) {
+        final String WHITE_STYLE = "-fx-text-fill: white";
+        final String CLASS_STYLE = "text-field";
+
         Label questionText = new Label("Внесено питань: " + count);
-        questionText.setStyle("-fx-text-fill: white");
+        questionText.setStyle(WHITE_STYLE);
         Label answerText1 = new Label("Відповідь 1:");
-        answerText1.setStyle("-fx-text-fill: white");
+        answerText1.setStyle(WHITE_STYLE);
         Label answerText2 = new Label("Відповідь 2:");
-        answerText2.setStyle("-fx-text-fill: white");
+        answerText2.setStyle(WHITE_STYLE);
         Label answerText3 = new Label("Відповідь 3:");
-        answerText3.setStyle("-fx-text-fill: white");
+        answerText3.setStyle(WHITE_STYLE);
         Label answerText4 = new Label("Відповідь 4:");
-        answerText4.setStyle("-fx-text-fill: white");
+        answerText4.setStyle(WHITE_STYLE);
 
         MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
@@ -88,16 +91,16 @@ public class TestCreator {
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
         answer1.setPrefWidth(250);
-        answer1.getStyleClass().add("text-field");
+        answer1.getStyleClass().add(CLASS_STYLE);
         TextField answer2 = new TextField();
         answer2.setPrefWidth(250);
-        answer2.getStyleClass().add("text-field");
+        answer2.getStyleClass().add(CLASS_STYLE);
         TextField answer3 = new TextField();
         answer3.setPrefWidth(250);
-        answer3.getStyleClass().add("text-field");
+        answer3.getStyleClass().add(CLASS_STYLE);
         TextField answer4 = new TextField();
         answer4.setPrefWidth(250);
-        answer4.getStyleClass().add("text-field");
+        answer4.getStyleClass().add(CLASS_STYLE);
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
@@ -111,18 +114,10 @@ public class TestCreator {
         root.setTop(back);
         root.getStyleClass().add("background");
 
-        answerText1.setOnMouseClicked(event -> {
-            tieUp(answerText1, isTrueVariant1);
-        });
-        answerText2.setOnMouseClicked(event -> {
-            tieUp(answerText2, isTrueVariant2);
-        });
-        answerText3.setOnMouseClicked(event -> {
-            tieUp(answerText3, isTrueVariant3);
-        });
-        answerText4.setOnMouseClicked(event -> {
-            tieUp(answerText4, isTrueVariant4);
-        });
+        answerText1.setOnMouseClicked(event -> tieUp(isTrueVariant1));
+        answerText2.setOnMouseClicked(event -> tieUp(isTrueVariant2));
+        answerText3.setOnMouseClicked(event -> tieUp(isTrueVariant3));
+        answerText4.setOnMouseClicked(event -> tieUp(isTrueVariant4));
 
         add.setOnMouseClicked(event -> {
             int selectedVariant = (int) variants.getSelectedToggle().getUserData();
@@ -180,21 +175,28 @@ public class TestCreator {
     }
 
     private String writeText(int selectedVariant, String question, String ans1, String ans2, String ans3, String ans4) {
+        final String TRUE_TARGET = "!true!";
+
         switch (selectedVariant) {
             case 1:
-                ans1 += "!true!";
+                ans1 += TRUE_TARGET;
                 break;
             case 2:
-                ans2 += "!true!";
+                ans2 += TRUE_TARGET;
                 break;
             case 3:
-                ans3 += "!true!";
+                ans3 += TRUE_TARGET;
                 break;
             case 4:
-                ans4 += "!true!";
+                ans4 += TRUE_TARGET;
+                break;
+            default:
+                ans1 += "";
+                ans2 += "";
+                ans3 += "";
+                ans4 += "";
                 break;
         }
-        String block = "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
-        return block;
+        return "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
     }
 }
