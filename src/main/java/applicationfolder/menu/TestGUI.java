@@ -1,7 +1,7 @@
 package applicationfolder.menu;
 
 import applicationfolder.utils.AppLogic;
-import applicationfolder.utils.DataBaseConnect;
+import applicationfolder.utils.DataBaseDriver;
 import applicationfolder.utils.TestContent;
 import javafx.scene.control.Label;
 import javafx.geometry.Pos;
@@ -21,16 +21,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.awt.*;
 import java.net.URI;
-import java.sql.SQLException;
 import java.util.List;
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
-    private DataBaseConnect dataBaseConnect = new DataBaseConnect();
+    private DataBaseDriver dataBaseDriver;
     private int i = 0;
     private int result = 0;
 
-    public void playTest(Stage primaryStage, String fileName, boolean isResource) {
+    public void playTest(DataBaseDriver dataBaseDriver, Stage primaryStage, String fileName, boolean isResource) {
+        this.dataBaseDriver = dataBaseDriver;
         MenuLanguage main = new MenuLanguage();
         BorderPane root = new BorderPane();
         root.getStyleClass().add("background");
@@ -66,7 +66,7 @@ public class TestGUI extends AppLogic {
         title.setTranslateY(5);
 
         back.setOnAction(event -> {
-            main.menuLanguageBackground(primaryStage);
+            main.menuLanguageBackground(dataBaseDriver, primaryStage);
         });
 
         titleBox.getChildren().addAll(title);
@@ -205,7 +205,7 @@ public class TestGUI extends AppLogic {
                 if (correct == arguments.get(i).getCorrectAnswer()) {
                     result++;
                 }
-                if (i == 9) {
+                if (i >= 9) {
 
                     finalScore(primaryStage);
                 } else {
@@ -326,12 +326,8 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
-            try {
-                dataBaseConnect.updateStatistic(result, result, 1);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            mainMenu.menuLanguageBackground(primaryStage);
+            dataBaseDriver.updateStatistic(result);
+            mainMenu.menuLanguageBackground(dataBaseDriver, primaryStage);
             finalStage.close();
         });
 

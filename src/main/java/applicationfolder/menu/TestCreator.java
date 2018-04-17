@@ -1,5 +1,6 @@
 package applicationfolder.menu;
 
+import applicationfolder.utils.DataBaseDriver;
 import applicationfolder.utils.WindowMessage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -178,26 +179,6 @@ public class TestCreator {
         final String trueTarget = "!true!";
 
         answers[selectedVariant] += trueTarget;
-        /*switch (selectedVariant) {
-            case 1:
-                ans1 += trueTarget;
-                break;
-            case 2:
-                ans2 += trueTarget;
-                break;
-            case 3:
-                ans3 += trueTarget;
-                break;
-            case 4:
-                ans4 += trueTarget;
-                break;
-            default:
-                ans1 += "";
-                ans2 += "";
-                ans3 += "";
-                ans4 += "";
-                break;
-        }*/
         return "\n" + question + "?\n" + answers[0] + "\n" + answers[1] + "\n" + answers[2] + "\n" + answers[3];
     }
 }

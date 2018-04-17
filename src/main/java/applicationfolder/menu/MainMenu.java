@@ -1,6 +1,6 @@
 package applicationfolder.menu;
 
-import applicationfolder.utils.DataBaseConnect;
+import applicationfolder.utils.DataBaseDriver;
 import applicationfolder.utils.WindowMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class MainMenu {
     private UserTest userTest = new UserTest();
     private MenuLanguage menuLanguage = new MenuLanguage();
@@ -23,11 +21,14 @@ public class MainMenu {
     private TestGUI testGUI = new TestGUI();
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
-    private DataBaseConnect dataBaseConnect = new DataBaseConnect();
+    private DataBaseDriver dataBaseDriver = new DataBaseDriver();
 
-    public void setting(Stage primaryStage) {
+    public void setting(Stage primaryStage){
         StackPane root = new StackPane();
         root.getStyleClass().add("background");
+
+        String[] splitNick;
+        splitNick = dataBaseDriver.getNickname().split(" ");
 
         Button back = new Button();
         back.getStyleClass().add("back");
@@ -57,11 +58,11 @@ public class MainMenu {
 
         Label changeSystemData = new Label("Системні дані");
 
-        TextField youName = new TextField((String) dataBaseConnect.user[3]);
+        TextField youName = new TextField(splitNick[0]);
         youName.getStyleClass().add("field");
         Label labelName = new Label("Ім'я");
 
-        TextField youLName = new TextField((String) dataBaseConnect.user[4]);
+        TextField youLName = new TextField(splitNick[1]);
         youLName.getStyleClass().add("field");
         Label labelLName = new Label("Прізвище");
 
@@ -108,37 +109,28 @@ public class MainMenu {
             appearanceMenu(primaryStage);
         });
         save.setOnAction(event -> {
-            if (youName.getText().equals(dataBaseConnect.user[3]) && youLName.getText().equals(dataBaseConnect.user[4])) {
-                if (youPassword.getText().equals("") && confirmPassword.getText().equals("")) {
+            if(youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])){
+                if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ви не ввели нові дані");
                     alertData.setStyle("-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
-                } else {
-                    try {
-                        dataBaseConnect.changePassword(confirmPassword.getText(), (int) dataBaseConnect.user[0]);
-                    } catch (SQLException e) {
-                        System.err.print("Проблема");
-                    }
+                }
+                else{
+                    dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
                     alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
                 }
-            } else {
-                try {
-                    dataBaseConnect.changeInfo(youName.getText(), youLName.getText(), (int) dataBaseConnect.user[0]);
-                } catch (SQLException e) {
-                    System.err.print("Проблема");
-                }
-                if (youPassword.getText().equals("") && confirmPassword.getText().equals("")) {
+            }
+            else {
+                dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
+                if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ваші дані збережені");
                     alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
-                } else {
-                    try {
-                        dataBaseConnect.changePassword(confirmPassword.getText(), (int) dataBaseConnect.user[0]);
-                    } catch (SQLException e) {
-                        System.err.print("Проблема");
-                    }
+                }
+                else{
+                    dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
                     alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
                     alertData.setVisible(true);
@@ -311,11 +303,7 @@ public class MainMenu {
         thirdStep.setTranslateX(310);
 
         back.setOnAction(event -> {
-            try {
-                authorization(primaryStage);
-            } catch (SQLException e) {
-                System.err.print("Проблема");
-            }
+            authorization(primaryStage);
         });
         next.setOnMouseEntered(event -> {
             next.setStyle("-fx-background-color: #3a3a3a;");
@@ -334,71 +322,61 @@ public class MainMenu {
                 errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
                 errorsLabel.setVisible(true);
             } else {
-                try {
-                    if (dataBaseConnect.searchPerson(inputLogin.getText())) {
-                        errorsLabel.setText("Логін який ви ввели вже існує");
-                        errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
-                        errorsLabel.setVisible(true);
-                    } else {
-                        redLabelOne.setTranslateX(0);
+                if(dataBaseDriver.searchPerson(inputLogin.getText())){
+                    errorsLabel.setText("Логін який ви ввели вже існує");
+                    errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
+                    errorsLabel.setVisible(true);
+                }
+                else {
+                    redLabelOne.setTranslateX(0);
 
-                        errorsLabel.setText("Заповніть всі поля форми реєстрації");
-                        errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
-                        errorsLabel.setVisible(true);
+                    errorsLabel.setText("Заповніть всі поля форми реєстрації");
+                    errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
+                    errorsLabel.setVisible(true);
 
-                        inputLogin.setVisible(false);
-                        labelLogin.setVisible(false);
-                        inputPassword.setVisible(false);
-                        inputFName.setVisible(false);
-                        inputLName.setVisible(false);
-                        labelPassword.setVisible(false);
-                        firstName.setVisible(false);
-                        lastName.setVisible(false);
+                    inputLogin.setVisible(false);
+                    labelLogin.setVisible(false);
+                    inputPassword.setVisible(false);
+                    inputFName.setVisible(false);
+                    inputLName.setVisible(false);
+                    labelPassword.setVisible(false);
+                    firstName.setVisible(false);
+                    lastName.setVisible(false);
 
-                        comboBox.setVisible(true);
-                        secretQuestion.setVisible(true);
-                        answerQuestion.setVisible(true);
-                        answer.setVisible(true);
+                    comboBox.setVisible(true);
+                    secretQuestion.setVisible(true);
+                    answerQuestion.setVisible(true);
+                    answer.setVisible(true);
 
-                        next.setOnAction(event1 -> {
-                            if (answer.getText().trim().isEmpty() || comboBox.getValue() == "-Виберіть питання-") {
-                                errorsLabel.setText("Деякі поля у формі не заповненні");
-                                errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
-                                errorsLabel.setVisible(true);
-                            } else {
-                                errorsLabel.setVisible(false);
-                                secretQuestion.setVisible(false);
-                                answer.setVisible(false);
-                                answerQuestion.setVisible(false);
-                                comboBox.setVisible(false);
-                                next.setVisible(false);
+                    next.setOnAction(event1 -> {
+                        if (answer.getText().trim().isEmpty() || comboBox.getValue() == "-Виберіть питання-") {
+                            errorsLabel.setText("Деякі поля у формі не заповненні");
+                            errorsLabel.setStyle("-fx-border-color: red;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: red;-fx-padding: 0 0 0 55");
+                            errorsLabel.setVisible(true);
+                        } else {
+                            errorsLabel.setVisible(false);
+                            secretQuestion.setVisible(false);
+                            answer.setVisible(false);
+                            answerQuestion.setVisible(false);
+                            comboBox.setVisible(false);
+                            next.setVisible(false);
 
-                                redLabelOne.setTranslateX(305);
+                            redLabelOne.setTranslateX(305);
 
-                                finishRegistration.setVisible(true);
-                                finishText.setVisible(true);
-                                img.setVisible(true);
+                            finishRegistration.setVisible(true);
+                            finishText.setVisible(true);
+                            img.setVisible(true);
 
-                                try {
-                                    dataBaseConnect.registration(inputLogin.getText().toString(), inputPassword.getText().toString(), inputFName.getText().toString(), inputLName.getText().toString());
-                                } catch (SQLException e) {
-                                    System.err.print("Проблема");
-                                }
-                            }
-                        });
-                    }
-                } catch (SQLException e) {
-                    System.err.print("Проблема");
+                            dataBaseDriver.registration(inputFName.getText() + " " + inputLName.getText(), inputLogin.getText(), inputPassword.getText());
+                        }
+                    });
                 }
             }
         });
 
         finishRegistration.setOnAction(event -> {
-            try {
-                authorization(primaryStage);
-            } catch (SQLException e) {
-                System.err.print("Проблема");
-            }
+            primaryStage.close();
+            authorization(primaryStage);
         });
 
         root.getChildren().addAll(img, finishText, finishRegistration, answerQuestion, secretQuestion, answer, comboBox, labelLogin, labelPassword, inputLogin, inputPassword, errorsLabel, oneStep, secondStep, thirdStep, back, next, inputFName, inputLName, firstName, lastName, redLabelOne);
@@ -415,7 +393,7 @@ public class MainMenu {
         primaryStage.show();
     }
 
-    public void authorization(Stage primaryStage) throws SQLException {
+    public void authorization(Stage primaryStage) {
 
         StackPane root = new StackPane();
 
@@ -469,40 +447,30 @@ public class MainMenu {
         });
 
         loginButton.setOnAction((ActionEvent event) -> {
-            String logIn = loginField.getText();
-            String password = passwordField.getText();
             loginButton.setStyle("-fx-background-color: #3a3a3a; -fx-text-fill: #1d1d1d");
             if ((loginField.getText().trim().isEmpty()) || passwordField.getText().trim().isEmpty()) {
                 errorsLabel.setText("Деякі поля у формі не заповнені");
                 errorsLabel.setVisible(true);
-            }else try {
-                if(!dataBaseConnect.searchPerson(logIn)){
+            } else {
+                errorsLabel.setVisible(false);
+                String log_in = loginField.getText();
+                String password = passwordField.getText();
+
+                if (dataBaseDriver.authorization(log_in, password)) {
+                    primaryStage.close();
+                    appearanceMenu(primaryStage);
+                } else {
                     errorsLabel.setText("Нажаль! Користувача не знайдено");
                     errorsLabel.setVisible(true);
                 }
-                else {
-                    errorsLabel.setVisible(false);
-
-                    if (dataBaseConnect.authorization(logIn, password)) {
-                        System.out.print("asbdjajd");
-                        appearanceMenu(primaryStage);
-
-                    } else {
-                        System.out.print("fasle 22");
-                        errorsLabel.setText("Нажаль! Користувача не знайдено");
-                        errorsLabel.setVisible(true);
-                    }
-
-                }
-            } catch (SQLException e) {
-                System.err.print("Проблема");
             }
+
         });
         registration.setOnAction(event -> {
             registration(primaryStage);
         });
 
-        root.getChildren().addAll(errorsLabel, login, loginButton, loginField, loginLabel, passwordField, passwordLabel, registration);
+        root.getChildren().addAll( errorsLabel, login, loginButton, loginField, loginLabel, passwordField, passwordLabel, registration);
 
         final Scene scene = new Scene(root, 900, 600);
 
@@ -554,10 +522,10 @@ public class MainMenu {
         Label label12 = new Label();
         label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
-        label12.setText(dataBaseConnect.user[3] + " " + dataBaseConnect.user[4]);
+        label12.setText(dataBaseDriver.getNickname());
         label12.setOnMouseClicked(event -> {
-            WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseConnect.user[5] + "\n"
-                    + "Відсоток правильний відповідей: " + dataBaseConnect.user[5] + " %");
+            WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseDriver.getTestings() + "\n"
+                    + "Відсоток правильний відповідей: " + dataBaseDriver.getPercent() + " %");
         });
         Label title = new Label();
         title.setStyle("-fx-text-fill: white");
@@ -614,23 +582,27 @@ public class MainMenu {
         root.getChildren().addAll(goTesting, goStudy, createTest, user, exit, settings, swapAccount);
 
         goTesting.setOnAction(event -> {
-            menuLanguage.menuLanguageBackground(primaryStage);
+            primaryStage.close();
+            menuLanguage.menuLanguageBackground(dataBaseDriver, primaryStage);
         });
         goStudy.setOnAction(event -> {
-            windowStudy.startStudy(primaryStage);
+            primaryStage.close();
+            windowStudy.startStudy(dataBaseDriver, primaryStage);
         });
         createTest.setOnAction(event -> {
+
             testCreator.createFileWindow(primaryStage);
         });
         exit.setOnAction(event -> {
+            primaryStage.close();
             System.exit(0);
         });
         user.setOnAction(event -> {
             String pathOfFile = userTest.getPathOfChosenFile(primaryStage);
             System.out.print(pathOfFile);
             if (pathOfFile != null) {
-                testGUI.playTest(primaryStage, pathOfFile, false);
-            }
+                testGUI.playTest(dataBaseDriver, primaryStage, pathOfFile, false);
+        }
         });
         settings.setOnMouseEntered(event -> {
             title.setText("Настройки");
@@ -641,15 +613,11 @@ public class MainMenu {
             title.setText("");
         });
         settings.setOnAction(event -> {
+//
             setting(primaryStage);
         });
         swapAccount.setOnAction(event -> {
-            MainMenu mainMenu = new MainMenu();
-            try {
-                mainMenu.authorization(primaryStage);
-            } catch (SQLException e) {
-                System.err.print("Проблема");
-            }
+            authorization(primaryStage);
         });
         swapAccount.setOnMouseEntered(event -> {
             title.setText("Зміна Користувача");

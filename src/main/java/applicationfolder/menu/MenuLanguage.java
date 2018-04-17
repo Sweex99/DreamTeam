@@ -1,5 +1,6 @@
 package applicationfolder.menu;
 
+import applicationfolder.utils.DataBaseDriver;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +13,7 @@ public class MenuLanguage {
     private StackPane root = new StackPane();
     private TestGUI testGUI = new TestGUI();
 
-    public void menuLanguageBackground(Stage primaryStage) {
+    public void menuLanguageBackground(DataBaseDriver dataBaseDriver, Stage primaryStage) {
         MainMenu main = new MainMenu();
 
         //////////////////////////////////button_settings////////////////////////////////////////////////
@@ -94,22 +95,22 @@ public class MenuLanguage {
 
         java.setOnAction(event -> {
             textLabel.setVisible(true);
-            complexity(primaryStage, "java", java, buton1, buton2, buton3);
+            complexity(dataBaseDriver, primaryStage, "java", java, buton1, buton2, buton3);
             animationMenu(cpp, web, php);
         });
         cpp.setOnAction(event -> {
             textLabel.setVisible(true);
-            complexity(primaryStage, "cpp", cpp, buton1, buton2, buton3);
+            complexity(dataBaseDriver, primaryStage, "cpp", cpp, buton1, buton2, buton3);
             animationMenu(java, web, php);
         });
         web.setOnAction(event -> {
             textLabel.setVisible(true);
-            complexity(primaryStage, "web", web, buton1, buton2, buton3);
+            complexity(dataBaseDriver, primaryStage, "web", web, buton1, buton2, buton3);
             animationMenu(java, cpp, php);
         });
         php.setOnAction(event -> {
             textLabel.setVisible(true);
-            complexity(primaryStage, "php", php, buton1, buton2, buton3);
+            complexity(dataBaseDriver, primaryStage, "php", php, buton1, buton2, buton3);
             animationMenu(java, cpp, web);
         });
         back.setOnAction(event -> {
@@ -139,16 +140,16 @@ public class MenuLanguage {
         primaryStage.show();
     }
 
-    private void complexity(Stage primaryStage, String lang, Button... buttons) {
+    private void complexity(DataBaseDriver dataBaseDriver, Stage primaryStage, String lang, Button... buttons) {
 
         buttons[0].setStyle("-fx-background-color: #d8d8d8;-fx-text-fill: black");
 
         buttons[1].setVisible(true);
         buttons[2].setVisible(true);
         buttons[3].setVisible(true);
-        buttons[1].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_easy.txt", true));
-        buttons[2].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_middle.txt", true));
-        buttons[3].setOnAction(event1 -> testGUI.playTest(primaryStage, "/texts/"+lang+"/"+lang+"_hard.txt", true));
+        buttons[1].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_easy.txt", true));
+        buttons[2].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_middle.txt", true));
+        buttons[3].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_hard.txt", true));
     }
     private void animationMenu(Button...buttons){
         for(int i = 0;i < 3; i++){

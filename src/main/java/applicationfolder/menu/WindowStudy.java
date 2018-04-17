@@ -1,5 +1,6 @@
 package applicationfolder.menu;
 
+import applicationfolder.utils.DataBaseDriver;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -75,7 +76,7 @@ public class WindowStudy {
         return menuItems;
     }
 
-    public void startStudy(Stage primaryStage) {
+    public void startStudy(DataBaseDriver dataBaseDriver, Stage primaryStage) {
         Stage stage = new Stage();
         Pane root = new Pane();
         TextArea textArea = new TextArea();
@@ -98,7 +99,7 @@ public class WindowStudy {
         menuItemsUser = themeStudy(textArea, "", getFolderFileNames(studyFolder));
         itemExit.setOnAction(event -> {
             stage.close();
-            mainMenu.appearanceMenu(primaryStage);
+            mainMenu.appearanceMenu(/*dataBaseDriver, */primaryStage);
         });
 
         menuThemes.getItems().addAll(menuItems);
