@@ -145,8 +145,9 @@ public class DataBaseDriver {
         try {
             File folder = new File("database");
             File xmlFile = new File("database/users.xml");
-            if (!folder.exists() || !xmlFile.exists()) {
+            if (!folder.exists()) {
                 folder.mkdir();
+            } else if (!xmlFile.exists()) {
                 xmlFile.createNewFile();
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter("database/users.xml"))) {
                     bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><persons></persons>");
