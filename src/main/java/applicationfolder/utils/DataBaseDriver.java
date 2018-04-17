@@ -47,16 +47,20 @@ public class DataBaseDriver {
     public String getPercent() {
         return personsList.item(id).getChildNodes().item(4).getTextContent();
     }
+    
+    public String getNumber() {
+        return personsList.item(id).getChildNodes().item(3).getTextContent();
+    }
 
     public void editNickname(String nick) {
         personsList.item(id).getChildNodes().item(0).setTextContent(nick);
-        updateXMLDocument();
+        updateXmlDocument();
     }
 
     public void editPassword(String pass) {
         String hashed = BCrypt.hashpw(pass, BCrypt.gensalt());
         personsList.item(id).getChildNodes().item(2).setTextContent(hashed);
-        updateXMLDocument();
+        updateXmlDocument();
     }
 
     public boolean authorization(String login, String password) {
@@ -103,7 +107,7 @@ public class DataBaseDriver {
             person.appendChild(percent);
             persons.appendChild(person);
 
-            updateXMLDocument();
+            updateXmlDocument();
         }
     }
 
@@ -122,17 +126,17 @@ public class DataBaseDriver {
     }
 
     public void updateStatistic(int result) {
-        int percent = Integer.parseInt(personsList.item(id).getChildNodes().item(4).getTextContent());
-        int number = Integer.parseInt(personsList.item(id).getChildNodes().item(3).getTextContent());
+        int percent = Integer.parseInt(getPercent());
+        int number = Integer.parseInt(getNumber());
         int arithmeticMean = (percent * number + result * 10) / (number + 1);
         number++;
-        personsList.item(id).getChildNodes().item(3).setTextContent(number + "");
-        personsList.item(id).getChildNodes().item(4).setTextContent(arithmeticMean + "");
+        personsList.item(id).getChildNodes().item(3).setTextContent(Integer.toString(number));
+        personsList.item(id).getChildNodes().item(4).setTextContent(Integer.toString(arithmeticMean));
 
-        updateXMLDocument();
+        updateXmlDocument();
     }
 
-    private void updateXMLDocument() {
+    private void updateXmlDocument() {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(document);
