@@ -1,7 +1,7 @@
 package applicationfolder.menu;
 
 import applicationfolder.utils.AppLogic;
-import applicationfolder.utils.DataBaseDriver;
+import applicationfolder.utils.DataBaseConnect;
 import applicationfolder.utils.TestContent;
 import javafx.scene.control.Label;
 import javafx.geometry.Pos;
@@ -25,7 +25,7 @@ import java.util.List;
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
-    private DataBaseDriver dataBaseDriver = new DataBaseDriver();
+    private DataBaseConnect dataBaseConnect = new DataBaseConnect();
     private int i = 0;
     private int result = 0;
 
@@ -325,7 +325,7 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
-            dataBaseDriver.updateStatistic(result);
+            dataBaseConnect.updateStatistic(result, result, 1);
             mainMenu.menuLanguageBackground(primaryStage);
             finalStage.close();
         });

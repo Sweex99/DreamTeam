@@ -462,3 +462,6 @@
     -fx-border-color: transparent;
     -fx-background-repeat: no-repeat;
 }
+@media(height: 100px){
+
+}
