@@ -147,7 +147,8 @@ public class DataBaseDriver {
             File xmlFile = new File("database/users.xml");
             if (!folder.exists()) {
                 folder.mkdir();
-            } else if (!xmlFile.exists()) {
+            }
+            if (!xmlFile.exists()) {
                 boolean isCreate = xmlFile.createNewFile();
                 if (!isCreate) {
                     System.err.println("Error! File is not created!");
