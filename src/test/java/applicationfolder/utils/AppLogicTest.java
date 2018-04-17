@@ -7,7 +7,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class AppLogicTest {
-    @Test
+    @Test(timeout = 50)
     public void testing() throws Exception {
         AppLogic appLogic = new AppLogic();
         List actual = appLogic.testing("/cpp_easy.txt", true);

@@ -19,14 +19,15 @@ public class DataBaseDriver {
     private Document document;
     private NodeList personsList;
     private int id;
-    private Node person;
+    private Node user;
+    private static final String XML_NAME = "database/users.xml";
 
     public DataBaseDriver() {
         try {
             XMLInit();
 
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = documentBuilder.parse("database/users.xml");
+            document = documentBuilder.parse(XML_NAME);
 
             Node persons = document.getDocumentElement();
             personsList = persons.getChildNodes();
@@ -62,8 +63,8 @@ public class DataBaseDriver {
         if (!searchPerson(login)) {
             return false;
         }
-        Node passNode = person.getChildNodes().item(2);
-        id = Integer.parseInt(person.getAttributes().item(0).getTextContent());
+        Node passNode = user.getChildNodes().item(2);
+        id = Integer.parseInt(user.getAttributes().item(0).getTextContent());
 
         String passwordTextContent = passNode.getTextContent();
 
@@ -73,36 +74,37 @@ public class DataBaseDriver {
     public void registration(String nicknameValue, String loginValue, String passwordValue) {
         if (searchPerson(loginValue)) {
             return;
+        } else {
+            Node persons = document.getDocumentElement();
+
+            Element person = document.createElement("person");
+            person.setAttribute("id", Integer.toString(personsList.getLength()));
+
+            Element nickname = document.createElement("nickname");
+            nickname.setTextContent(nicknameValue);
+
+            Element login = document.createElement("login");
+            login.setTextContent(loginValue);
+
+            Element password = document.createElement("password");
+            String hash = BCrypt.hashpw(passwordValue, BCrypt.gensalt());
+            password.setTextContent(hash);
+
+            Element testings = document.createElement("testings");
+            testings.setTextContent("0");
+
+            Element percent = document.createElement("percent");
+            percent.setTextContent("0");
+
+            person.appendChild(nickname);
+            person.appendChild(login);
+            person.appendChild(password);
+            person.appendChild(testings);
+            person.appendChild(percent);
+            persons.appendChild(person);
+
+            updateXMLDocument();
         }
-        Node persons = document.getDocumentElement();
-
-        Element person = document.createElement("person");
-        person.setAttribute("id", personsList.getLength() + "");
-
-        Element nickname = document.createElement("nickname");
-        nickname.setTextContent(nicknameValue);
-
-        Element login = document.createElement("login");
-        login.setTextContent(loginValue);
-
-        Element password = document.createElement("password");
-        String hash = BCrypt.hashpw(passwordValue, BCrypt.gensalt());
-        password.setTextContent(hash);
-
-        Element testings = document.createElement("testings");
-        testings.setTextContent("0");
-
-        Element percent = document.createElement("percent");
-        percent.setTextContent("0");
-
-        person.appendChild(nickname);
-        person.appendChild(login);
-        person.appendChild(password);
-        person.appendChild(testings);
-        person.appendChild(percent);
-        persons.appendChild(person);
-
-        updateXMLDocument();
     }
 
     public boolean searchPerson(String request) {
@@ -112,7 +114,7 @@ public class DataBaseDriver {
             XPath xpath = pathFactory.newXPath();
             XPathExpression pathExpression = xpath.compile(expression);
             Node node = (Node) pathExpression.evaluate(document, XPathConstants.NODE);
-            person = node;
+            user = node;
             return node != null;
         } catch (DOMException | XPathExpressionException e) {
             throw new RuntimeException(e);
@@ -134,7 +136,7 @@ public class DataBaseDriver {
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new FileOutputStream("database/users.xml"));
+            StreamResult result = new StreamResult(new FileOutputStream(XML_NAME));
             tr.transform(source, result);
         } catch (TransformerException | IOException e) {
             throw new RuntimeException(e);
@@ -144,7 +146,7 @@ public class DataBaseDriver {
     private void XMLInit() {
         try {
             File folder = new File("database");
-            File xmlFile = new File("database/users.xml");
+            File xmlFile = new File(XML_NAME);
             if (!folder.exists()) {
                 folder.mkdir();
             }
@@ -153,7 +155,7 @@ public class DataBaseDriver {
                 if (!isCreate) {
                     System.err.println("Error! File is not created!");
                 }
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter("database/users.xml"))) {
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(XML_NAME))) {
                     bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><persons></persons>");
                 } catch (IOException e) {
                     throw new UncheckedIOException(e);
