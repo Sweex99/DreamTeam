@@ -20,12 +20,11 @@ public class DataBaseConnect {
 
             connection = DriverManager.getConnection(url, login, passwword);
         } catch (SQLException e) {
-            e.printStackTrace();
             System.err.print("Не вдалося підлюкчитись");
         }
     }
 
-    public boolean authorization(String login, String password) throws SQLException {
+    public boolean authorization(String login, String password) throws SQLException  {
         if (!searchPerson(login)) {
             System.out.print("lalka");
             return false;
@@ -53,7 +52,6 @@ public class DataBaseConnect {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.err.print("Не вдалося авторизуватись");
         }
         finally {
@@ -68,7 +66,6 @@ public class DataBaseConnect {
             statement = connection.createStatement();
             statement.execute("INSERT INTO users(login, password, name, lastname) VALUES ('" + login + "', '" + password + "', '" + name + "', '" + lastname + "')");
         } catch (SQLException e) {
-            e.printStackTrace();
             System.err.print("Не вдалося авторизуватись");
         } finally {
             statement.close();
@@ -101,7 +98,7 @@ public class DataBaseConnect {
         }
     }
 
-    public boolean searchPerson(String login) throws SQLException {
+    public boolean searchPerson(String login)throws SQLException {
         Statement statement = null;
         try {
             statement = connection.createStatement();
