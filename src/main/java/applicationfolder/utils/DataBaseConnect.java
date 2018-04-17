@@ -33,6 +33,7 @@ public class DataBaseConnect {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(authorization);
+            statement.close();
             if (resultSet.equals(0)) {
                 System.out.print(false);
                 return false;
@@ -47,6 +48,7 @@ public class DataBaseConnect {
                     user[6] = resultSet.getInt(7);
                 }
                 return true;
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,6 +61,7 @@ public class DataBaseConnect {
         try {
             Statement statement = connection.createStatement();
             statement.execute("INSERT INTO users(login, password, name, lastname) VALUES ('" + login + "', '" + password + "', '" + name + "', '" + lastname + "')");
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.print("Не вдалося авторизуватись");
@@ -69,6 +72,7 @@ public class DataBaseConnect {
         try {
             Statement statement = connection.createStatement();
             statement.execute("UPDATE users SET password = '" + password + "' WHERE id = '" + id + "'");
+            statement.close();
         } catch (SQLException e) {
             System.err.print("");
         }
@@ -78,6 +82,7 @@ public class DataBaseConnect {
         try {
             Statement statement = connection.createStatement();
             statement.execute("UPDATE users SET name = '" + changedName + "', lastname = '" + changedLastName + "' WHERE id = '" + id + "'");
+            statement.close();
         } catch (SQLException e) {
             System.err.print("");
         }
@@ -88,9 +93,11 @@ public class DataBaseConnect {
             Statement statement = connection.createStatement();
             if (statement.execute("SELECT * FROM users WHERE login = '" + login + "'")) {
                 System.out.print("sd");
+                statement.close();
                 return true;
             } else {
                 System.out.print("false ++");
+                statement.close();
                 return false;
             }
         } catch (SQLException e) {
@@ -103,6 +110,7 @@ public class DataBaseConnect {
         try {
             Statement statement = connection.createStatement();
             statement.execute("UPDATE users SET testings= '" + testings + "', percent = '" + percent + "' WHERE id = '" + id + "'");
+            statement.close();
         } catch (SQLException e) {
             System.err.print("");
         }
