@@ -19,10 +19,6 @@ public class DataBaseDriverTest {
     @After
     public void tearDown() throws Exception {
         dataBaseDriver = null;
-        File file = new File("database/users.xml");
-        file.delete();
-        File folder = new File("database");
-        folder.delete();
     }
 
     @Test
