@@ -2,6 +2,7 @@ package applicationfolder.utils;
 
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class DataBaseConnect {
@@ -24,14 +25,15 @@ public class DataBaseConnect {
         }
     }
 
-    public boolean authorization(String login, String password) {
-        if (!searchPerson(login, password)) {
+    public boolean authorization(String login, String password) throws SQLException {
+        if (!searchPerson(login)) {
             System.out.print("lalka");
             return false;
         }
+        Statement statement = null;
         String authorization = "SELECT * FROM users WHERE login='" + login + "' AND password='" + password + "'";
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(authorization);
             statement.close();
             if (resultSet.equals(0)) {
@@ -54,65 +56,80 @@ public class DataBaseConnect {
             e.printStackTrace();
             System.err.print("Не вдалося авторизуватись");
         }
+        finally {
+           statement.close();
+        }
         return true;
     }
 
-    public void registration(String login, String password, String name, String lastname) {
+    public void registration(String login, String password, String name, String lastname) throws SQLException {
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.execute("INSERT INTO users(login, password, name, lastname) VALUES ('" + login + "', '" + password + "', '" + name + "', '" + lastname + "')");
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.print("Не вдалося авторизуватись");
+        } finally {
+            statement.close();
         }
     }
 
-    public void changePassword(String password, int id) {
+    public void changePassword(String password, int id) throws SQLException {
+        Statement statement= null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.execute("UPDATE users SET password = '" + password + "' WHERE id = '" + id + "'");
             statement.close();
         } catch (SQLException e) {
             System.err.print("");
+        } finally {
+            statement.close();
         }
     }
 
-    public void changeInfo(String changedName, String changedLastName, int id) {
+    public void changeInfo(String changedName, String changedLastName, int id) throws SQLException {
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.execute("UPDATE users SET name = '" + changedName + "', lastname = '" + changedLastName + "' WHERE id = '" + id + "'");
             statement.close();
         } catch (SQLException e) {
             System.err.print("");
+        } finally {
+            statement.close();
         }
     }
 
-    public boolean searchPerson(String login, String password) {
+    public boolean searchPerson(String login) throws SQLException {
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             if (statement.execute("SELECT * FROM users WHERE login = '" + login + "'")) {
                 System.out.print("sd");
-                statement.close();
                 return true;
             } else {
                 System.out.print("false ++");
-                statement.close();
                 return false;
             }
         } catch (SQLException e) {
             System.err.print("");
+        } finally {
+            statement.close();
         }
         return false;
     }
 
-    public void updateStatistic(int testings, int percent, int id) {
+    public void updateStatistic(int testings, int percent, int id) throws SQLException {
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.execute("UPDATE users SET testings= '" + testings + "', percent = '" + percent + "' WHERE id = '" + id + "'");
-            statement.close();
+
         } catch (SQLException e) {
             System.err.print("");
+        } finally {
+            statement.close();
         }
     }
 }
