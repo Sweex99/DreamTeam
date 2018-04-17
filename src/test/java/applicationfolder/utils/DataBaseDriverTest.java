@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
@@ -35,13 +36,14 @@ public class DataBaseDriverTest {
     public void updateStatistic() throws Exception {
         final String xmlName = "database/users.xml";
         List<String> xmlBeforeTransform = readLines(new FileInputStream(xmlName), "UTF-8");
+        int tmp = Integer.parseInt(dataBaseDriver.getNumber());
 
         dataBaseDriver.updateStatistic(10);
         int expected = 100;
         int actual = Integer.parseInt(dataBaseDriver.getPercent());
         assertEquals(expected, actual);
 
-        expected = 1;
+        expected = tmp + 1;
         actual = Integer.parseInt(dataBaseDriver.getNumber());
         assertEquals(expected, actual);
 
