@@ -30,11 +30,11 @@ public class DataBaseConnect {
             return false;
         }
         Statement statement = null;
+        ResultSet resultSet = null;
         String authorization = "SELECT * FROM users WHERE login='" + login + "' AND password='" + password + "'";
         try {
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(authorization);
-            statement.close();
+            resultSet = statement.executeQuery(authorization);
             if (resultSet.equals(0)) {
                 System.out.print(false);
                 return false;
@@ -56,6 +56,7 @@ public class DataBaseConnect {
         }
         finally {
            statement.close();
+           resultSet.close();
         }
         return true;
     }
@@ -77,7 +78,6 @@ public class DataBaseConnect {
         try {
             statement = connection.createStatement();
             statement.execute("UPDATE users SET password = '" + password + "' WHERE id = '" + id + "'");
-            statement.close();
         } catch (SQLException e) {
             System.err.print("");
         } finally {
@@ -90,7 +90,7 @@ public class DataBaseConnect {
         try {
             statement = connection.createStatement();
             statement.execute("UPDATE users SET name = '" + changedName + "', lastname = '" + changedLastName + "' WHERE id = '" + id + "'");
-            statement.close();
+
         } catch (SQLException e) {
             System.err.print("");
         } finally {
@@ -122,7 +122,6 @@ public class DataBaseConnect {
         try {
             statement = connection.createStatement();
             statement.execute("UPDATE users SET testings= '" + testings + "', percent = '" + percent + "' WHERE id = '" + id + "'");
-
         } catch (SQLException e) {
             System.err.print("");
         } finally {
