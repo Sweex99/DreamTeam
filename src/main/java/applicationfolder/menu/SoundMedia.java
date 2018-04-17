@@ -15,6 +15,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.sql.SQLException;
+
 import static javafx.util.Duration.*;
 
 public class SoundMedia {
@@ -54,19 +57,31 @@ public class SoundMedia {
                         mediaView.setOnMouseClicked((MouseEvent event) -> {
                             player.stop();
                             mediaView.setVisible(false);
-                            mainMenu.authorization(primaryStage);
+                            try {
+                                mainMenu.authorization(primaryStage);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         });
                         pressEnter.setOnMouseClicked((MouseEvent event) -> {
                             player.stop();
                             mediaView.setVisible(false);
-                            mainMenu.authorization(primaryStage);
+                            try {
+                                mainMenu.authorization(primaryStage);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         });
                         scene.setOnKeyPressed(ev -> {
                             if (ev.getCode() == KeyCode.SPACE) {
                                 player.stop();
                                 mediaView.setVisible(false);
                                 primaryStage.close();
-                                mainMenu.authorization(primaryStage);
+                                try {
+                                    mainMenu.authorization(primaryStage);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }));
@@ -75,7 +90,11 @@ public class SoundMedia {
                 @Override
                 public void run() {
                     player.stop();
-                    mainMenu.authorization(primaryStage);
+                    try {
+                        mainMenu.authorization(primaryStage);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

@@ -10,12 +10,18 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage){
         MainMenu mainMenu = new MainMenu();
-        mainMenu.authorization(primaryStage);
+        try {
+            mainMenu.authorization(primaryStage);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         Image ico = new Image("/images/main_icon3.png");
         primaryStage.getIcons().add(ico);

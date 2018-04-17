@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.awt.*;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.List;
 import static org.apache.commons.io.IOUtils.readLines;
 
@@ -325,7 +326,11 @@ public class TestGUI extends AppLogic {
         });
 
         exit.setOnAction(event -> {
-            dataBaseConnect.updateStatistic(result, result, 1);
+            try {
+                dataBaseConnect.updateStatistic(result, result, 1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             mainMenu.menuLanguageBackground(primaryStage);
             finalStage.close();
         });
