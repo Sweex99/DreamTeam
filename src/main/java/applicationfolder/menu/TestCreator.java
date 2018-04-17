@@ -23,21 +23,24 @@ public class TestCreator {
     private String content = "<TST>";
     private int count = 0;
 
-    private void tieUp(Label label, RadioButton radioButton) {
+    private void tieUp(RadioButton radioButton) {
         radioButton.setSelected(true);
     }
 
     public void createFileWindow(Stage primaryStage) {
+        final String whiteColorStyle = "-fx-text-fill: white";
+        final String textFieldStyle = "text-field";
+
         Label questionText = new Label("Внесено питань: " + count);
-        questionText.setStyle("-fx-text-fill: white");
+        questionText.setStyle(whiteColorStyle);
         Label answerText1 = new Label("Відповідь 1:");
-        answerText1.setStyle("-fx-text-fill: white");
+        answerText1.setStyle(whiteColorStyle);
         Label answerText2 = new Label("Відповідь 2:");
-        answerText2.setStyle("-fx-text-fill: white");
+        answerText2.setStyle(whiteColorStyle);
         Label answerText3 = new Label("Відповідь 3:");
-        answerText3.setStyle("-fx-text-fill: white");
+        answerText3.setStyle(whiteColorStyle);
         Label answerText4 = new Label("Відповідь 4:");
-        answerText4.setStyle("-fx-text-fill: white");
+        answerText4.setStyle(whiteColorStyle);
 
         MainMenu mainMenu = new MainMenu();
         BorderPane root = new BorderPane();
@@ -65,10 +68,10 @@ public class TestCreator {
         isTrueVariant2.setToggleGroup(variants);
         isTrueVariant3.setToggleGroup(variants);
         isTrueVariant4.setToggleGroup(variants);
-        isTrueVariant1.setUserData(1);
-        isTrueVariant2.setUserData(2);
-        isTrueVariant3.setUserData(3);
-        isTrueVariant4.setUserData(4);
+        isTrueVariant1.setUserData(0);
+        isTrueVariant2.setUserData(1);
+        isTrueVariant3.setUserData(2);
+        isTrueVariant4.setUserData(3);
         Button add = new Button("Add");
         Button save = new Button("Save");
         save.getStyleClass().add("save1");
@@ -88,16 +91,16 @@ public class TestCreator {
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
         answer1.setPrefWidth(250);
-        answer1.getStyleClass().add("text-field");
+        answer1.getStyleClass().add(textFieldStyle);
         TextField answer2 = new TextField();
         answer2.setPrefWidth(250);
-        answer2.getStyleClass().add("text-field");
+        answer2.getStyleClass().add(textFieldStyle);
         TextField answer3 = new TextField();
         answer3.setPrefWidth(250);
-        answer3.getStyleClass().add("text-field");
+        answer3.getStyleClass().add(textFieldStyle);
         TextField answer4 = new TextField();
         answer4.setPrefWidth(250);
-        answer4.getStyleClass().add("text-field");
+        answer4.getStyleClass().add(textFieldStyle);
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
         answerBox2.getChildren().addAll(answerText2, isTrueVariant2, answer2);
         answerBox3.getChildren().addAll(answerText3, isTrueVariant3, answer3);
@@ -111,18 +114,10 @@ public class TestCreator {
         root.setTop(back);
         root.getStyleClass().add("background");
 
-        answerText1.setOnMouseClicked(event -> {
-            tieUp(answerText1, isTrueVariant1);
-        });
-        answerText2.setOnMouseClicked(event -> {
-            tieUp(answerText2, isTrueVariant2);
-        });
-        answerText3.setOnMouseClicked(event -> {
-            tieUp(answerText3, isTrueVariant3);
-        });
-        answerText4.setOnMouseClicked(event -> {
-            tieUp(answerText4, isTrueVariant4);
-        });
+        answerText1.setOnMouseClicked(event -> tieUp(isTrueVariant1));
+        answerText2.setOnMouseClicked(event -> tieUp(isTrueVariant2));
+        answerText3.setOnMouseClicked(event -> tieUp(isTrueVariant3));
+        answerText4.setOnMouseClicked(event -> tieUp(isTrueVariant4));
 
         add.setOnMouseClicked(event -> {
             int selectedVariant = (int) variants.getSelectedToggle().getUserData();
@@ -179,22 +174,30 @@ public class TestCreator {
         }
     }
 
-    private String writeText(int selectedVariant, String question, String ans1, String ans2, String ans3, String ans4) {
-        switch (selectedVariant) {
+    private String writeText(int selectedVariant, String question, String...answers) {
+        final String trueTarget = "!true!";
+
+        answers[selectedVariant] += trueTarget;
+        /*switch (selectedVariant) {
             case 1:
-                ans1 += "!true!";
+                ans1 += trueTarget;
                 break;
             case 2:
-                ans2 += "!true!";
+                ans2 += trueTarget;
                 break;
             case 3:
-                ans3 += "!true!";
+                ans3 += trueTarget;
                 break;
             case 4:
-                ans4 += "!true!";
+                ans4 += trueTarget;
                 break;
-        }
-        String block = "\n" + question + "?\n" + ans1 + "\n" + ans2 + "\n" + ans3 + "\n" + ans4;
-        return block;
+            default:
+                ans1 += "";
+                ans2 += "";
+                ans3 += "";
+                ans4 += "";
+                break;
+        }*/
+        return "\n" + question + "?\n" + answers[0] + "\n" + answers[1] + "\n" + answers[2] + "\n" + answers[3];
     }
 }

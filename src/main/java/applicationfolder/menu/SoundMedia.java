@@ -46,8 +46,7 @@ public class SoundMedia {
 
         final Scene scene =  new Scene(root, 900, 595);
 
-        if (player.getStatus().equals(MediaPlayer.Status.READY)) {}
-        else {
+        if (!player.getStatus().equals(MediaPlayer.Status.READY)) {
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.seconds(10),
                     ae -> {

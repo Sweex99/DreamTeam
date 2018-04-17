@@ -7,7 +7,7 @@ import java.util.*;
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class AppLogic {
-    private final int NUMBER_OF_VARIANTS = 10;   //upper or lower case
+    private static final int NUMBER_OF_VARIANTS = 10;
     private List<TestContent> testContent = new ArrayList<>(NUMBER_OF_VARIANTS);
     private List<String> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
@@ -15,10 +15,13 @@ public class AppLogic {
     private int[] randomVariantsOfQuestions(int bound) {
         int[] randomVariants = new int[NUMBER_OF_VARIANTS];
         Random random = new Random();
-        Set<Integer> generated = new HashSet<>();
         int tempInt;
+        Set<Integer> generated = new HashSet<>();
         while (generated.size() < NUMBER_OF_VARIANTS){
-            while (generated.contains(tempInt = random.nextInt(bound)));
+            do{
+                tempInt = random.nextInt(bound);
+            }
+            while (generated.contains(tempInt));
             generated.add(tempInt);
         }
         int i = 0;
@@ -48,16 +51,17 @@ public class AppLogic {
 
     protected List<TestContent> testing(String fileName, boolean isResource) {
         splitFileText(fileName, isResource);
-        int[] IndexesOfVariants = randomVariantsOfQuestions(questions.size());
+        int[] indexesOfVariants = randomVariantsOfQuestions(questions.size());
+
         for (int i = 0; i < NUMBER_OF_VARIANTS; i++) {
             TestContent unitOfContent = new TestContent();
 
             for (int j = 0; j < 4; j++) {
-                if (answers.get(IndexesOfVariants[i] * 4 + j).endsWith("!true!")) unitOfContent.setCorrectAnswer(j + 1);
+                if (answers.get(indexesOfVariants[i] * 4 + j).endsWith("!true!")) unitOfContent.setCorrectAnswer(j + 1);
             }
-            unitOfContent.setQuestion(questions.get(IndexesOfVariants[i]));
+            unitOfContent.setQuestion(questions.get(indexesOfVariants[i]));
             for (int j = 0; j < 4; j++) {
-                String str = answers.get(IndexesOfVariants[i] * 4 + j);
+                String str = answers.get(indexesOfVariants[i] * 4 + j);
                 str = str.replaceAll("!true!", "");
                 unitOfContent.setAnswers(str, j);
             }

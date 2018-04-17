@@ -3,7 +3,11 @@ package applicationfolder.utils;
 import javafx.scene.control.Alert;
 
 public class WindowMessage {
-    final public static void winAlert(String alertText) {
+    private WindowMessage(){
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static final void winAlert(String alertText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -12,7 +16,7 @@ public class WindowMessage {
         alert.showAndWait();
     }
 
-    final public static void winInfo(String infoText) {
+    public static final void winInfo(String infoText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setContentText(infoText);
