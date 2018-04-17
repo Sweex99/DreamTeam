@@ -117,7 +117,7 @@ public class MainMenu {
                     try {
                         dataBaseConnect.changePassword(confirmPassword.getText(), (int) dataBaseConnect.user[0]);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        System.err.print("Проблема");
                     }
                     alertData.setText("Ваші дані збережені");
                     alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
@@ -127,7 +127,7 @@ public class MainMenu {
                 try {
                     dataBaseConnect.changeInfo(youName.getText(), youLName.getText(), (int) dataBaseConnect.user[0]);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.err.print("Проблема");
                 }
                 if (youPassword.getText().equals("") && confirmPassword.getText().equals("")) {
                     alertData.setText("Ваші дані збережені");
@@ -137,7 +137,7 @@ public class MainMenu {
                     try {
                         dataBaseConnect.changePassword(confirmPassword.getText(), (int) dataBaseConnect.user[0]);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        System.err.print("Проблема");
                     }
                     alertData.setText("Ваші дані збережені");
                     alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
@@ -314,7 +314,7 @@ public class MainMenu {
             try {
                 authorization(primaryStage);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.print("Проблема");
             }
         });
         next.setOnMouseEntered(event -> {
@@ -382,13 +382,13 @@ public class MainMenu {
                                 try {
                                     dataBaseConnect.registration(inputLogin.getText().toString(), inputPassword.getText().toString(), inputFName.getText().toString(), inputLName.getText().toString());
                                 } catch (SQLException e) {
-                                    e.printStackTrace();
+                                    System.err.print("Проблема");
                                 }
                             }
                         });
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.err.print("Проблема");
                 }
             }
         });
@@ -397,7 +397,7 @@ public class MainMenu {
             try {
                 authorization(primaryStage);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.print("Проблема");
             }
         });
 
@@ -495,7 +495,7 @@ public class MainMenu {
 
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.print("Проблема");
             }
         });
         registration.setOnAction(event -> {
@@ -648,7 +648,7 @@ public class MainMenu {
             try {
                 mainMenu.authorization(primaryStage);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.print("Проблема");
             }
         });
         swapAccount.setOnMouseEntered(event -> {
