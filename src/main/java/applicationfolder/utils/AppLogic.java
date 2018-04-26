@@ -55,6 +55,7 @@ public class AppLogic {
 
         for (int i = 0; i < NUMBER_OF_VARIANTS; i++) {
             TestContent unitOfContent = new TestContent();
+            String[] arrayOfAnswers = new String[4];
 
             for (int j = 0; j < 4; j++) {
                 if (answers.get(indexesOfVariants[i] * 4 + j).endsWith("!true!")) unitOfContent.setCorrectAnswer(j + 1);
@@ -63,8 +64,9 @@ public class AppLogic {
             for (int j = 0; j < 4; j++) {
                 String str = answers.get(indexesOfVariants[i] * 4 + j);
                 str = str.replaceAll("!true!", "");
-                unitOfContent.setAnswers(str, j);
+                arrayOfAnswers[j] = str;
             }
+            unitOfContent.setAnswers(arrayOfAnswers);
             testContent.add(unitOfContent);
         }
         return testContent;

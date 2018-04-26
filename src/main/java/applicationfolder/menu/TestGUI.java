@@ -218,11 +218,12 @@ public class TestGUI extends AppLogic {
     }
 
     private void nextScene(Label youAnswer, int i, List<TestContent> arguments, Text title, Text q, ToggleButton rb1, ToggleButton rb2, ToggleButton rb3, ToggleButton rb4) {
+        String[] arrayOfAnswers = arguments.get(i).getAnswers();
         title.setText("Питання №" + (i + 1));
-        rb1.setText(arguments.get(i).getAnswers(0));
-        rb2.setText(arguments.get(i).getAnswers(1));
-        rb3.setText(arguments.get(i).getAnswers(2));
-        rb4.setText(arguments.get(i).getAnswers(3));
+        rb1.setText(arrayOfAnswers[0]);
+        rb2.setText(arrayOfAnswers[1]);
+        rb3.setText(arrayOfAnswers[2]);
+        rb4.setText(arrayOfAnswers[3]);
         youAnswer(youAnswer, rb1, rb2, rb3, rb4);
         rb1.setSelected(true);
         q.setText(movingLine(arguments.get(i).getQuestion()));

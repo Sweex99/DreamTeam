@@ -75,9 +75,9 @@ public class DataBaseDriver {
         return BCrypt.checkpw(password, passwordTextContent);
     }
 
-    public void registration(String nicknameValue, String loginValue, String passwordValue) {
+    public boolean registration(String nicknameValue, String loginValue, String passwordValue) {
         if (searchPerson(loginValue)) {
-            return;
+            return false;
         } else {
             Node persons = document.getDocumentElement();
 
@@ -108,6 +108,7 @@ public class DataBaseDriver {
             persons.appendChild(person);
 
             updateXmlDocument();
+            return true;
         }
     }
 

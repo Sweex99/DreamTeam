@@ -5,12 +5,12 @@ public class TestContent {
     private String[] answers = new String[4];
     private int correctAnswer;
 
-    public void setAnswers(String answer, int i) {
-        this.answers[i] = answer;
+    public void setAnswers(String[] answer) {
+        this.answers = answer;
     }
 
-    public String getAnswers(int i) {
-        return answers[i];
+    public String[] getAnswers() {
+        return answers;
     }
 
     public int getCorrectAnswer() {
