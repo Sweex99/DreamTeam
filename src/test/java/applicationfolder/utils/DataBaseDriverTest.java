@@ -19,7 +19,7 @@ public class DataBaseDriverTest {
 
     @Test
     public void shouldBeFalseWhenNotCreateNewUserWithExistingLogin() throws Exception {
-        assertTrue(dataBaseDriver.registration("foo", "login", "password"));
+        dataBaseDriver.registration("foo", "login", "password");
         assertFalse(dataBaseDriver.registration("bar", "login", "12345"));
 
     }
