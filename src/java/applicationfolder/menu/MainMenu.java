@@ -22,6 +22,7 @@ public class MainMenu {
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
+    private final String mainMenuButtonStyleClass = "button";
 
     public void setting(Stage primaryStage){
         StackPane root = new StackPane();
@@ -493,16 +494,16 @@ public class MainMenu {
         Button goTesting = new Button("Go Testing");
         Label testTesting = new Label("Перейшовши по цій кнопці ви порпте на меню. Де ви можете вибрати мову по якій хочете пройти тест");
         testTesting.getStyleClass().add("labelTesting");
-        goTesting.getStyleClass().add("button");
+        goTesting.getStyleClass().add(mainMenuButtonStyleClass);
 
         Button goStudy = new Button("Go study");
         Label testStudy = new Label("Чогось не знаєте? Перейдіть по цій кнопці, та виберіть мову і тему яку ви не розумієте");
-        goStudy.getStyleClass().add("button");
+        goStudy.getStyleClass().add(mainMenuButtonStyleClass);
         testStudy.getStyleClass().add("labelStudy");
 
         Button createTest = new Button("Create Test");
         Label testCreateTest = new Label("Бажаєте провірити друга? Можете створити свої тести і дати пройти його своєму другові)))");
-        createTest.getStyleClass().add("button");
+        createTest.getStyleClass().add(mainMenuButtonStyleClass);
         testCreateTest.getStyleClass().add("labelTesting");
 
         Button exit = new Button("");
@@ -516,7 +517,7 @@ public class MainMenu {
 
         Button user = new Button("User file Test");
         Label testUser = new Label("Якщо у вас є готовий файл з тестами! То ви можете загрузити в програму перейшовши по цій кнопці");
-        user.getStyleClass().add("button");
+        user.getStyleClass().add(mainMenuButtonStyleClass);
         testUser.getStyleClass().add("labelStudy");
 
         Label label12 = new Label();
