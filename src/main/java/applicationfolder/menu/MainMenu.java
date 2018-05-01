@@ -22,10 +22,14 @@ public class MainMenu {
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
+
     private static final String SETTING_LABEL_GREEN_STYLE = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
     private static final String SETTING_LABEL_RED_STYLE = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
     private static final String SETTING_RED_LABEL = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
     private static final String SETTING_LABEL_RED = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String CONFIRM_SAVE_DATA = "Ваші дані збережені";
+    private static final String REGISTRATION_LABEL_STYLE = "-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;";
+
 
     public void setting(Stage primaryStage){
         StackPane root = new StackPane();
@@ -40,7 +44,7 @@ public class MainMenu {
 
         Button save = new Button("Зберегти");
 
-        Label alertData = new Label("Ваші дані успішно збережені");
+        Label alertData = new Label(CONFIRM_SAVE_DATA);
         alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
         alertData.setVisible(false);
 
@@ -121,7 +125,7 @@ public class MainMenu {
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
-                    alertData.setText("Ваші дані збережені");
+                    alertData.setText(CONFIRM_SAVE_DATA);
                     alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
@@ -129,13 +133,13 @@ public class MainMenu {
             else {
                 dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
                 if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
-                    alertData.setText("Ваші дані збережені");
+                    alertData.setText(CONFIRM_SAVE_DATA);
                     alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
-                    alertData.setText("Ваші дані збережені");
+                    alertData.setText(CONFIRM_SAVE_DATA);
                     alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
@@ -193,22 +197,22 @@ public class MainMenu {
         TextField inputFName = new TextField();
         inputFName.getStyleClass().add("field");
         Label firstName = new Label("Ваше Ім'я");
-        firstName.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        firstName.setStyle(REGISTRATION_LABEL_STYLE);
 
         TextField inputLName = new TextField();
         inputLName.getStyleClass().add("field");
         Label lastName = new Label("Прізвище");
-        lastName.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        lastName.setStyle(REGISTRATION_LABEL_STYLE);
 
         TextField inputLogin = new TextField();
         inputLogin.getStyleClass().add("field");
         Label labelLogin = new Label("Логін");
-        labelLogin.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        labelLogin.setStyle(REGISTRATION_LABEL_STYLE);
 
         PasswordField inputPassword = new PasswordField();
         inputPassword.getStyleClass().add("field");
         Label labelPassword = new Label("Пароль");
-        labelPassword.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        labelPassword.setStyle(REGISTRATION_LABEL_STYLE);
 
         Button next = new Button("Дальше");
         next.getStyleClass().add("login");
@@ -220,11 +224,11 @@ public class MainMenu {
         errorsLabel.setVisible(false);
 
         Label secretQuestion = new Label("Секретне питання: ");
-        secretQuestion.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        secretQuestion.setStyle(REGISTRATION_LABEL_STYLE);
         secretQuestion.setVisible(false);
 
         Label answerQuestion = new Label("Відповідь на питання: ");
-        answerQuestion.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        answerQuestion.setStyle(REGISTRATION_LABEL_STYLE);
         answerQuestion.setVisible(false);
 
         ObservableList<String> options =
@@ -406,12 +410,12 @@ public class MainMenu {
         TextField loginField = new TextField();
         Label loginLabel = new Label("Логін: ");
         loginField.getStyleClass().add("field");
-        loginLabel.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        loginLabel.setStyle(REGISTRATION_LABEL_STYLE);
 
         PasswordField passwordField = new PasswordField();
         passwordField.getStyleClass().add("field");
         Label passwordLabel = new Label("Пароль: ");
-        passwordLabel.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;");
+        passwordLabel.setStyle(REGISTRATION_LABEL_STYLE);
 
         Button loginButton = new Button("Вхід");
         loginButton.setDefaultButton(true);
