@@ -41,7 +41,7 @@ public class TestCreatorTest extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         TestCreator testCreator = new TestCreator();
         testCreator.createFileWindow(stage);
-        scene = testCreator.getScene();
+        //scene = testCreator.getScene();
         stage.toFront();
     }
 }
