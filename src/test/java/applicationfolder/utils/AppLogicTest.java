@@ -28,11 +28,6 @@ public class AppLogicTest {
         assertEquals(10, list.size());
     }
 
-    @Test
-    public void e() throws Exception {
-
-    }
-
     @Test(expected = RuntimeException.class)
     public void shouldThrowException() throws Exception {
         appLogic.testing("not_found_file", false);
