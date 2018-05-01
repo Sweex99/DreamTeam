@@ -30,12 +30,12 @@ public class TestCreatorTest extends ApplicationTest {
 //        clickOn(button);
 //    }
 
-    @Test
-    public void t() throws Exception {
-        Parent root = scene.getRoot();
-        clickOn("");
-        write("Hello");
-    }
+//    @Test
+//    public void t() throws Exception {
+//        Parent root = scene.getRoot();
+//        clickOn("");
+//        write("Hello");
+//    }
     
     @Override
     public void start(Stage stage) throws Exception {
