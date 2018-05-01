@@ -22,10 +22,10 @@ public class MainMenu {
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
-    private static final String settingLabelGreenStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
-    private static final String settingLabelRedStyle = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
-    private static final String settingRedLabel = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
-    private static final String settingLabelRed = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String SETTING_LABEL_GREEN_STYLE = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String SETTING_LABEL_RED_STYLE = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String SETTING_RED_LABEL = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String SETTING_LABEL_RED = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
 
     public void setting(Stage primaryStage){
         StackPane root = new StackPane();
@@ -41,14 +41,14 @@ public class MainMenu {
         Button save = new Button("Зберегти");
 
         Label alertData = new Label("Ваші дані успішно збережені");
-        alertData.setStyle(settingLabelGreenStyle);
+        alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
         alertData.setVisible(false);
 
         Label redLabelData = new Label();
-        redLabelData.setStyle(settingRedLabel);
+        redLabelData.setStyle(SETTING_RED_LABEL);
 
         Label redLabelSystemData = new Label();
-        redLabelSystemData.setStyle(settingRedLabel);
+        redLabelSystemData.setStyle(SETTING_RED_LABEL);
 
         Label youData = new Label("Ваші дані");
 
@@ -116,13 +116,13 @@ public class MainMenu {
             if(youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])){
                 if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ви не ввели нові дані");
-                    alertData.setStyle(settingLabelRedStyle);
+                    alertData.setStyle(SETTING_LABEL_RED_STYLE);
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle(settingLabelGreenStyle);
+                    alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
             }
@@ -130,25 +130,25 @@ public class MainMenu {
                 dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
                 if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle(settingLabelGreenStyle);
+                    alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle(settingLabelGreenStyle);
+                    alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
                     alertData.setVisible(true);
                 }
             }
         });
 
         redLabelData.setOnMouseClicked(event -> {
-            redLabelData.setStyle(settingLabelRed);
-            redLabelSystemData.setStyle(settingRedLabel);
+            redLabelData.setStyle(SETTING_LABEL_RED);
+            redLabelSystemData.setStyle(SETTING_RED_LABEL);
         });
         redLabelSystemData.setOnMouseClicked(event -> {
-            redLabelData.setStyle(settingRedLabel);
-            redLabelSystemData.setStyle(settingLabelRed);
+            redLabelData.setStyle(SETTING_RED_LABEL);
+            redLabelSystemData.setStyle(SETTING_LABEL_RED);
         });
 
 
