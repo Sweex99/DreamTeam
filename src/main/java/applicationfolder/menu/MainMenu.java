@@ -22,6 +22,10 @@ public class MainMenu {
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
+    private static final String settingLabelGreenStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String settingLabelRedStyle = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String settingRedLabel = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String settingLabelRed = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
 
     public void setting(Stage primaryStage){
         StackPane root = new StackPane();
@@ -37,14 +41,14 @@ public class MainMenu {
         Button save = new Button("Зберегти");
 
         Label alertData = new Label("Ваші дані успішно збережені");
-        alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+        alertData.setStyle(settingLabelGreenStyle);
         alertData.setVisible(false);
 
         Label redLabelData = new Label();
-        redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+        redLabelData.setStyle(settingRedLabel);
 
         Label redLabelSystemData = new Label();
-        redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+        redLabelSystemData.setStyle(settingRedLabel);
 
         Label youData = new Label("Ваші дані");
 
@@ -112,13 +116,13 @@ public class MainMenu {
             if(youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])){
                 if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ви не ввели нові дані");
-                    alertData.setStyle("-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setStyle(settingLabelRedStyle);
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setStyle(settingLabelGreenStyle);
                     alertData.setVisible(true);
                 }
             }
@@ -126,25 +130,25 @@ public class MainMenu {
                 dataBaseDriver.editNickname(youName.getText() + " " + youLName.getText());
                 if(youPassword.getText().equals("") && confirmPassword.getText().equals("")){
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setStyle(settingLabelGreenStyle);
                     alertData.setVisible(true);
                 }
                 else{
                     dataBaseDriver.editPassword(confirmPassword.getText());
                     alertData.setText("Ваші дані збережені");
-                    alertData.setStyle("-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px");
+                    alertData.setStyle(settingLabelGreenStyle);
                     alertData.setVisible(true);
                 }
             }
         });
 
         redLabelData.setOnMouseClicked(event -> {
-            redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
-            redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelData.setStyle(settingLabelRed);
+            redLabelSystemData.setStyle(settingRedLabel);
         });
         redLabelSystemData.setOnMouseClicked(event -> {
-            redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;");
-            redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelData.setStyle(settingRedLabel);
+            redLabelSystemData.setStyle(settingLabelRed);
         });
 
 
@@ -602,7 +606,7 @@ public class MainMenu {
             System.out.print(pathOfFile);
             if (pathOfFile != null) {
                 testGUI.playTest(dataBaseDriver, primaryStage, pathOfFile, false);
-        }
+            }
         });
         settings.setOnMouseEntered(event -> {
             title.setText("Настройки");
