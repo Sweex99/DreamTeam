@@ -14,6 +14,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataBaseDriver {
     private Document document;
@@ -21,6 +23,7 @@ public class DataBaseDriver {
     private int id;
     private Node user;
     private static final String XML_NAME = "database/users.xml";
+    private Logger logger = Logger.getLogger("Logger");
 
     public DataBaseDriver() {
         try {
@@ -158,7 +161,7 @@ public class DataBaseDriver {
             if (!xmlFile.exists()) {
                 boolean isCreate = xmlFile.createNewFile();
                 if (!isCreate) {
-                    System.err.println("Error! File is not created!");
+                    logger.info("Error! File is not created!");
                 }
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(XML_NAME))) {
                     bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><persons></persons>");

@@ -19,15 +19,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.awt.*;
 import java.net.URI;
 import java.util.List;
+import java.util.Random;
+
 import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
     private DataBaseDriver dataBaseDriver;
     private int i = 0;
     private int result = 0;
+
+    private static final String TOGGLE_BUTTON_STYLE_CLASS = "button";
+    private static final String BUTTON_CLICK_STYLE = "-fx-background-color: #1d1d1d;-fx-text-fill: white;";
 
     public void playTest(DataBaseDriver dataBaseDriver, Stage primaryStage, String fileName, boolean isResource) {
         this.dataBaseDriver = dataBaseDriver;
@@ -65,9 +71,7 @@ public class TestGUI extends AppLogic {
         title.setTranslateX(10);
         title.setTranslateY(5);
 
-        back.setOnAction(event -> {
-            main.menuLanguageBackground(dataBaseDriver, primaryStage);
-        });
+        back.setOnAction(event -> main.menuLanguageBackground(dataBaseDriver, primaryStage));
 
         titleBox.getChildren().addAll(title);
         questionBox.getChildren().addAll(question);
@@ -78,22 +82,22 @@ public class TestGUI extends AppLogic {
         ToggleGroup group = new ToggleGroup();
         ToggleButton rb1 = new ToggleButton();
         rb1.setToggleGroup(group);
-        rb1.getStyleClass().add("button");
+        rb1.getStyleClass().add(TOGGLE_BUTTON_STYLE_CLASS);
         rb1.setTextOverrun(OverrunStyle.CLIP);
         rb1.setWrapText(true);
         ToggleButton rb2 = new ToggleButton();
         rb2.setToggleGroup(group);
-        rb2.getStyleClass().add("button");
+        rb2.getStyleClass().add(TOGGLE_BUTTON_STYLE_CLASS);
         rb2.setTextOverrun(OverrunStyle.CLIP);
         rb2.setWrapText(true);
         ToggleButton rb3 = new ToggleButton();
         rb3.setToggleGroup(group);
-        rb3.getStyleClass().add("button");
+        rb3.getStyleClass().add(TOGGLE_BUTTON_STYLE_CLASS);
         rb3.setTextOverrun(OverrunStyle.CLIP);
         rb3.setWrapText(true);
         ToggleButton rb4 = new ToggleButton();
         rb4.setToggleGroup(group);
-        rb4.getStyleClass().add("button");
+        rb4.getStyleClass().add(TOGGLE_BUTTON_STYLE_CLASS);
         rb4.setTextOverrun(OverrunStyle.CLIP);
         rb4.setWrapText(true);
         rb1.setUserData(1);
@@ -167,19 +171,16 @@ public class TestGUI extends AppLogic {
         progress.getChildren().addAll(progressBar);
         subroot.setBottom(progress);
 
-        submit.setOnMouseEntered(event -> {
-            submit.setStyle("-fx-background-color: #3a3a3a");
+        submit.setOnMouseEntered(event -> submit.setStyle("-fx-background-color: #3a3a3a"));
+
+        submit.setOnMouseExited(event -> submit.setStyle("-fx-background-color: #1d1d1d"));
+
+        submit.setOnAction(event -> {
+            submit.getStyleClass().add("nextQuestion");
+            submit.setText("Підтвердити (Enter)");
+            doCorrect(youAnswer, primaryStage, fileName, isResource, title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
         });
-        submit.setOnMouseExited(event -> {
-            submit.setStyle("-fx-background-color: #1d1d1d");
-        });
-        {
-            submit.setOnAction(event -> {
-                submit.getStyleClass().add("nextQuestion");
-                submit.setText("Підтвердити (Enter)");
-                Correct(youAnswer, primaryStage, fileName, isResource, title, progressBar, question, group, rb1, rb2, rb3, rb4, submit);
-            });
-        }
+
         Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add("/css/style.css");
         primaryStage.setResizable(false);
@@ -191,17 +192,18 @@ public class TestGUI extends AppLogic {
         primaryStage.show();
     }
 
-    private void Correct(Label youAnswer, Stage primaryStage, String fileName, boolean isResource
+
+    private void doCorrect(Label youAnswer, Stage primaryStage, String fileName, boolean isResource
             , Text title, ProgressBar progressBar, Text question, ToggleGroup group, ToggleButton rb1,
                          ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
         List<TestContent> arguments = testing(fileName, isResource);
         nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
-        int correct = (int)group.getSelectedToggle().getUserData();
+        int correct = (int) group.getSelectedToggle().getUserData();
 
         submit.setOnAction(event -> {
             clickButton(false, rb1, rb2, rb3, rb4);
             youAnswer.setText("");
-            if(correct > 0) {
+            if (correct > 0) {
                 if (correct == arguments.get(i).getCorrectAnswer()) {
                     result++;
                 }
@@ -248,27 +250,26 @@ public class TestGUI extends AppLogic {
         });
     }
 
-    private void clickButton(boolean bool, ToggleButton...rb){
-        if(bool) {
+    private void clickButton(boolean bool, ToggleButton... rb) {
+        if (bool) {
             rb[0].setStyle("-fx-background-color: white;-fx-text-fill: #1d1d1d;");
-            rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-            rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-            rb[3].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-        }
-        else{
-            rb[0].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-            rb[1].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-            rb[2].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
-            rb[3].setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white;");
+            rb[1].setStyle(BUTTON_CLICK_STYLE);
+            rb[2].setStyle(BUTTON_CLICK_STYLE);
+            rb[3].setStyle(BUTTON_CLICK_STYLE);
+        } else {
+            rb[0].setStyle(BUTTON_CLICK_STYLE);
+            rb[1].setStyle(BUTTON_CLICK_STYLE);
+            rb[2].setStyle(BUTTON_CLICK_STYLE);
+            rb[3].setStyle(BUTTON_CLICK_STYLE);
         }
     }
 
     private String movingLine(String str) {
-        StringBuffer sb = new StringBuffer(str);
+        StringBuffer stringBuilder = new StringBuffer(str);
         for (int i = 50; i < str.length(); i += 50) {
-            sb.insert(i, "-\n");
+            stringBuilder.insert(i, "-\n");
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 
     public void finalScore(Stage primaryStage) {
@@ -317,7 +318,8 @@ public class TestGUI extends AppLogic {
 
             try {
                 List<String> links = readLines(getClass().getResourceAsStream("/texts/links.txt"), "UTF-8");
-                int randIndex = (int) (Math.random() * links.size());
+                Random random = new Random();
+                int randIndex =  random.nextInt(links.size());
                 URI uri = new URI(links.get(randIndex));
                 Desktop.getDesktop().browse(uri);
             } catch (Exception e) {
