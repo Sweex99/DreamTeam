@@ -12,19 +12,22 @@ import javafx.stage.Stage;
 public class MenuLanguage {
     private StackPane root = new StackPane();
     private TestGUI testGUI = new TestGUI();
+    private static final String BUTTON_STYLE_CLASS = "button";
+    private static final String BUTTON_STYLE = "-fx-background-color: #1d1d1d;-fx-text-fill: white";
+    private static final String URL_TEXT = "/texts/";
 
     public void menuLanguageBackground(DataBaseDriver dataBaseDriver, Stage primaryStage) {
         MainMenu main = new MainMenu();
 
         //////////////////////////////////button_settings////////////////////////////////////////////////
         Button java = new Button("Java");
-        java.getStyleClass().add("button");
+        java.getStyleClass().add(BUTTON_STYLE_CLASS);
         Button cpp = new Button("C++");
-        cpp.getStyleClass().add("button");
+        cpp.getStyleClass().add(BUTTON_STYLE_CLASS);
         Button web = new Button("HTML/CSS");
-        web.getStyleClass().add("button");
+        web.getStyleClass().add(BUTTON_STYLE_CLASS);
         Button php = new Button("PHP");
-        php.getStyleClass().add("button");
+        php.getStyleClass().add(BUTTON_STYLE_CLASS);
         Button back = new Button();
         back.getStyleClass().add("back");
 
@@ -118,10 +121,10 @@ public class MenuLanguage {
             main.appearanceMenu(primaryStage);
         });
         root.setOnMouseClicked(event -> {
-            java.setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white");
-            cpp.setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white");
-            web.setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white");
-            php.setStyle("-fx-background-color: #1d1d1d;-fx-text-fill: white");
+            java.setStyle(BUTTON_STYLE);
+            cpp.setStyle(BUTTON_STYLE);
+            web.setStyle(BUTTON_STYLE);
+            php.setStyle(BUTTON_STYLE);
             textLabel.setVisible(false);
             buton1.setVisible(false);
             buton2.setVisible(false);
@@ -147,9 +150,9 @@ public class MenuLanguage {
         buttons[1].setVisible(true);
         buttons[2].setVisible(true);
         buttons[3].setVisible(true);
-        buttons[1].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_easy.txt", true));
-        buttons[2].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_middle.txt", true));
-        buttons[3].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, "/texts/"+lang+"/"+lang+"_hard.txt", true));
+        buttons[1].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, URL_TEXT + lang+"/"+lang+"_easy.txt", true));
+        buttons[2].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, URL_TEXT + lang+"/"+lang+"_middle.txt", true));
+        buttons[3].setOnAction(event1 -> testGUI.playTest(dataBaseDriver, primaryStage, URL_TEXT + lang+"/"+lang+"_hard.txt", true));
     }
     private void animationMenu(Button...buttons){
         for(int i = 0;i < 3; i++){
