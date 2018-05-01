@@ -22,9 +22,10 @@ public class MainMenu {
     private WindowStudy windowStudy = new WindowStudy();
     private VBox vBox = new VBox();
     private DataBaseDriver dataBaseDriver = new DataBaseDriver();
-    private final String settingLabelGreenStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
-    private final String settingLabelRedStyle = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
-    private final String settingRedLabel = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String settingLabelGreenStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String settingLabelRedStyle = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+    private static final String settingRedLabel = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+    private static final String settingLabelRed = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
 
     public void setting(Stage primaryStage){
         StackPane root = new StackPane();
@@ -142,12 +143,12 @@ public class MainMenu {
         });
 
         redLabelData.setOnMouseClicked(event -> {
-            redLabelData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelData.setStyle(settingLabelRed);
             redLabelSystemData.setStyle(settingRedLabel);
         });
         redLabelSystemData.setOnMouseClicked(event -> {
             redLabelData.setStyle(settingRedLabel);
-            redLabelSystemData.setStyle("-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;");
+            redLabelSystemData.setStyle(settingLabelRed);
         });
 
 
