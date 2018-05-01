@@ -1,6 +1,5 @@
 package applicationfolder.menu;
 
-import applicationfolder.utils.DataBaseDriver;
 import applicationfolder.utils.WindowMessage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -175,7 +174,7 @@ public class TestCreator {
         }
     }
 
-    private String writeText(int selectedVariant, String question, String...answers) {
+    private String writeText(int selectedVariant, String question, String... answers) {
         final String trueTarget = "!true!";
 
         answers[selectedVariant] += trueTarget;
