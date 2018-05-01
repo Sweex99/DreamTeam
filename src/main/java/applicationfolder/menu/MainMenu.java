@@ -32,6 +32,7 @@ public class MainMenu {
     private static final String REGISTRATION_LABEL_STYLE = "-fx-text-fill: #e2e2e2;-fx-font-size: 11pt;";
     private static final String MAIN_FIELD_STYLE_CLASS = "field";
     private static final String MAIN_PANE_STYLE_CLASS = "background";
+    private static final String MAIN_MENU_BUTTON_STYLE_CLASS = "button";
     private static final String PATH_ICON_LOGO  = "images/main_icon3.png";
     private static final String PATH_STYLE_SHEETS = "/css/style.css";
 
@@ -310,12 +311,8 @@ public class MainMenu {
         thirdStep.setTranslateX(310);
 
         back.setOnAction(event -> authorization(primaryStage) );
-        next.setOnMouseEntered(event -> {
-            next.setStyle("-fx-background-color: #3a3a3a;");
-        });
-        next.setOnMouseExited(event -> {
-            next.setStyle("-fx-background-color: #1d1d1d");
-        });
+        next.setOnMouseEntered(event -> next.setStyle("-fx-background-color: #3a3a3a;"));
+        next.setOnMouseExited(event -> next.setStyle("-fx-background-color: #1d1d1d"));
 
         errorsLabel.setText("Заповніть всі поля форми реєстрації");
         errorsLabel.setStyle("-fx-border-color: green;-fx-pref-height: 35px;-fx-pref-width: 300px;-fx-text-fill: green;-fx-padding: 0 0 0 45");
@@ -443,12 +440,8 @@ public class MainMenu {
 
         errorsLabel.setTranslateY(120);
 
-        loginButton.setOnMouseEntered(event -> {
-            loginButton.setStyle("-fx-background-color: #3a3a3a;");
-        });
-        loginButton.setOnMouseExited(event -> {
-            loginButton.setStyle("-fx-background-color: #1d1d1d");
-        });
+        loginButton.setOnMouseEntered(event -> loginButton.setStyle("-fx-background-color: #3a3a3a;"));
+        loginButton.setOnMouseExited(event -> loginButton.setStyle("-fx-background-color: #1d1d1d"));
 
         loginButton.setOnAction((ActionEvent event) -> {
             loginButton.setStyle("-fx-background-color: #3a3a3a; -fx-text-fill: #1d1d1d");
@@ -457,10 +450,10 @@ public class MainMenu {
                 errorsLabel.setVisible(true);
             } else {
                 errorsLabel.setVisible(false);
-                String log_in = loginField.getText();
+                String logIn = loginField.getText();
                 String password = passwordField.getText();
 
-                if (dataBaseDriver.authorization(log_in, password)) {
+                if (dataBaseDriver.authorization(logIn, password)) {
                     primaryStage.close();
                     appearanceMenu(primaryStage);
                 } else {
@@ -470,9 +463,7 @@ public class MainMenu {
             }
 
         });
-        registration.setOnAction(event -> {
-            registration(primaryStage);
-        });
+        registration.setOnAction(event -> registration(primaryStage));
 
         root.getChildren().addAll(errorsLabel, login, loginButton, loginField, loginLabel, passwordField, passwordLabel, registration);
 
@@ -497,16 +488,16 @@ public class MainMenu {
         Button goTesting = new Button("Go Testing");
         Label testTesting = new Label("Перейшовши по цій кнопці ви порпте на меню. Де ви можете вибрати мову по якій хочете пройти тест");
         testTesting.getStyleClass().add("labelTesting");
-        goTesting.getStyleClass().add("button");
+        goTesting.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
 
         Button goStudy = new Button("Go study");
         Label testStudy = new Label("Чогось не знаєте? Перейдіть по цій кнопці, та виберіть мову і тему яку ви не розумієте");
-        goStudy.getStyleClass().add("button");
+        goStudy.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testStudy.getStyleClass().add("labelStudy");
 
         Button createTest = new Button("Create Test");
         Label testCreateTest = new Label("Бажаєте провірити друга? Можете створити свої тести і дати пройти його своєму другові)))");
-        createTest.getStyleClass().add("button");
+        createTest.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testCreateTest.getStyleClass().add("labelTesting");
 
         Button exit = new Button("");
@@ -520,17 +511,15 @@ public class MainMenu {
 
         Button user = new Button("User file Test");
         Label testUser = new Label("Якщо у вас є готовий файл з тестами! То ви можете загрузити в програму перейшовши по цій кнопці");
-        user.getStyleClass().add("button");
+        user.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testUser.getStyleClass().add("labelStudy");
 
         Label label12 = new Label();
         label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
         label12.setText(dataBaseDriver.getNickname());
-        label12.setOnMouseClicked(event -> {
-            WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseDriver.getTestings() + "\n"
-                    + "Відсоток правильний відповідей: " + dataBaseDriver.getPercent() + " %");
-        });
+        label12.setOnMouseClicked(event -> WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseDriver.getTestings() + "\n"
+                    + "Відсоток правильний відповідей: " + dataBaseDriver.getPercent() + " %"));
         Label title = new Label();
         title.setStyle("-fx-text-fill: white");
 
@@ -593,17 +582,13 @@ public class MainMenu {
             primaryStage.close();
             windowStudy.startStudy(dataBaseDriver, primaryStage);
         });
-        createTest.setOnAction(event -> {
-
-            testCreator.createFileWindow(primaryStage);
-        });
+        createTest.setOnAction(event -> testCreator.createFileWindow(primaryStage));
         exit.setOnAction(event -> {
             primaryStage.close();
             System.exit(0);
         });
         user.setOnAction(event -> {
             String pathOfFile = userTest.getPathOfChosenFile(primaryStage);
-            System.out.print(pathOfFile);
             if (pathOfFile != null) {
                 testGUI.playTest(dataBaseDriver, primaryStage, pathOfFile, false);
             }
@@ -613,33 +598,22 @@ public class MainMenu {
             title.setTranslateX(-330);
             title.setTranslateY(-270);
         });
-        settings.setOnMouseExited(event -> {
-            title.setText("");
-        });
-        settings.setOnAction(event -> {
-//
-            setting(primaryStage);
-        });
-        swapAccount.setOnAction(event -> {
-            authorization(primaryStage);
-        });
+        settings.setOnMouseExited(event -> title.setText(""));
+        settings.setOnAction(event -> setting(primaryStage));
+        swapAccount.setOnAction(event -> authorization(primaryStage));
         swapAccount.setOnMouseEntered(event -> {
             title.setText("Зміна Користувача");
             title.setTranslateX(-300);
             title.setTranslateY(-270);
         });
-        swapAccount.setOnMouseExited(event -> {
-            title.setText("");
-        });
+        swapAccount.setOnMouseExited(event -> title.setText(""));
         exit.setOnMouseEntered(event -> {
             title.setText("Вихід");
             title.setTranslateX(-275);
             title.setTranslateY(-270);
             exit.setStyle("-fx-background-color: transparent");
         });
-        exit.setOnMouseExited(event -> {
-            title.setText("");
-        });
+        exit.setOnMouseExited(event -> title.setText(""));
 
         Scene scene = new Scene(root, 900, 600);
 
