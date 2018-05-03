@@ -68,11 +68,10 @@ public class TestCreatorTest extends ApplicationTest {
     }
 
     static {
-        if (!Boolean.getBoolean("headfull")) {
             System.setProperty("testfx.robot", "glass");
             System.setProperty("testfx.headless", "true");
             System.setProperty("prism.order", "sw");
             System.setProperty("prism.text", "t2k");
-        }
+            System.setProperty("prism.verbose", "true");
     }
 }

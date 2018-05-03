@@ -41,9 +41,9 @@ dependencies {
     testRuntime("org.testfx:openjfx-monocle:1.8.0_20")
 }
 
-test {
-    jvmArgs "-Dheadfull=${project.hasProperty('headfull') ? project.headfull : false}"
-}
+//test {
+//    jvmArgs "-Dheadfull=${project.hasProperty('headfull') ? project.headfull : false}"
+//}
 
 jar {
     from configurations.compile.collect { zipTree it }
@@ -68,5 +68,5 @@ pitest {
     timestampedReports = false
 }
 
-test.finalizedBy jacocoTestReport
-test.finalizedBy 'pitest'
+//test.finalizedBy jacocoTestReport
+//test.finalizedBy 'pitest'
