@@ -66,4 +66,13 @@ public class TestCreatorTest extends ApplicationTest {
         TestCreator testCreator = new TestCreator();
         testCreator.createFileWindow(stage);
     }
+
+    static {
+        if (!Boolean.getBoolean("headfull")) {
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+            System.setProperty("prism.text", "t2k");
+        }
+    }
 }
