@@ -68,5 +68,5 @@ pitest {
     timestampedReports = false
 }
 
-//test.finalizedBy jacocoTestReport
-//test.finalizedBy 'pitest'
+test.finalizedBy jacocoTestReport
+test.finalizedBy 'pitest'
