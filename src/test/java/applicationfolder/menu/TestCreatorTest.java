@@ -2,6 +2,7 @@ package applicationfolder.menu;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -44,17 +45,37 @@ public class TestCreatorTest extends ApplicationTest {
     }
 
     @Test
+    public void shouldAnyRadioBeInSameToggleGroup() throws Exception {
+        RadioButton firstRadioButton = lookup("#rbIsTrueVariant1").query();
+        ToggleGroup expectedToggleGroup = firstRadioButton.getToggleGroup();
+        for (int i = 2; i <= 4; i++) {
+            RadioButton otherRadioButton = lookup("#rbIsTrueVariant" + i).query();
+            assertEquals(expectedToggleGroup, otherRadioButton.getToggleGroup());
+        }
+    }
+
+    @Test
+    public void shouldAnyLabelHasSameColorStyle() throws Exception {
+        final String expectedColorStyle = "-fx-text-fill: white";
+
+        Label label = lookup("#lblQuestionText").query();
+        assertEquals(expectedColorStyle, label.getStyle());
+        for (int i = 1; i <= 4; i++) {
+            label = lookup("#lblAnswerText" + i).query();
+            assertEquals(expectedColorStyle, label.getStyle());
+        }
+    }
+
+    @Test
     public void shouldIncreaseCountValueOfLabel() throws Exception {
         clickOn("#txtQuestion");
         write("Foo");
-        clickOn("#txtAnswer1");
-        write("bar");
-        clickOn("#txtAnswer2");
-        write("bar");
-        clickOn("#txtAnswer3");
-        write("bar");
-        clickOn("#txtAnswer4");
-        write("bar");
+
+        for(int i = 1; i <= 4; i++) {
+            clickOn("#txtAnswer" + i);
+            write("bar");
+        }
+
         clickOn("#btnAdd");
         Label label = lookup("#lblQuestionText").query();
         assertEquals("Внесено питань: 1", label.getText());
