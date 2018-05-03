@@ -42,6 +42,10 @@ public class DataBaseDriverTest {
     @Test
     public void shouldBeFalseWhenNotFoundPerson() throws Exception {
         assertFalse(dataBaseDriver.searchPerson("foo"));
+    }
+
+    @Test
+    public void shouldBeTrueWhenFoundPerson() throws Exception {
         assertTrue(dataBaseDriver.searchPerson("login"));
     }
 }

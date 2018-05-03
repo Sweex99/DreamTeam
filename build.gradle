@@ -38,7 +38,6 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
     testCompile("junit:junit:4.12")
     testCompile("org.testfx:testfx-junit:4.0+")
-
 }
 
 jar {

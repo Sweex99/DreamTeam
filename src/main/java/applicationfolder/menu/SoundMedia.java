@@ -20,10 +20,6 @@ import static javafx.util.Duration.*;
 public class SoundMedia {
     private MediaPlayer player;
     private MainMenu mainMenu = new MainMenu();
-    private AudioClip sound = new AudioClip(this.getClass().getResource("/sound/click_sound.mp3").toExternalForm());
-    public void clickSound() {
-        sound.play();
-    }
 
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
@@ -71,12 +67,9 @@ public class SoundMedia {
                         });
                     }));
             timeline.play();
-            player.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
+            player.setOnEndOfMedia(() ->{
                     player.stop();
                     mainMenu.authorization(primaryStage);
-                }
             });
         }
         pressEnter.setTranslateY(180);

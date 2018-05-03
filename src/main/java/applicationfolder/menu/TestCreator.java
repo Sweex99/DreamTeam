@@ -32,14 +32,19 @@ public class TestCreator {
         final String textFieldStyle = "text-field";
 
         Label questionText = new Label("Внесено питань: " + count);
+        questionText.setId("lblQuestionText");
         questionText.setStyle(whiteColorStyle);
         Label answerText1 = new Label("Відповідь 1:");
+        answerText1.setId("lblAnswerText1");
         answerText1.setStyle(whiteColorStyle);
         Label answerText2 = new Label("Відповідь 2:");
+        answerText2.setId("lblAnswerText2");
         answerText2.setStyle(whiteColorStyle);
         Label answerText3 = new Label("Відповідь 3:");
+        answerText3.setId("lblAnswerText3");
         answerText3.setStyle(whiteColorStyle);
         Label answerText4 = new Label("Відповідь 4:");
+        answerText4.setId("lblAnswerText4");
         answerText4.setStyle(whiteColorStyle);
 
         MainMenu mainMenu = new MainMenu();
@@ -60,9 +65,13 @@ public class TestCreator {
         answerBox4.setAlignment(Pos.CENTER);
         ToggleGroup variants = new ToggleGroup();
         RadioButton isTrueVariant1 = new RadioButton();
+        isTrueVariant1.setId("rbIsTrueVariant1");
         RadioButton isTrueVariant2 = new RadioButton();
+        isTrueVariant2.setId("rbIsTrueVariant2");
         RadioButton isTrueVariant3 = new RadioButton();
+        isTrueVariant3.setId("rbIsTrueVariant3");
         RadioButton isTrueVariant4 = new RadioButton();
+        isTrueVariant4.setId("rbIsTrueVariant4");
         isTrueVariant1.setSelected(true);
         isTrueVariant1.setToggleGroup(variants);
         isTrueVariant2.setToggleGroup(variants);
@@ -73,12 +82,15 @@ public class TestCreator {
         isTrueVariant3.setUserData(2);
         isTrueVariant4.setUserData(3);
         Button add = new Button("Add");
+        add.setId("btnAdd");
         Button save = new Button("Save");
+        save.setId("btnSave");
         save.getStyleClass().add("save1");
 
         HBox answerBox = new HBox();
 
         Button back = new Button();
+        back.setId("btnBack");
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
 
@@ -86,19 +98,24 @@ public class TestCreator {
         back.setTranslateX(3);
 
         TextArea question = new TextArea();
+        question.setId("txtQuestion");
         question.getStyleClass().add("addQuestion");
         question.setWrapText(true);
         question.setMaxSize(400, 100);
         TextField answer1 = new TextField();
+        answer1.setId("txtAnswer1");
         answer1.setPrefWidth(250);
         answer1.getStyleClass().add(textFieldStyle);
         TextField answer2 = new TextField();
+        answer2.setId("txtAnswer2");
         answer2.setPrefWidth(250);
         answer2.getStyleClass().add(textFieldStyle);
         TextField answer3 = new TextField();
+        answer3.setId("txtAnswer3");
         answer3.setPrefWidth(250);
         answer3.getStyleClass().add(textFieldStyle);
         TextField answer4 = new TextField();
+        answer4.setId("txtAnswer4");
         answer4.setPrefWidth(250);
         answer4.getStyleClass().add(textFieldStyle);
         answerBox1.getChildren().addAll(answerText1, isTrueVariant1, answer1);
