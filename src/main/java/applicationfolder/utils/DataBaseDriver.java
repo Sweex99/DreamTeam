@@ -39,6 +39,7 @@ public class DataBaseDriver {
     }
 
     public String getNickname() {
+        if (personsList != null) return "";
         return personsList.item(id).getChildNodes().item(0).getTextContent();
     }
 
