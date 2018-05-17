@@ -1,3 +1,4 @@
+/*
 package applicationfolder.utils;
 
 import org.junit.Before;
@@ -33,4 +34,4 @@ public class AppLogicTest {
         appLogic.testing("not_found_file", false);
         appLogic.testing("not_found_file", true);
     }
-}
+}*/
