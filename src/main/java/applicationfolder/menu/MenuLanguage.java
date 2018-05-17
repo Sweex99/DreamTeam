@@ -22,14 +22,19 @@ public class MenuLanguage {
         //////////////////////////////////button_settings////////////////////////////////////////////////
         Button java = new Button("Java");
         java.getStyleClass().add(BUTTON_STYLE_CLASS);
+        java.setId("btnJava");
         Button cpp = new Button("C++");
         cpp.getStyleClass().add(BUTTON_STYLE_CLASS);
+        cpp.setId("btnCpp");
         Button web = new Button("HTML/CSS");
         web.getStyleClass().add(BUTTON_STYLE_CLASS);
+        web.setId("btnWeb");
         Button php = new Button("PHP");
         php.getStyleClass().add(BUTTON_STYLE_CLASS);
-        Button back = new Button();
+        php.setId("btnPhp");
+        Button back = new Button("Back");
         back.getStyleClass().add("back");
+        back.setId("btnBack");
 
         Label label1 = new Label();
         label1.getStyleClass().add("redLine");
@@ -53,16 +58,18 @@ public class MenuLanguage {
         textLabel.setStyle("-fx-text-fill: white;");
 
 
+
         Button buton1 = new Button("easy");
         buton1.getStyleClass().add("button1");
-
+        buton1.setId("btnEasy");
 
         Button buton2 = new Button("middle");
         buton2.getStyleClass().add("button2");
-
+        buton2.setId("btnMiddle");
 
         Button buton3 = new Button("hard");
         buton3.getStyleClass().add("button3");
+        buton3.setId("btnHard");
 
         textLabel.setVisible(false);
         buton1.setVisible(false);

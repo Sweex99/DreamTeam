@@ -42,12 +42,16 @@ public class MainMenu {
         StackPane root = new StackPane();
         root.getStyleClass().add(MAIN_PANE_STYLE_CLASS);
 
-        String[] splitNick;
-        splitNick = dataBaseDriver.getNickname().split(" ");
+        String[] splitNick = new String[2];
+//        if (!dataBaseDriver.getNickname().equals(null)) {}
+        if (!dataBaseDriver.getNickname().equals(null)) {
+            splitNick = dataBaseDriver.getNickname().split(" ");
+        }
 
         Button back = new Button();
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
+        back.setId("btnBack");
 
         Button save = new Button("Зберегти");
 
@@ -123,8 +127,9 @@ public class MainMenu {
             primaryStage.close();
             appearanceMenu(primaryStage);
         });
+        String[] finalSplitNick = splitNick;
         save.setOnAction(event -> {
-            if (youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])) {
+            if (youName.getText().equals(finalSplitNick[0]) && youLName.getText().equals(finalSplitNick[1])) {
                 if (youPassword.getText().equals("") && confirmPassword.getText().equals("")) {
                     alertData.setText("Ви не ввели нові дані");
                     alertData.setStyle(SETTING_LABEL_RED_STYLE);
