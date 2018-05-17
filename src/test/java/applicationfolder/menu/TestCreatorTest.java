@@ -1,24 +1,31 @@
 package applicationfolder.menu;
 
+import applicationfolder.utils.DataBaseDriver;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.junit.After;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
 import static org.apache.commons.io.IOUtils.readLines;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestCreatorTest extends ApplicationTest {
     private TestCreator testCreator;
+
+    @After
+    public void tearDown() throws Exception {
+        File file = new File("database/users.xml");
+        file.delete();
+    }
 
     @Test
     public void shouldThrowAlertAboutNotFilledFields() throws Exception {
@@ -43,12 +50,12 @@ public class TestCreatorTest extends ApplicationTest {
     @Test
     public void shouldBeCorrectAllPositionsOfBoxes() throws Exception {
         for (int i = 1; i <= 4; i++) {
-            HBox answerBox = (HBox)lookup("#lblAnswerText" + i).query().getParent();
+            HBox answerBox = (HBox) lookup("#lblAnswerText" + i).query().getParent();
             assertEquals(Pos.CENTER, answerBox.getAlignment());
         }
-        VBox mainBox = (VBox)lookup("#lblQuestionText").query().getParent();
+        VBox mainBox = (VBox) lookup("#lblQuestionText").query().getParent();
         assertEquals(Pos.CENTER, mainBox.getAlignment());
-        HBox btnBox = (HBox)lookup("#btnSave").query().getParent();
+        HBox btnBox = (HBox) lookup("#btnSave").query().getParent();
         assertEquals(Pos.BOTTOM_RIGHT, btnBox.getAlignment());
     }
 
@@ -59,7 +66,7 @@ public class TestCreatorTest extends ApplicationTest {
             assertEquals(250, answer.getPrefWidth(), 0);
         }
         TextArea question = lookup("#txtQuestion").query();
-        HBox btnBox = (HBox)lookup("#btnSave").query().getParent();
+        HBox btnBox = (HBox) lookup("#btnSave").query().getParent();
         Button back = lookup("#btnBack").query();
         assertTrue(question.isWrapText());
         assertEquals(400, question.getMaxWidth(), 0);
@@ -124,7 +131,7 @@ public class TestCreatorTest extends ApplicationTest {
         clickOn("#txtQuestion");
         write("Foo");
 
-        for(int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 4; i++) {
             clickOn("#txtAnswer" + i);
             write("bar");
         }
@@ -136,11 +143,11 @@ public class TestCreatorTest extends ApplicationTest {
 
     @Test
     public void shouldCreateTstFileWithCorrectContentAfterCreating10Blocks() throws Exception {
-        for(int j = 0; j < 10; j++) {
+        for (int j = 0; j < 10; j++) {
             clickOn("#txtQuestion");
             write("Foo");
 
-            for(int i = 1; i <= 4; i++) {
+            for (int i = 1; i <= 4; i++) {
                 clickOn("#txtAnswer" + i);
                 write("bar");
             }
@@ -160,15 +167,17 @@ public class TestCreatorTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         stage.toFront();
+        DataBaseDriver dataBaseDriver = new DataBaseDriver();
+        dataBaseDriver.registration("test test", "test", "test");
         testCreator = new TestCreator();
         testCreator.createFileWindow(stage);
     }
 
-/*    static {
-            System.setProperty("testfx.robot", "glass");
-            System.setProperty("testfx.headless", "true");
-            System.setProperty("prism.order", "sw");
-            System.setProperty("prism.text", "t2k");
-            System.setProperty("prism.verbose", "true");
-    }*/
+    static {
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+        System.setProperty("prism.verbose", "true");
+    }
 }

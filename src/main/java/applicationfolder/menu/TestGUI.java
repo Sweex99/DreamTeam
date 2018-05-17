@@ -29,7 +29,7 @@ import static org.apache.commons.io.IOUtils.readLines;
 
 public class TestGUI extends AppLogic {
     private DataBaseDriver dataBaseDriver;
-    private int i = 0;
+    private int iter = 0;
     private int result = 0;
 
     private static final String TOGGLE_BUTTON_STYLE_CLASS = "button";
@@ -195,25 +195,25 @@ public class TestGUI extends AppLogic {
 
     private void doCorrect(Label youAnswer, Stage primaryStage, String fileName, boolean isResource
             , Text title, ProgressBar progressBar, Text question, ToggleGroup group, ToggleButton rb1,
-                         ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
+                           ToggleButton rb2, ToggleButton rb3, ToggleButton rb4, Button submit) {
         List<TestContent> arguments = testing(fileName, isResource);
-        nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
+        nextScene(youAnswer, iter, arguments, title, question, rb1, rb2, rb3, rb4);
         int correct = (int) group.getSelectedToggle().getUserData();
 
         submit.setOnAction(event -> {
             clickButton(false, rb1, rb2, rb3, rb4);
             youAnswer.setText("");
             if (correct > 0) {
-                if (correct == arguments.get(i).getCorrectAnswer()) {
+                if (correct == arguments.get(iter).getCorrectAnswer()) {
                     result++;
                 }
-                if (i >= 9) {
+                if (iter >= 9) {
 
                     finalScore(primaryStage);
                 } else {
                     progressBar.setProgress(progressBar.getProgress() + 0.1);
-                    i++;
-                    nextScene(youAnswer, i, arguments, title, question, rb1, rb2, rb3, rb4);
+                    iter++;
+                    nextScene(youAnswer, iter, arguments, title, question, rb1, rb2, rb3, rb4);
                 }
             }
         });
@@ -265,7 +265,7 @@ public class TestGUI extends AppLogic {
     }
 
     private String movingLine(String str) {
-        StringBuffer stringBuilder = new StringBuffer(str);
+        StringBuilder stringBuilder = new StringBuilder(str);
         for (int i = 50; i < str.length(); i += 50) {
             stringBuilder.insert(i, "-\n");
         }

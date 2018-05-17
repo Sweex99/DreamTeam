@@ -1,8 +1,11 @@
 package applicationfolder.utils;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
@@ -15,13 +18,19 @@ public class DataBaseDriverTest {
     @Before
     public void setUp() throws Exception {
         dataBaseDriver = new DataBaseDriver();
+        dataBaseDriver.registration("test test", "test", "test");
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        File file = new File("database/users.xml");
+        file.delete();
     }
 
     @Test
     public void shouldBeFalseWhenNotCreateNewUserWithExistingLogin() throws Exception {
         dataBaseDriver.registration("foo", "login", "password");
         assertFalse(dataBaseDriver.registration("bar", "login", "12345"));
-
     }
 
     @Test
@@ -46,6 +55,6 @@ public class DataBaseDriverTest {
 
     @Test
     public void shouldBeTrueWhenFoundPerson() throws Exception {
-        assertTrue(dataBaseDriver.searchPerson("login"));
+        assertTrue(dataBaseDriver.searchPerson("test"));
     }
 }

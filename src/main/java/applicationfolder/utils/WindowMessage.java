@@ -3,7 +3,6 @@ package applicationfolder.utils;
 import javafx.scene.control.Alert;
 
 public class WindowMessage {
-
     private WindowMessage(){
         throw new IllegalStateException("Utility class");
     }

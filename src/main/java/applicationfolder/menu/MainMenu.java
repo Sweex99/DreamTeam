@@ -42,48 +42,59 @@ public class MainMenu {
         StackPane root = new StackPane();
         root.getStyleClass().add(MAIN_PANE_STYLE_CLASS);
 
-        String[] splitNick = new String[2];
-//        if (!dataBaseDriver.getNickname().equals(null)) {}
-        if (!dataBaseDriver.getNickname().equals(null)) {
-            splitNick = dataBaseDriver.getNickname().split(" ");
-        }
+        String[] splitNick;
+        splitNick = dataBaseDriver.getNickname().split(" ");
 
         Button back = new Button();
+        back.setId("btnBack");
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
-        back.setId("btnBack");
 
         Button save = new Button("Зберегти");
+        save.setId("btnSave");
 
         Label alertData = new Label(CONFIRM_SAVE_DATA);
+        alertData.setId("lblAlertData");
         alertData.setStyle(SETTING_LABEL_GREEN_STYLE);
         alertData.setVisible(false);
 
         Label redLabelData = new Label();
+        redLabelData.setId("lblRedLabelData");
         redLabelData.setStyle(SETTING_RED_LABEL);
 
         Label redLabelSystemData = new Label();
+        redLabelSystemData.setId("lblRedLabelSystemData");
         redLabelSystemData.setStyle(SETTING_RED_LABEL);
 
         Label youData = new Label("Ваші дані");
+        youData.setId("lblYouData");
 
         PasswordField youPassword = new PasswordField();
+        youPassword.setId("pswYouPassword");
         youPassword.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label youPass = new Label("Ваш пароль");
+        youPass.setId("lblYouPass");
 
         PasswordField confirmPassword = new PasswordField();
+        confirmPassword.setId("pswConfirmPassword");
         confirmPassword.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label youConfPass = new Label("Повторіть Пароль");
+        youConfPass.setId("lblYouConfPass");
 
         Label changeSystemData = new Label("Системні дані");
+        changeSystemData.setId("lblChangeSystemData");
 
         TextField youName = new TextField(splitNick[0]);
+        youName.setId("txtYouName");
         youName.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label labelName = new Label("Ім'я");
+        labelName.setId("lblLabelName");
 
         TextField youLName = new TextField(splitNick[1]);
+        youLName.setId("txtYouLName");
         youLName.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label labelLName = new Label("Прізвище");
+        labelLName.setId("lblLabelLName");
 
         youName.setTranslateX(-200);
         youName.setTranslateY(-20);
@@ -127,9 +138,8 @@ public class MainMenu {
             primaryStage.close();
             appearanceMenu(primaryStage);
         });
-        String[] finalSplitNick = splitNick;
         save.setOnAction(event -> {
-            if (youName.getText().equals(finalSplitNick[0]) && youLName.getText().equals(finalSplitNick[1])) {
+            if (youName.getText().equals(splitNick[0]) && youLName.getText().equals(splitNick[1])) {
                 if (youPassword.getText().equals("") && confirmPassword.getText().equals("")) {
                     alertData.setText("Ви не ввели нові дані");
                     alertData.setStyle(SETTING_LABEL_RED_STYLE);
@@ -491,41 +501,54 @@ public class MainMenu {
         vBox.getStyleClass().add("accountInfo");
 
         Button goTesting = new Button("Go Testing");
+        goTesting.setId("btnGoTesting");
         Label testTesting = new Label("Перейшовши по цій кнопці ви порпте на меню. Де ви можете вибрати мову по якій хочете пройти тест");
+        testTesting.setId("lblTestTesting");
         testTesting.getStyleClass().add("labelTesting");
         goTesting.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
 
         Button goStudy = new Button("Go study");
+        goStudy.setId("btnGoStudy");
         Label testStudy = new Label("Чогось не знаєте? Перейдіть по цій кнопці, та виберіть мову і тему яку ви не розумієте");
+        testStudy.setId("lblTestStudy");
         goStudy.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testStudy.getStyleClass().add("labelStudy");
 
         Button createTest = new Button("Create Test");
+        createTest.setId("btnCreateTest");
         Label testCreateTest = new Label("Бажаєте провірити друга? Можете створити свої тести і дати пройти його своєму другові)))");
+        testCreateTest.setId("lblTestCreateTest");
         createTest.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testCreateTest.getStyleClass().add("labelTesting");
 
         Button exit = new Button("");
+        exit.setId("btnExit");
         exit.getStyleClass().add("exit");
 
         Button settings = new Button("");
+        settings.setId("btnSettings");
         settings.getStyleClass().add("settings");
 
         Button swapAccount = new Button("");
+        swapAccount.setId("btnSwapAccount");
         swapAccount.getStyleClass().add("swapAccount");
 
         Button user = new Button("User file Test");
+        user.setId("btnUser");
         Label testUser = new Label("Якщо у вас є готовий файл з тестами! То ви можете загрузити в програму перейшовши по цій кнопці");
+        testUser.setId("lblTestUser");
         user.getStyleClass().add(MAIN_MENU_BUTTON_STYLE_CLASS);
         testUser.getStyleClass().add("labelStudy");
 
         Label label12 = new Label();
+        label12.setId("lblLabel12");
         label12.setStyle("-fx-text-fill: white;");
         label12.getStyleClass().add("label2");
         label12.setText(dataBaseDriver.getNickname());
         label12.setOnMouseClicked(event -> WindowMessage.winInfo("Кількість проведених тестувань: " + dataBaseDriver.getTestings() + "\n"
                     + "Відсоток правильний відповідей: " + dataBaseDriver.getPercent() + " %"));
         Label title = new Label();
+        title.setId("lblTitle");
         title.setStyle("-fx-text-fill: white");
 
         exit.defaultButtonProperty().bind(exit.focusedProperty());
@@ -601,7 +624,6 @@ public class MainMenu {
         settings.setOnMouseEntered(event -> {
             title.setText("Настройки");
             title.setTranslateX(-330);
-            title.setTranslateY(-270);
         });
         settings.setOnMouseExited(event -> title.setText(""));
         settings.setOnAction(event -> setting(primaryStage));
@@ -609,13 +631,11 @@ public class MainMenu {
         swapAccount.setOnMouseEntered(event -> {
             title.setText("Зміна Користувача");
             title.setTranslateX(-300);
-            title.setTranslateY(-270);
         });
         swapAccount.setOnMouseExited(event -> title.setText(""));
         exit.setOnMouseEntered(event -> {
             title.setText("Вихід");
             title.setTranslateX(-275);
-            title.setTranslateY(-270);
             exit.setStyle("-fx-background-color: transparent");
         });
         exit.setOnMouseExited(event -> title.setText(""));

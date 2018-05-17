@@ -67,8 +67,8 @@ public class SoundMedia {
                     }));
             timeline.play();
             player.setOnEndOfMedia(() ->{
-                    player.stop();
-                    mainMenu.authorization(primaryStage);
+                player.stop();
+                mainMenu.authorization(primaryStage);
             });
         }
         pressEnter.setTranslateY(180);
