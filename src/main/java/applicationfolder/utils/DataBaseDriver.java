@@ -26,7 +26,7 @@ public class DataBaseDriver {
 
     public DataBaseDriver() {
         try {
-            xmlInit();
+            XMLInit();
 
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             document = documentBuilder.parse(XML_NAME);
@@ -34,12 +34,11 @@ public class DataBaseDriver {
             Node persons = document.getDocumentElement();
             personsList = persons.getChildNodes();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new MyOwnRuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
     public String getNickname() {
-        if(personsList != null) return "";
         return personsList.item(id).getChildNodes().item(0).getTextContent();
     }
 
@@ -125,7 +124,7 @@ public class DataBaseDriver {
             user = node;
             return node != null;
         } catch (DOMException | XPathExpressionException e) {
-            throw new MyOwnRuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -147,11 +146,11 @@ public class DataBaseDriver {
             StreamResult result = new StreamResult(new FileOutputStream(XML_NAME));
             tr.transform(source, result);
         } catch (TransformerException | IOException e) {
-            throw new MyOwnRuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
-    private void xmlInit() {
+    private void XMLInit() {
         try {
             File folder = new File("database");
             File xmlFile = new File(XML_NAME);
@@ -170,7 +169,7 @@ public class DataBaseDriver {
                 }
             }
         } catch (IOException e) {
-            throw new MyOwnRuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

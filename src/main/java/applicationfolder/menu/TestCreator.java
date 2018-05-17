@@ -183,6 +183,10 @@ public class TestCreator {
         primaryStage.show();
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
     private void writeFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(createFile, true))) {
             bw.write(content);
