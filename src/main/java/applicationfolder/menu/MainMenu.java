@@ -404,9 +404,7 @@ public class MainMenu {
         primaryStage.getIcons().add(ico);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Registration");
-        primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     public void authorization(Stage primaryStage) {

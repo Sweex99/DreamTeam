@@ -6,14 +6,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
 
+import static org.apache.commons.io.IOUtils.readLines;
 import static org.junit.Assert.*;
 
 public class MainMenuTest extends ApplicationTest {
@@ -144,6 +151,152 @@ public class MainMenuTest extends ApplicationTest {
     }
 
     @Test
+    public void alertDataShouldBeNotVisible() throws Exception {
+        clickOn("#btnSettings");
+
+        Label alertData = lookup("#lblAlertData").query();
+        assertFalse(alertData.isVisible());
+    }
+
+    @Test
+    public void stageShouldBeNotResizable() throws Exception {
+        clickOn("#btnSettings");
+
+        assertFalse(stage.isResizable());
+    }
+
+    @Test
+    public void shouldBeCorrectStyleOfLabels() throws Exception {
+        clickOn("#btnSettings");
+
+        Label alertData = lookup("#lblAlertData").query();
+        final String expectedAlertDataStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+        Label redLabelData = lookup("#lblRedLabelData").query();
+        Label redLabelSystemData = lookup("#lblRedLabelSystemData").query();
+        final String expectedRedLabelStyle = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+
+        assertEquals(expectedAlertDataStyle, alertData.getStyle());
+        assertEquals(expectedRedLabelStyle, redLabelData.getStyle());
+        assertEquals(expectedRedLabelStyle, redLabelSystemData.getStyle());
+    }
+
+    @Test
+    public void shouldRedirectToMainMenu() throws Exception {
+        clickOn("#btnSettings");
+
+        clickOn("#btnBack");
+        assertEquals("Main menu", stage.getTitle());
+    }
+
+    @Test
+    public void shouldChangeStyleWhenRedLabelDataClicked() throws Exception {
+        clickOn("#btnSettings");
+
+        final String expectedRedLabelDataStyle = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+        final String expectedRedLabelSystemDataStyle = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+        Label redLabelSystemData = lookup("#lblRedLabelSystemData").query();
+        Label redLabelData = lookup("#lblRedLabelData").query();
+        clickOn(redLabelData);
+
+        assertEquals(expectedRedLabelDataStyle, redLabelData.getStyle());
+        assertEquals(expectedRedLabelSystemDataStyle, redLabelSystemData.getStyle());
+    }
+
+    @Test
+    public void shouldChangeStyleWhenRedLabelSystemDataClicked() throws Exception {
+        clickOn("#btnSettings");
+
+        final String expectedRedLabelDataStyle = "-fx-border-width: 2px;-fx-border-color: white;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+        final String expectedRedLabelSystemDataStyle = "-fx-border-width: 2px;-fx-border-color: red;-fx-pref-height: 250px;-fx-pref-width: 250px;";
+        Label redLabelSystemData = lookup("#lblRedLabelSystemData").query();
+        Label redLabelData = lookup("#lblRedLabelData").query();
+        clickOn(redLabelSystemData);
+
+        assertEquals(expectedRedLabelDataStyle, redLabelData.getStyle());
+        assertEquals(expectedRedLabelSystemDataStyle, redLabelSystemData.getStyle());
+    }
+
+    @Test
+    public void shouldShowErrorAboutFieldsAreNotChanged() throws Exception {
+        clickOn("#btnSettings");
+
+        final String expectedAlertDataStyle = "-fx-border-color: red;-fx-text-fill: red;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+        Label alertData = lookup("#lblAlertData").query();
+        clickOn("#btnSave");
+
+        assertTrue(alertData.isVisible());
+        assertEquals("Ви не ввели нові дані", alertData.getText());
+        assertEquals(expectedAlertDataStyle, alertData.getStyle());
+    }
+
+    @Test
+    public void shouldChangePasswordAndShowAcceptedLabelAboutDataChanging() throws Exception {
+        clickOn("#btnSettings");
+
+        final String xmlName = "database/users.xml";
+        final String expectedAlertDataStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+        List<String> xmlBeforeChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+        Label alertData = lookup("#lblAlertData").query();
+        clickOn("#pswYouPassword");
+        write("pass");
+        clickOn("#pswConfirmPassword");
+        write("pass");
+        clickOn("#btnSave");
+        List<String> xmlAfterChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+
+        assertTrue(alertData.isVisible());
+        assertEquals("Ваші дані збережені", alertData.getText());
+        assertEquals(expectedAlertDataStyle, alertData.getStyle());
+        assertNotEquals(xmlBeforeChanging, xmlAfterChanging);
+    }
+
+    @Test
+    public void shouldChangeNicknameAndShowAcceptedLabelAboutDataChanging() throws Exception {
+        clickOn("#btnSettings");
+
+        final String xmlName = "database/users.xml";
+        final String expectedAlertDataStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+        List<String> xmlBeforeChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+        Label alertData = lookup("#lblAlertData").query();
+        clickOn("#txtYouName");
+        write("New");
+        clickOn("#txtYouLName");
+        write("New");
+        clickOn("#btnSave");
+        List<String> xmlAfterChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+
+        assertTrue(alertData.isVisible());
+        assertEquals("Ваші дані збережені", alertData.getText());
+        assertEquals(expectedAlertDataStyle, alertData.getStyle());
+        assertNotEquals(xmlBeforeChanging, xmlAfterChanging);
+    }
+
+    @Test
+    public void shouldChangePasswordAndNicknameAndShowAcceptedLabelAboutDataChanging() throws Exception {
+        clickOn("#btnSettings");
+
+        final String xmlName = "database/users.xml";
+        final String expectedAlertDataStyle = "-fx-border-color: green;-fx-text-fill: green;-fx-pref-width: 400px;-fx-pref-height: 40px;-fx-padding: 0 0 0 55px";
+        List<String> xmlBeforeChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+        Label alertData = lookup("#lblAlertData").query();
+        clickOn("#txtYouName");
+        write("New");
+        clickOn("#txtYouLName");
+        write("New");
+        clickOn("#pswYouPassword");
+        write("pass");
+        clickOn("#pswConfirmPassword");
+        write("pass");
+        clickOn("#btnSave");
+        List<String> xmlAfterChanging = readLines(new FileInputStream(xmlName), "UTF-8");
+
+        assertNotEquals(xmlBeforeChanging, xmlAfterChanging);
+        assertTrue(alertData.isVisible());
+        assertEquals("Ваші дані збережені", alertData.getText());
+        assertEquals(expectedAlertDataStyle, alertData.getStyle());
+    }
+
+    @Test
     public void labelsShouldBeWrapText() throws Exception {
         Label testTesting = lookup("#lblTestTesting").query();
         Label testStudy = lookup("#lblTestStudy").query();
@@ -242,6 +395,7 @@ public class MainMenuTest extends ApplicationTest {
     }
 
     @Test
+    @Ignore
     public void shouldRedirectToStudy() throws Exception {
         clickOn("#btnGoStudy");
         //assertEquals("Навчання", stage.getTitle());
@@ -276,11 +430,11 @@ public class MainMenuTest extends ApplicationTest {
         mainMenu.appearanceMenu(stage);
     }
 
-    static {
-        System.setProperty("testfx.robot", "glass");
-        System.setProperty("testfx.headless", "true");
-        System.setProperty("prism.order", "sw");
-        System.setProperty("prism.text", "t2k");
-        System.setProperty("prism.verbose", "true");
-    }
+//    static {
+//        System.setProperty("testfx.robot", "glass");
+//        System.setProperty("testfx.headless", "true");
+//        System.setProperty("prism.order", "sw");
+//        System.setProperty("prism.text", "t2k");
+//        System.setProperty("prism.verbose", "true");
+//    }
 }
