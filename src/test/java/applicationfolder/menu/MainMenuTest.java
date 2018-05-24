@@ -430,11 +430,11 @@ public class MainMenuTest extends ApplicationTest {
         mainMenu.appearanceMenu(stage);
     }
 
-//    static {
-//        System.setProperty("testfx.robot", "glass");
-//        System.setProperty("testfx.headless", "true");
-//        System.setProperty("prism.order", "sw");
-//        System.setProperty("prism.text", "t2k");
-//        System.setProperty("prism.verbose", "true");
-//    }
+    static {
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+        System.setProperty("prism.verbose", "true");
+    }
 }
