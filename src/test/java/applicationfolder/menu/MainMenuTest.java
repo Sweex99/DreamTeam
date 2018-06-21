@@ -389,6 +389,13 @@ public class MainMenuTest extends ApplicationTest {
     }
 
     @Test
+    public void shouldRedirectToRegistration() throws Exception {
+        clickOn("#btnSwapAccount");
+        clickOn("#btnRegistration");
+        assertEquals("Registration", stage.getTitle());
+    }
+
+    @Test
     public void shouldRedirectToMenuLanguage() throws Exception {
         clickOn("#btnGoTesting");
         assertEquals("Меню вибору мов", stage.getTitle());

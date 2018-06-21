@@ -429,6 +429,7 @@ public class MainMenu {
         loginButton.setFocusTraversable(false);
         loginButton.getStyleClass().add("login");
         Button registration = new Button("Реєстрація");
+        registration.setId("btnRegistration");
         registration.getStyleClass().add("registration");
         registration.setTextOverrun(OverrunStyle.CLIP);
 
