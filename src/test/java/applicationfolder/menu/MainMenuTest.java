@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -148,6 +149,116 @@ public class MainMenuTest extends ApplicationTest {
 
         assertEquals(-430, back.getTranslateX(), 0);
         assertEquals(-280, back.getTranslateY(), 0);
+    }
+
+    @Test
+    public void shouldBeCorrectAllSizesAndTranslatesInAuthorization() throws Exception {
+        clickOn("#btnSwapAccount");
+
+        TextField loginField = lookup("#txtLoginField").query();
+        Button loginButton = lookup("#btnLoginButton").query();
+        Button registration = lookup("#btnRegistration").query();
+        Label passwordLabel = lookup("#lblPasswordLabel").query();
+        Label loginLabel = lookup("#lblLoginLabel").query();
+        Label login = lookup("#lblLogin").query();
+        Label errorsLabel = lookup("#lblErrorsLabel").query();
+
+        assertEquals(-40, loginField.getTranslateY(), 0);
+
+        assertEquals(50, loginButton.getTranslateY(), 0);
+        assertEquals(-73, loginButton.getTranslateX(), 0);
+
+        assertEquals(50, registration.getTranslateY(), 0);
+        assertEquals(47, registration.getTranslateX(), 0);
+
+        assertEquals(-145, passwordLabel.getTranslateX(), 0);
+
+        assertEquals(-140, loginLabel.getTranslateX(), 0);
+        assertEquals(-40, loginLabel.getTranslateY(), 0);
+
+        assertEquals(-100, login.getTranslateY(), 0);
+
+        assertEquals(120, errorsLabel.getTranslateY(), 0);
+    }
+
+    @Test
+    public void shouldBeCorrectAllSizesAndTranslatesInRegistration() throws Exception {
+        clickOn("#btnSwapAccount");
+        clickOn("#btnRegistration");
+
+        ImageView img = lookup("#imvwImg").query();
+        Label finishText = lookup("#lblFinishText").query();
+        Button finishRegistration = lookup("#btnFinishRegistration").query();
+        Label secretQuestion = lookup("#lblSecretQuestion").query();
+        Label answerQuestion = lookup("#lblAnswerQuestion").query();
+        TextField answer = lookup("#txtAnswer").query();
+        Label labelPassword = lookup("#lblLabelPassword").query();
+        Label labelLogin = lookup("#lblLabelLogin").query();
+        PasswordField inputPassword = lookup("#pswdInputPassword").query();
+        TextField inputLogin = lookup("#txtInputLogin").query();
+        Label errorsLabel = lookup("#lblErrorsLabel").query();
+        Label redLabelOne = lookup("#lblRedLabelOne").query();
+        Label firstName = lookup("#lblFirstName").query();
+        Label lastName = lookup("#lblLastName").query();
+        TextField inputLName = lookup("#txtInputLName").query();
+        TextField inputFName = lookup("#txtInputFName").query();
+        Button next = lookup("#btnNext").query();
+        Button back = lookup("#btnBack").query();
+        Button oneStep = lookup("#btnOneStep").query();
+        Button secondStep = lookup("#btnSecondStep").query();
+        Button thirdStep = lookup("#btnThirdStep").query();
+
+        assertEquals(-150, img.getTranslateX(), 0);
+
+        assertEquals(15, finishText.getTranslateX(), 0);
+
+        assertEquals(100, finishRegistration.getTranslateY(), 0);
+
+        assertEquals(-195, secretQuestion.getTranslateX(), 0);
+
+        assertEquals(-195, answerQuestion.getTranslateX(), 0);
+        assertEquals(50, answerQuestion.getTranslateY(), 0);
+
+        assertEquals(50, answer.getTranslateY(), 0);
+
+        assertEquals(50, labelPassword.getTranslateY(), 0);
+        assertEquals(90, labelPassword.getTranslateX(), 0);
+
+        assertEquals(90, labelLogin.getTranslateX(), 0);
+
+        assertEquals(250, inputPassword.getTranslateX(), 0);
+        assertEquals(50, inputPassword.getTranslateY(), 0);
+
+        assertEquals(250, inputLogin.getTranslateX(), 0);
+
+        assertEquals(-70, errorsLabel.getTranslateY(), 0);
+
+        assertEquals(-305, redLabelOne.getTranslateX(), 0);
+        assertEquals(-170, redLabelOne.getTranslateY(), 0);
+
+        assertEquals(-350, firstName.getTranslateX(), 0);
+
+        assertEquals(-350, lastName.getTranslateX(), 0);
+        assertEquals(50, lastName.getTranslateY(), 0);
+
+        assertEquals(50, inputLName.getTranslateY(), 0);
+        assertEquals(-190, inputLName.getTranslateX(), 0);
+
+        assertEquals(-190, inputFName.getTranslateX(), 0);
+
+        assertEquals(120, next.getTranslateY(), 0);
+
+        assertEquals(-430, back.getTranslateX(), 0);
+        assertEquals(280, back.getTranslateY(), 0);
+
+        assertEquals(-310, oneStep.getTranslateX(), 0);
+        assertEquals(-232, oneStep.getTranslateY(), 0);
+
+        assertEquals(-232, secondStep.getTranslateY(), 0);
+        assertEquals(0, secondStep.getTranslateX(), 0);
+
+        assertEquals(-232, thirdStep.getTranslateY(), 0);
+        assertEquals(310, thirdStep.getTranslateX(), 0);
     }
 
     @Test

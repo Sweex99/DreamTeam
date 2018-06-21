@@ -194,55 +194,73 @@ public class MainMenu {
         root.getStyleClass().add(MAIN_PANE_STYLE_CLASS);
 
         Button back = new Button();
+        back.setId("btnBack");
         back.getStyleClass().add("back");
         back.setShape(new Circle(6));
 
         Button oneStep = new Button("Крок 1");
+        oneStep.setId("btnOneStep");
         oneStep.getStyleClass().add("step1");
         Label redLabelOne = new Label();
+        redLabelOne.setId("lblRedLabelOne");
         redLabelOne.getStyleClass().add("redLine1");
         redLabelOne.setStyle("-fx-pref-width: 250px;");
 
         Button secondStep = new Button("Крок 2");
+        secondStep.setId("btnSecondStep");
         secondStep.getStyleClass().add("step2");
 
         Button thirdStep = new Button("Крок 3");
+        thirdStep.setId("btnThirdStep");
         thirdStep.getStyleClass().add("step3");
 
         TextField inputFName = new TextField();
+        inputFName.setId("txtInputFName");
         inputFName.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label firstName = new Label("Ваше Ім'я");
+        firstName.setId("lblFirstName");
         firstName.setStyle(REGISTRATION_LABEL_STYLE);
 
         TextField inputLName = new TextField();
+        inputLName.setId("txtInputLName");
         inputLName.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label lastName = new Label("Прізвище");
+        lastName.setId("lblLastName");
         lastName.setStyle(REGISTRATION_LABEL_STYLE);
 
         TextField inputLogin = new TextField();
+        inputLogin.setId("txtInputLogin");
         inputLogin.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label labelLogin = new Label("Логін");
+        labelLogin.setId("lblLabelLogin");
         labelLogin.setStyle(REGISTRATION_LABEL_STYLE);
 
         PasswordField inputPassword = new PasswordField();
+        inputPassword.setId("pswdInputPassword");
         inputPassword.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label labelPassword = new Label("Пароль");
+        labelPassword.setId("lblLabelPassword");
+
         labelPassword.setStyle(REGISTRATION_LABEL_STYLE);
 
         Button next = new Button("Дальше");
+        next.setId("btnNext");
         next.getStyleClass().add("login");
         next.setStyle("-fx-background-color: #1d1d1d;");
         next.setDefaultButton(true);
 
         Label errorsLabel = new Label();
+        errorsLabel.setId("lblErrorsLabel");
         errorsLabel.setStyle(ERROR_LABEL_STYLE);
         errorsLabel.setVisible(false);
 
         Label secretQuestion = new Label("Секретне питання: ");
+        secretQuestion.setId("lblSecretQuestion");
         secretQuestion.setStyle(REGISTRATION_LABEL_STYLE);
         secretQuestion.setVisible(false);
 
         Label answerQuestion = new Label("Відповідь на питання: ");
+        answerQuestion.setId("lblAnswerQuestion");
         answerQuestion.setStyle(REGISTRATION_LABEL_STYLE);
         answerQuestion.setVisible(false);
 
@@ -260,17 +278,21 @@ public class MainMenu {
         comboBox.setVisible(false);
 
         TextField answer = new TextField();
+        answer.setId("txtAnswer");
         answer.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         answer.setVisible(false);
 
         Button finishRegistration = new Button("Завершити Реєстрацію");
+        finishRegistration.setId("btnFinishRegistration");
         finishRegistration.getStyleClass().add("finishRegistration");
         finishRegistration.setStyle("-fx-border-color: transparent");
         finishRegistration.setVisible(false);
 
         Label finishText = new Label("Реєстрацію Завершено.");
+        finishText.setId("lblFinishText");
         finishText.setStyle("-fx-text-fill: green;-fx-font-size: 25px");
         ImageView img = new ImageView(new Image(getClass().getResourceAsStream("/images/goodRegistration.png")));
+        img.setId("imvwImg");
         finishText.setVisible(false);
         img.setVisible(false);
 
@@ -414,16 +436,20 @@ public class MainMenu {
         root.getStyleClass().add(MAIN_PANE_STYLE_CLASS);
 
         TextField loginField = new TextField();
+        loginField.setId("txtLoginField");
         Label loginLabel = new Label("Логін: ");
+        loginLabel.setId("lblLoginLabel");
         loginField.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         loginLabel.setStyle(REGISTRATION_LABEL_STYLE);
 
         PasswordField passwordField = new PasswordField();
         passwordField.getStyleClass().add(MAIN_FIELD_STYLE_CLASS);
         Label passwordLabel = new Label("Пароль: ");
+        passwordLabel.setId("lblPasswordLabel");
         passwordLabel.setStyle(REGISTRATION_LABEL_STYLE);
 
         Button loginButton = new Button("Вхід");
+        loginButton.setId("btnLoginButton");
         loginButton.setDefaultButton(true);
         loginButton.setStyle("-fx-background-color: #1d1d1d;");
         loginButton.setFocusTraversable(false);
@@ -434,9 +460,11 @@ public class MainMenu {
         registration.setTextOverrun(OverrunStyle.CLIP);
 
         Label login = new Label("Логін");
+        login.setId("lblLogin");
         login.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 20pt;");
 
         Label errorsLabel = new Label();
+        errorsLabel.setId("lblErrorsLabel");
         errorsLabel.setStyle(ERROR_LABEL_STYLE);
         errorsLabel.setVisible(false);
 
